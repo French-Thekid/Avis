@@ -40,7 +40,7 @@ function PasswordStrength({ password }) {
       hasDigits(password) &&
       !hasSymbols(password)
     ) {
-      color = Colours.yellow
+      color = Colours.blue
       strength = 'Could Be Stronger'
       width = '100px'
     }
@@ -53,7 +53,7 @@ function PasswordStrength({ password }) {
     ) {
       color = Colours.green
       strength = 'Strong Password'
-      width = '150px'
+      width = '195px'
     }
   }
 
@@ -61,7 +61,7 @@ function PasswordStrength({ password }) {
     <div
       css={`
         display: grid;
-        grid-template-columns: 250px max-content;
+        grid-template-columns: 195px max-content;
         grid-column-gap: 8px;
         align-items: center;
         margin-top: 10px;
@@ -69,7 +69,7 @@ function PasswordStrength({ password }) {
     >
       <div
         css={`
-          width: 250px;
+          width: 195px;
           height: 5px;
           border-radius: 10px;
           background: ${Colours.softGrey};

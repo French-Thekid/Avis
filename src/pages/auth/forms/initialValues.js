@@ -1,13 +1,13 @@
 const Usernames = [
-  { label: 'Averil Prendegast', value: 'Averil@gmail.com' },
-  { label: 'Derrick Thompson', value: 'Derrick@gmail.com' },
-  { label: 'Dominique Murray', value: 'Dominique@gmail.com' },
-  { label: 'Paul Foote', value: 'Paul@gmail.com' },
-  { label: 'Raphaelle Blackwood', value: 'Raphaelle@gmail.com' },
-  { label: 'Renford McLean', value: 'Renford@gmail.com' },
-  { label: 'Roger Salome', value: 'Roger@gmail.com' },
-  { label: 'Samuel Shea', value: 'Samuel@gmail.com' },
-  { label: 'Shane James', value: 'Shane@gmail.com' },
+  { label: 'Averil Prendegast', value: 'AvrilPrendegast1@gmail.com' },
+  { label: 'Derrick Thompson', value: 'Derrickthompson937@gmail.com' },
+  { label: 'Dominique Murray', value: 'DominiqueMurray101@yahoo.com' },
+  { label: 'Paul Foote', value: 'paulfoote101@yahoo.com' },
+  { label: 'Raphaelle Blackwood', value: 'RaphaelleBlackwood@yahoo.com' },
+  { label: 'Renford McLean', value: 'RenfordMcLean@yahoo.com' },
+  { label: 'Roger Salome', value: 'rogersalome101@yahoo.com' },
+  { label: 'Samuel Shea', value: 'SamuelShea101@hotmail.com' },
+  { label: 'Shane James', value: 'ShaneJames102@hotmail.com' },
 ]
 
 export { Usernames }

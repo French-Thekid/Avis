@@ -1,13 +1,33 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import 'styled-components/macro'
 import { useHistory } from 'react-router-dom'
-import { FormControl, Core, Colours } from '../../../components'
+import {
+  FormControl,
+  Core,
+  Colours,
+  Loading,
+  Alert,
+  Notification,
+} from '../../../components'
 import { Usernames } from './initialValues'
+import { FirebaseContext } from '../../firebase'
 
 export default function Loginform() {
   const history = useHistory()
+  const [loading, setLoading] = useState(false)
+  const firebase = useContext(FirebaseContext)
+  const [error, setError] = useState('')
+  const [completed, setcompleted] = useState(false)
+
+  const showNotification = () => {
+    setcompleted(true)
+    setTimeout(() => {
+      setcompleted(false)
+      history.push('/')
+    }, 8000)
+  }
 
   return (
     <>
@@ -16,9 +36,21 @@ export default function Loginform() {
         validationSchema={Yup.object().shape({
           username: Yup.string().required('Username is a required'),
         })}
-        onSubmit={async ({ username, password }, actions) => {
-          console.log(username, password)
+        onSubmit={async ({ username }, actions) => {
+          console.log(username)
           actions.setSubmitting(false)
+          setLoading(true)
+          firebase
+            .doPasswordReset(username)
+            .then((authUser) => {
+              setLoading(false)
+              showNotification()
+            })
+            .catch((error) => {
+              console.log(error)
+              setLoading(false)
+              setError(error)
+            })
         }}
       >
         {(props) => {
@@ -38,7 +70,14 @@ export default function Loginform() {
                 width: 270px;
               `}
             >
-              {/* {loading && <Loading />} */}
+              {loading && <Loading />}
+              {error !== '' && <Alert message={'Failed to send email'} />}
+              <Notification
+                setcompleted={setcompleted}
+                subject="Password Reset Email Sent"
+                message="Please check your email for link to change your password"
+                notification={completed}
+              />
               <form onSubmit={handleSubmit} data-testid="sign-in-form">
                 <div
                   css={`

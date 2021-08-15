@@ -1,13 +1,17 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import 'styled-components/macro'
 import { useHistory } from 'react-router-dom'
-import { FormControl, Core, Colours } from '../../../components'
+import { FormControl, Core, Colours, Loading, Alert } from '../../../components'
 import { Usernames } from './initialValues'
+import { FirebaseContext } from '../../firebase'
 
 export default function Loginform() {
   const history = useHistory()
+  const firebase = useContext(FirebaseContext)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   return (
     <>
@@ -17,15 +21,25 @@ export default function Loginform() {
           username: Yup.string().required('Username is a required'),
           password: Yup.string().required('Password is a required'),
         })}
-        onSubmit={async ({ username, password }, actions) => {
-          console.log(username, password)
-          actions.setSubmitting(false)
-          history.push('/main/new-report')
-          Usernames.map((item, index) => {
-            if (item.value === username)
-              localStorage.setItem('LoggedInUser', item.label)
-            return null
-          })
+        onSubmit={async ({ username, password }) => {
+          setLoading(true)
+          firebase
+            .doSignInWithEmailAndPassword(username, password)
+            .then((authUser) => {
+              setLoading(false)
+
+              history.push('/main/new-report')
+              Usernames.map((item, index) => {
+                if (item.value === username)
+                  localStorage.setItem('LoggedInUser', item.label)
+                return null
+              })
+            })
+            .catch((error) => {
+              console.log(error)
+              setLoading(false)
+              setError(error)
+            })
         }}
       >
         {(props) => {
@@ -45,7 +59,16 @@ export default function Loginform() {
                 width: 270px;
               `}
             >
-              {/* {loading && <Loading />} */}
+              {loading && <Loading />}
+              {error !== '' && (
+                <Alert
+                  message={
+                    error.code === 'auth/wrong-password'
+                      ? 'Incorrect Username/Password'
+                      : 'Failed to Login'
+                  }
+                />
+              )}
               <form onSubmit={handleSubmit} data-testid="sign-in-form">
                 <div
                   css={`

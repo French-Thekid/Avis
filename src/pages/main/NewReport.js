@@ -63,8 +63,6 @@ export default function NewReport() {
 
   const score = (count / 20) * 100
 
-  console.log('Score: ', score, '/', 20)
-
   const handleChange = ({ value, key }) => {
     switch (key) {
       case 'mileage':

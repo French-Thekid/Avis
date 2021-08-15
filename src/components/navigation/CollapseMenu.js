@@ -1,10 +1,11 @@
-import React, { useRef } from 'react'
+import React, { useContext, useRef } from 'react'
 import styled from 'styled-components'
 import 'styled-components/macro'
 import { useSpring, animated } from 'react-spring'
 import { useHistory, useLocation } from 'react-router-dom'
 import { useOnClickOutside } from '../../hooks'
 import { Colours, Icons, Core } from '../../components'
+import { FirebaseContext } from '../../pages/firebase'
 
 export function CollapseMenu(props) {
   const { pathname } = useLocation()
@@ -137,6 +138,7 @@ function NavItem({
   ...rest
 }) {
   const history = useHistory()
+  const firebase = useContext(FirebaseContext)
 
   return (
     <div
@@ -171,8 +173,20 @@ function NavItem({
       `}
       {...rest}
       onClick={() => {
-        if (to) {
-          if (logout) localStorage.clear()
+        if (logout) {
+          firebase
+            .doSignOut()
+            .then((authUser) => {
+              // setLoading(false)
+              console.log('Logout Successful')
+
+              localStorage.clear()
+              history.push(to)
+            })
+            .catch((error) => {
+              console.log(error)
+            })
+        } else {
           history.push(to)
         }
         props.handleNavbar()

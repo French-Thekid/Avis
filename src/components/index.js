@@ -5,5 +5,19 @@ import Loading from './Loading'
 import Colours from './Colours'
 import * as Icons from './Icons'
 import NavigationBar from './navigation'
+import Alert from './Alert'
+import Notification from './Notification'
+import PrivateRoute from './PrivateRoute'
 
-export { Core, Layout, Loading, Colours, FormControl, Icons, NavigationBar }
+export {
+  Notification,
+  Core,
+  Layout,
+  Loading,
+  Alert,
+  Colours,
+  FormControl,
+  Icons,
+  NavigationBar,
+  PrivateRoute,
+}

@@ -1,23 +1,38 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import 'styled-components/macro'
-import { Core, FormControl, Colours } from '../../../components'
+import {
+  Core,
+  FormControl,
+  Colours,
+  Loading,
+  Notification,
+} from '../../../components'
+import { FirebaseContext } from '../../firebase'
 
 export default function ChangePasswordForm({ id }) {
   const passwordRegExp1 = /[a-z]/
   const passwordRegExp2 = /[A-Z]/
   const passwordRegExp3 = /[0-9]/
+  const [loading, setLoading] = useState(false)
+  const firebase = useContext(FirebaseContext)
+  const [completed, setcompleted] = useState(false)
+
+  const showNotification = () => {
+    setcompleted(true)
+    setTimeout(() => {
+      setcompleted(false)
+    }, 8000)
+  }
 
   return (
     <Formik
       initialValues={{
-        previousPassword: '',
         proposedPassword: '',
         passwordConfirmation: '',
       }}
       validationSchema={Yup.object().shape({
-        previousPassword: Yup.string().required('Current Password is required'),
         proposedPassword: Yup.string()
           .matches(passwordRegExp1, 'Lower Case value required')
           .matches(passwordRegExp2, 'Upper Case value required')
@@ -28,15 +43,24 @@ export default function ChangePasswordForm({ id }) {
           .required('Password Confirmation is required')
           .oneOf([Yup.ref('proposedPassword'), null], 'Passwords must match'),
       })}
-      onSubmit={async ({ proposedPassword, previousPassword }, actions) => {
-        console.log('Password Changed', proposedPassword, previousPassword)
-
-        actions.setSubmitting(false)
+      onSubmit={async ({ proposedPassword }, { resetForm }) => {
+        setLoading(true)
+        firebase
+          .doPasswordUpdate(proposedPassword)
+          .then((authUser) => {
+            setLoading(false)
+            showNotification()
+            resetForm({ proposedPassword: '', passwordConfirmation: '' })
+          })
+          .catch((error) => {
+            console.log(error)
+            setLoading(false)
+          })
       }}
     >
       {(props) => {
         const {
-          values: { proposedPassword, previousPassword, passwordConfirmation },
+          values: { proposedPassword, passwordConfirmation },
           handleChange,
           handleSubmit,
           errors,
@@ -46,6 +70,13 @@ export default function ChangePasswordForm({ id }) {
 
         return (
           <>
+            {loading && <Loading />}
+            <Notification
+              setcompleted={setcompleted}
+              subject="Password Successfully Updated"
+              message="Your next signin will require this new password."
+              notification={completed}
+            />
             <form
               onSubmit={handleSubmit}
               data-testid="sign-in-form"
@@ -77,24 +108,6 @@ export default function ChangePasswordForm({ id }) {
                     Please enter your new password below
                   </Core.Text>
                 </div>
-                <section>
-                  <FormControl.Input
-                    id="previousPassword"
-                    label="Current Password"
-                    placeholder="Current Password"
-                    name="previousPassword"
-                    type="password"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={previousPassword}
-                    data-testid="newPassword-previousPassword"
-                    error={errors.previousPassword && touched.previousPassword}
-                  />
-                  <FormControl.Error
-                    show={errors.previousPassword && touched.previousPassword}
-                    message={errors.previousPassword}
-                  />
-                </section>
                 <section>
                   <FormControl.Input
                     id="proposedPassword"
