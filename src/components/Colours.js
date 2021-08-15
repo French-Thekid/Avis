@@ -6,6 +6,7 @@ const Colours = {
   text: '#9caabb',
   red: '#ff205d',
   foreground: '#fff',
+  softGrey: '#F0EBFF',
 }
 
 export default Colours

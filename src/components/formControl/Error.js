@@ -1,23 +1,21 @@
 import React from 'react'
 import 'styled-components/macro'
 import { Colours } from '../../components'
-import { ErrorMessage } from 'formik'
 
 export default function Error({ show, message, ...rest }) {
   return (
-    <ErrorMessage>
-      {() => (
-        <p
-          css={`
-            font-size: 12px;
-            margin: 0px;
-            color: ${Colours.red};
-          `}
-          {...rest}
-        >
-          {show && message}
-        </p>
-      )}
-    </ErrorMessage>
+    <p
+      css={`
+        font-size: 12px;
+        margin: 0px;
+        color: ${Colours.red};
+        padding: 0px;
+        margin: 0px;
+        margin-top: 3px;
+      `}
+      {...rest}
+    >
+      {show && message}
+    </p>
   )
 }

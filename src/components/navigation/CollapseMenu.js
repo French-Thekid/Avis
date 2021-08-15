@@ -1,18 +1,22 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components'
 import 'styled-components/macro'
 import { useSpring, animated } from 'react-spring'
 import { useHistory, useLocation } from 'react-router-dom'
-
+import { useOnClickOutside } from '../../hooks'
 import { Colours, Icons, Core } from '../../components'
 
 export function CollapseMenu(props) {
   const { pathname } = useLocation()
   const { open } = useSpring({ open: props.navbarState ? 0 : 1 })
 
+  const ref = useRef()
+  useOnClickOutside(ref, () => props.handleNavbar())
+
   if (props.navbarState === true) {
     return (
       <CollapseWrapper
+        ref={ref}
         style={{
           transform: open
             .interpolate({

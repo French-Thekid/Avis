@@ -1,0 +1,25 @@
+import React from 'react'
+import 'styled-components/macro'
+import Colours from '../Colours'
+
+export default function Container({ children, minheight, double }) {
+  return (
+    <div
+      css={`
+        width: calc(100% - 20px);
+        height: calc(100% - 20px);
+        padding: 10px;
+        background: ${Colours.foreground};
+        box-shadow: 0px 10px 22px -3px rgba(213, 213, 213, 0.7);
+        border-radius: 10px;
+        overflow-y: auto;
+        display: ${double ? 'grid' : 'block'};
+        grid-template-rows: ${double ? 'max-content 1fr' : 'inherit'};
+        grid-row-gap: ${double ? '20px' : 'inherit'};
+        min-height: ${minheight || 'max-content'};
+      `}
+    >
+      {children}
+    </div>
+  )
+}

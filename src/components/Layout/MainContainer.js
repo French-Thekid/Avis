@@ -1,10 +1,12 @@
 import React from 'react'
+import { useLocation } from 'react-router-dom'
 import 'styled-components/macro'
 import { Core } from '..'
 import Colours from '../Colours'
 import NavigationBar from '../navigation'
 
 export default function MainContainer({ children }) {
+  const { pathname } = useLocation()
   return (
     <div
       css={`
@@ -29,12 +31,22 @@ export default function MainContainer({ children }) {
         `}
       >
         <NavigationBar />
-        <Core.Button>Submit</Core.Button>
+        <Core.Button
+          type="submit"
+          form={
+            pathname.includes('change-password')
+              ? 'changePassword'
+              : 'submitReport'
+          }
+        >
+          {pathname.includes('change-password') ? 'Save' : 'Submit'}
+        </Core.Button>
       </div>
       <div
         css={`
           background: #f9f9ff;
           padding: 10px;
+          overflow-y: auto;
         `}
       >
         {children}
