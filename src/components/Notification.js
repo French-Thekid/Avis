@@ -40,10 +40,11 @@ const P = ({ size = '16px', weight = 500, children }) => (
 )
 const Notification = ({
   notification,
-  title = 'Request Successful !',
+  title = 'Request Successful!',
   subject = 'Success',
   message = '',
   setcompleted,
+  warning,
 }) => {
   return (
     <Transition in={notification} timeout={duration} unmountOnExit>
@@ -53,7 +54,9 @@ const Notification = ({
             background: rgba(0, 0, 0, 0.65);
             margin: 0px;
             backdrop-filter: blur(3px);
-            border-left: 8px solid ${Colours.blue};
+            border-left: ${warning
+              ? `8px solid ${Colours.red}`
+              : `8px solid ${Colours.blue}`};
             color: white;
             padding: 20px;
           `}

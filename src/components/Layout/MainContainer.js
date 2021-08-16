@@ -36,7 +36,7 @@ export default function MainContainer({ children }) {
           form={
             pathname.includes('change-password')
               ? 'changePassword'
-              : 'submitReport'
+              : 'submitForm'
           }
         >
           {pathname.includes('change-password') ? 'Save' : 'Submit'}

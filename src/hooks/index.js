@@ -1,3 +1,4 @@
 import useOnClickOutside from './useOnClickOutside'
+import useFetch from './useFetch'
 
-export { useOnClickOutside }
+export { useOnClickOutside, useFetch }

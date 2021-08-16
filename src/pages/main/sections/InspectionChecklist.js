@@ -196,8 +196,8 @@ const Panel = ({ value, label, keyLabel, handleChecklist }) => {
       <section>
         <FormControl.Input
           id="quantity"
-          label="Quantity"
-          placeholder="Quantity"
+          label="Quantity Used"
+          placeholder="Quantity Used"
           name="quantity"
           type="number"
           onChange={(e) =>

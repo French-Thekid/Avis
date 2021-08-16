@@ -1,14 +1,40 @@
 import React, { useState } from 'react'
 import 'styled-components/macro'
-
+import { Loading, Notification } from '../../components'
 import {
   VehicleIdentification,
   InspectionChecklist,
   Completion,
   InspectionNotes,
 } from './sections'
+import SendEnail from './SendEmail'
 
 export default function NewReport() {
+  const [completed, setcompleted] = useState(false)
+  const [completed1, setcompleted1] = useState(false)
+  const [completed2, setcompleted2] = useState(false)
+  const [loading, setloading] = useState(false)
+
+  const showNotification = () => {
+    setcompleted(true)
+    setTimeout(() => {
+      setcompleted(false)
+    }, 8000)
+  }
+  const showNotificationValidation = () => {
+    setcompleted1(true)
+    setTimeout(() => {
+      setcompleted1(false)
+    }, 8000)
+  }
+  const showNotificationFailed = () => {
+    setcompleted2(true)
+    setTimeout(() => {
+      setcompleted2(false)
+    }, 8000)
+  }
+
+  //State Management
   const [dataSet, updateDataSet] = useState({
     mileage: { value: '', point: 0 },
     nextMileage: { value: '', point: 0 },
@@ -37,8 +63,8 @@ export default function NewReport() {
   const [license, setLicense] = useState('')
   const [suggestions, setSuggestions] = useState([])
 
+  //Completion
   const licensePoint = license.length === 6 && dataSet.model.point === 1 ? 1 : 0
-
   const count =
     dataSet.mileage.point +
     dataSet.nextMileage.point +
@@ -62,6 +88,125 @@ export default function NewReport() {
     licensePoint
 
   const score = (count / 20) * 100
+
+  //Clean Up
+  const cleanUp = () => {
+    updateChecklist({
+      engineOil: { status: '', quantity: '', point: 0 },
+      oilFilter: { status: '', quantity: '', point: 0 },
+      airFilter: { status: '', quantity: '', point: 0 },
+      sparksPlug: { status: '', quantity: '', point: 0 },
+      battery: { status: '', quantity: '', point: 0 },
+      brakeFluid: { status: '', quantity: '', point: 0 },
+      brakeShoe: { status: '', quantity: '', point: 0 },
+      discPadFront: { status: '', quantity: '', point: 0 },
+      discPadBack: { status: '', quantity: '', point: 0 },
+      fuelFilter: { status: '', quantity: '', point: 0 },
+      cabinFilter: { status: '', quantity: '', point: 0 },
+      transmission: { status: '', quantity: '', point: 0 },
+      tyre: { status: '', quantity: '', point: 0 },
+    })
+    updateDataSet({
+      mileage: { value: '', point: 0 },
+      nextMileage: { value: '', point: 0 },
+      make: { value: '', point: 0 },
+      model: { value: '', point: 0 },
+      year: { value: '', point: 0 },
+      note: { value: '', point: 0 },
+    })
+    setLicense('')
+  }
+  //HandleSubmission
+  const HandleSubmission = async (e) => {
+    e.preventDefault()
+    if (score < 100) {
+      showNotificationValidation()
+    } else {
+      setloading(true)
+      console.log('Submitting')
+      //Preparing Data for email template
+      const assignee = localStorage.getItem('LoggedInUser')
+      const date = new Date().toDateString()
+      const year = dataSet.year.value
+      const make = dataSet.make.value
+      const model = dataSet.model.value
+      const mileage = dataSet.mileage.value
+      const nextMileage = dataSet.nextMileage.value
+      const engineOilStatus = checkList.engineOil.status
+      const engineOilQuantity = checkList.engineOil.quantity
+      const oilFilterStatus = checkList.oilFilter.status
+      const oilFilterQuantity = checkList.oilFilter.quantity
+      const airFilterStatus = checkList.airFilter.status
+      const airFilterQuantity = checkList.airFilter.quantity
+      const sparksPlugStatus = checkList.sparksPlug.status
+      const sparksPlugQuantity = checkList.sparksPlug.quantity
+      const batteryStatus = checkList.battery.status
+      const batteryQuantity = checkList.battery.quantity
+      const brakeFluidStatus = checkList.brakeFluid.status
+      const brakeFluidQuantity = checkList.brakeFluid.quantity
+      const brakeShoeStatus = checkList.brakeShoe.status
+      const brakeShoeQuantity = checkList.brakeShoe.quantity
+      const discPadFrontStatus = checkList.discPadFront.status
+      const discPadFrontQuantity = checkList.discPadFront.quantity
+      const discPadBackStatus = checkList.discPadBack.status
+      const discPadBackQuantity = checkList.discPadBack.quantity
+      const fuelFilterStatus = checkList.fuelFilter.status
+      const fuelFilterQuantity = checkList.fuelFilter.quantity
+      const cabinFilterStatus = checkList.cabinFilter.status
+      const cabinFilterQuantity = checkList.cabinFilter.quantity
+      const transmissionStatus = checkList.transmission.status
+      const transmissionQuantity = checkList.transmission.quantity
+      const tyreStatus = checkList.tyre.status
+      const tyreQuantity = checkList.tyre.quantity
+      const note = dataSet.note.value
+
+      const elements = {
+        assignee,
+        date,
+        year,
+        make,
+        model,
+        mileage,
+        nextMileage,
+        license,
+        engineOilStatus,
+        engineOilQuantity,
+        oilFilterStatus,
+        oilFilterQuantity,
+        airFilterStatus,
+        airFilterQuantity,
+        sparksPlugStatus,
+        sparksPlugQuantity,
+        batteryStatus,
+        batteryQuantity,
+        brakeFluidStatus,
+        brakeFluidQuantity,
+        brakeShoeStatus,
+        brakeShoeQuantity,
+        discPadFrontStatus,
+        discPadFrontQuantity,
+        discPadBackStatus,
+        discPadBackQuantity,
+        fuelFilterStatus,
+        fuelFilterQuantity,
+        cabinFilterStatus,
+        cabinFilterQuantity,
+        transmissionStatus,
+        transmissionQuantity,
+        tyreStatus,
+        tyreQuantity,
+        note,
+      }
+
+      SendEnail({
+        elements,
+        setloading,
+        showNotification,
+        showNotificationFailed,
+        cleanUp,
+      })
+    }
+  }
 
   const handleChange = ({ value, key }) => {
     switch (key) {
@@ -667,8 +812,37 @@ export default function NewReport() {
         overflow-y: auto;
       `}
     >
+      <Notification
+        setcompleted={setcompleted}
+        subject="Report Successfully Sent!"
+        message="Your report will not be reviewed by your admin."
+        notification={completed}
+      />
+      <Notification
+        setcompleted={setcompleted1}
+        title="Request Unsuccessful!"
+        subject="Incomplete form!"
+        message="Please ensure all fields are filled, then try again"
+        notification={completed1}
+        warning
+      />
+      <Notification
+        setcompleted={setcompleted2}
+        title="Request Unsuccessful!"
+        subject="Submission Failed!"
+        message="Please check your internet connection and try again"
+        notification={completed2}
+        warning
+      />
+      {loading && <Loading />}
       <Completion score={score} />
-
+      <form
+        id="submitForm"
+        onSubmit={HandleSubmission}
+        css={`
+          display: none;
+        `}
+      />
       <div
         css={`
           overflow-y: auto;

@@ -9,6 +9,8 @@ function PrivateRoute({ component: Component, ...rest }) {
   if (firebase.getCurrentUserUid() !== null) {
     hasValidSession = true
   }
+
+  console.log('Valid Session: ', hasValidSession)
   return (
     <Route
       {...rest}
