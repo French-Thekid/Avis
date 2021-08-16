@@ -46,11 +46,6 @@ export default function VehicleIdentification({
             setSuggestions={setSuggestions}
             updateDataSet={updateDataSet}
           />
-          {/* <FormControl.Error
-            show={false}
-            message="Sample"
-            
-          /> */}
         </section>
         <section>
           <FormControl.Input
@@ -61,13 +56,7 @@ export default function VehicleIdentification({
             type="number"
             onChange={(e) => handleChange({ value: e, key: 'mileage' })}
             value={mileage}
-            max={6}
           />
-          {/* <FormControl.Error
-            show={false}
-            message="Sample"
-            
-          /> */}
         </section>
         <section>
           <FormControl.Input

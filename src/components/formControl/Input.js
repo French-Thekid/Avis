@@ -39,6 +39,7 @@ export default function Input(props) {
     disabled,
     multiline = false,
     rows,
+    maxlength,
     ...rest
   } = props
   return multiline ? (
@@ -60,7 +61,7 @@ export default function Input(props) {
           variant="outlined"
           disabled={disabled}
           InputProps={{
-            inputProps: { min, max },
+            inputProps: { min, max, maxlength },
           }}
           InputLabelProps={{
             shrink: props.type === 'date' ? true : props.isFocussed,
@@ -140,6 +141,7 @@ export function Autofill({
     placeholder: 'License Number',
     value,
     onChange: handleChange,
+    maxlength: 6,
   }
 
   return (
