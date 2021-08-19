@@ -41,6 +41,8 @@ export default function NewReport() {
     make: { value: '', point: 0 },
     model: { value: '', point: 0 },
     year: { value: '', point: 0 },
+    fuel: { value: '', point: 0 },
+    colour: { value: '', point: 0 },
     note: { value: '', point: 0 },
   })
 
@@ -72,6 +74,8 @@ export default function NewReport() {
     dataSet.model.point +
     dataSet.year.point +
     dataSet.note.point +
+    dataSet.colour.point +
+    dataSet.fuel.point +
     checkList.engineOil.point +
     checkList.oilFilter.point +
     checkList.airFilter.point +
@@ -88,6 +92,11 @@ export default function NewReport() {
     licensePoint
 
   const score = (count / 20) * 100
+
+  const validate = ({ current, next }) => {
+    if (parseInt(next) - parseInt(current) > 0) return false
+    return true
+  }
 
   //Clean Up
   const cleanUp = () => {
@@ -113,13 +122,21 @@ export default function NewReport() {
       model: { value: '', point: 0 },
       year: { value: '', point: 0 },
       note: { value: '', point: 0 },
+      fuel: { value: '', point: 0 },
+      colour: { value: '', point: 0 },
     })
     setLicense('')
   }
   //HandleSubmission
   const HandleSubmission = async (e) => {
     e.preventDefault()
-    if (score < 100) {
+    if (
+      score < 100 ||
+      validate({
+        current: dataSet.mileage.value,
+        next: dataSet.nextMileage.value,
+      })
+    ) {
       showNotificationValidation()
     } else {
       setloading(true)
@@ -159,6 +176,8 @@ export default function NewReport() {
       const tyreStatus = checkList.tyre.status
       const tyreQuantity = checkList.tyre.quantity
       const note = dataSet.note.value
+      const colour = dataSet.colour.value
+      const fuel = dataSet.fuel.value
 
       const elements = {
         assignee,
@@ -168,6 +187,8 @@ export default function NewReport() {
         model,
         mileage,
         nextMileage,
+        fuel,
+        colour,
         license,
         engineOilStatus,
         engineOilQuantity,
@@ -226,6 +247,17 @@ export default function NewReport() {
           return {
             ...prevState,
             nextMileage: {
+              value: value.target.value,
+              point: value.target.value === '' ? 0 : 1,
+            },
+          }
+        })
+        break
+      case 'fuel':
+        updateDataSet((prevState) => {
+          return {
+            ...prevState,
+            fuel: {
               value: value.target.value,
               point: value.target.value === '' ? 0 : 1,
             },
@@ -856,6 +888,7 @@ export default function NewReport() {
           dataSet={dataSet}
           handleChange={handleChange}
           updateDataSet={updateDataSet}
+          validate={validate}
         />
         <Gap />
         <InspectionChecklist

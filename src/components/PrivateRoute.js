@@ -1,12 +1,13 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Route, Redirect } from 'react-router'
-import { FirebaseContext } from '../pages/firebase'
 
 function PrivateRoute({ component: Component, ...rest }) {
-  const firebase = useContext(FirebaseContext)
-
   let hasValidSession = false
-  if (firebase.getCurrentUserUid() !== null) {
+  console.log(localStorage.getItem('LoggedInUser'))
+  if (
+    localStorage.getItem('LoggedInUser') !== null &&
+    localStorage.getItem('LoggedInUser') !== undefined
+  ) {
     hasValidSession = true
   }
 

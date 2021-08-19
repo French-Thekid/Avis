@@ -69,6 +69,15 @@ export default function Loginform() {
                   }
                 />
               )}
+              <div
+                css={`
+                  display: grid;
+                  place-items: center;
+                `}
+              >
+                <Core.Text>Welcome, Please login</Core.Text>
+              </div>
+              <br />
               <form onSubmit={handleSubmit} data-testid="sign-in-form">
                 <div
                   css={`

@@ -18,11 +18,19 @@ export default function ChangePasswordForm({ id }) {
   const [loading, setLoading] = useState(false)
   const firebase = useContext(FirebaseContext)
   const [completed, setcompleted] = useState(false)
+  const [completed1, setcompleted1] = useState(false)
 
   const showNotification = () => {
     setcompleted(true)
     setTimeout(() => {
       setcompleted(false)
+    }, 8000)
+  }
+
+  const showNotification1 = () => {
+    setcompleted1(true)
+    setTimeout(() => {
+      setcompleted1(false)
     }, 8000)
   }
 
@@ -54,6 +62,7 @@ export default function ChangePasswordForm({ id }) {
           })
           .catch((error) => {
             console.log(error)
+            showNotification1()
             setLoading(false)
           })
       }}
@@ -76,6 +85,14 @@ export default function ChangePasswordForm({ id }) {
               subject="Password Successfully Updated"
               message="Your next signin will require this new password."
               notification={completed}
+            />
+            <Notification
+              setcompleted={setcompleted1}
+              title='Request Unsucessful'
+              subject="Password Updated Failed"
+              message="Please Logout then Login and try again."
+              notification={completed1}
+              warning
             />
             <form
               onSubmit={handleSubmit}
