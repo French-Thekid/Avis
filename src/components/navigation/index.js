@@ -52,7 +52,7 @@ const NavigationBar = (props) => {
           {pathname.includes('new-report')
             ? 'New Report'
             : pathname.includes('customer-review')
-            ? 'Customer Review'
+            ? 'Vehicle Inspection Slip'
             : 'Change Password'}
         </Core.Text>
       </div>

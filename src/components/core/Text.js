@@ -18,6 +18,7 @@ export default function Text({
         font-family: 'Roboto';
         font-weight: ${weight};
         text-shadow: ${shadow};
+        overflow-wrap: break-word;
       `}
     >
       {children}

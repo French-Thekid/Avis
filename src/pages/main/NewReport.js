@@ -141,7 +141,7 @@ export default function NewReport() {
     ) {
       showNotificationValidation()
     } else {
-      // setloading(true)
+      setloading(true)
       console.log('Submitting')
       //Preparing Data for email template
       const assignee = localStorage.getItem('LoggedInUser')

@@ -39,7 +39,7 @@ export default function Input(props) {
     disabled,
     multiline = false,
     rows,
-    maxlength,
+    maxlength: maxLength,
     ...rest
   } = props
   return multiline ? (
@@ -61,7 +61,7 @@ export default function Input(props) {
           variant="outlined"
           disabled={disabled}
           InputProps={{
-            inputProps: { min, max, maxlength },
+            inputProps: { min, max, maxLength },
           }}
           InputLabelProps={{
             shrink: props.type === 'date' ? true : props.isFocussed,
@@ -84,7 +84,7 @@ export function Autofill({
   const handleChange = (event, { newValue, method }) => {
     setValue(newValue.split(' ')[0])
     if (newValue.split(' ')[0].length === 6) {
-      Vehicles.map((vehicle, index) => {
+      Vehicles().map((vehicle, index) => {
         if (vehicle.license === newValue.split(' ')[0].toUpperCase()) {
           updateDataSet((prevState) => {
             return {
@@ -145,7 +145,7 @@ export function Autofill({
     placeholder: 'License Number',
     value,
     onChange: handleChange,
-    maxlength: 6,
+    maxLength: 6,
   }
 
   return (
@@ -178,7 +178,7 @@ function getSuggestions(value) {
 
   const regex = new RegExp('\\b' + escapedValue, 'i')
 
-  return Vehicles.filter((vehicle) => regex.test(getSuggestionValue(vehicle)))
+  return Vehicles().filter((vehicle) => regex.test(getSuggestionValue(vehicle)))
 }
 
 function renderSuggestion(suggestion, { query }) {

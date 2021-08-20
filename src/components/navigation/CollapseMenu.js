@@ -61,7 +61,7 @@ export function CollapseMenu(props) {
               props={props}
               to="/main/customer-review"
               active={pathname.includes('/main/customer-review')}
-              title="Customer Review"
+              title="Inspection Slip"
               Icon={Icons.DescriptionRoundedIcon}
             >
               <Icons.DescriptionRoundedIcon style={{ color: 'inherit' }} />
