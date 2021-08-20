@@ -21,7 +21,6 @@ export default function VehicleIdentification({
     year: { value: year },
     fuel: { value: fuel },
     colour: { value: colour },
-    // colour,
   } = dataSet || {}
   return (
     <FormControl.FieldSet>
@@ -78,7 +77,7 @@ export default function VehicleIdentification({
           label="Fuel Meter"
           placeholder="Fuel Meter"
           name="fuel"
-          type="number"
+          type="text"
           onChange={(e) => handleChange({ value: e, key: 'fuel' })}
           value={fuel}
         />

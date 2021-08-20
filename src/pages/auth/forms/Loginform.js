@@ -28,12 +28,18 @@ export default function Loginform() {
             .then((authUser) => {
               setLoading(false)
 
-              history.push('/main/new-report')
               Usernames.map((item, index) => {
                 if (item.value === username)
                   localStorage.setItem('LoggedInUser', item.label)
                 return null
               })
+
+              if (
+                localStorage.getItem('LoggedInUser') ===
+                'Customer Representative'
+              )
+                history.push('/main/customer-review')
+              else history.push('/main/new-report')
             })
             .catch((error) => {
               console.log(error)

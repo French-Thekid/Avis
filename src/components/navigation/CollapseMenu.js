@@ -45,15 +45,28 @@ export function CollapseMenu(props) {
           </Core.Text>
         </div>
         <NavLinks>
-          <NavItem
-            props={props}
-            to="/main/new-report"
-            active={pathname.includes('/main/new-report')}
-            title="New Report"
-            Icon={Icons.DescriptionRoundedIcon}
-          >
-            <Icons.DescriptionRoundedIcon style={{ color: 'inherit' }} />
-          </NavItem>
+          {localStorage.getItem('LoggedInUser') !==
+          'Customer Representative' ? (
+            <NavItem
+              props={props}
+              to="/main/new-report"
+              active={pathname.includes('/main/new-report')}
+              title="New Report"
+              Icon={Icons.DescriptionRoundedIcon}
+            >
+              <Icons.DescriptionRoundedIcon style={{ color: 'inherit' }} />
+            </NavItem>
+          ) : (
+            <NavItem
+              props={props}
+              to="/main/customer-review"
+              active={pathname.includes('/main/customer-review')}
+              title="Customer Review"
+              Icon={Icons.DescriptionRoundedIcon}
+            >
+              <Icons.DescriptionRoundedIcon style={{ color: 'inherit' }} />
+            </NavItem>
+          )}
           <NavItem
             props={props}
             to="/main/change-password"

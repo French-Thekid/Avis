@@ -36,6 +36,8 @@ export default function MainContainer({ children }) {
           form={
             pathname.includes('change-password')
               ? 'changePassword'
+              : pathname.includes('customer-review')
+              ? 'submitReview'
               : 'submitForm'
           }
         >

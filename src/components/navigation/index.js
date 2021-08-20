@@ -49,7 +49,11 @@ const NavigationBar = (props) => {
           </NavContainer>
         </NavBar>
         <Core.Text color={Colours.blue}>
-          {pathname.includes('new-report') ? 'New Report' : 'Change Password'}
+          {pathname.includes('new-report')
+            ? 'New Report'
+            : pathname.includes('customer-review')
+            ? 'Customer Review'
+            : 'Change Password'}
         </Core.Text>
       </div>
       <CollapseMenu navbarState={navbarOpen} handleNavbar={handleNavbar} />

@@ -101,6 +101,10 @@ export function Autofill({
                 value: vehicle.year,
                 point: vehicle.year === '' ? 0 : 1,
               },
+              colour: {
+                value: vehicle.colour,
+                point: vehicle.colour === '' ? 0 : 1,
+              },
             }
           })
         }

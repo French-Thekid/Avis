@@ -8,6 +8,8 @@ import {
   InspectionNotes,
 } from './sections'
 import SendEnail from './SendEmail'
+import MyDocument from './pdf/report/Document'
+import { pdf } from '@react-pdf/renderer'
 
 export default function NewReport() {
   const [completed, setcompleted] = useState(false)
@@ -91,7 +93,7 @@ export default function NewReport() {
     checkList.tyre.point +
     licensePoint
 
-  const score = (count / 20) * 100
+  const score = ((count / 22) * 100) >> 0
 
   const validate = ({ current, next }) => {
     if (parseInt(next) - parseInt(current) > 0) return false
@@ -139,7 +141,7 @@ export default function NewReport() {
     ) {
       showNotificationValidation()
     } else {
-      setloading(true)
+      // setloading(true)
       console.log('Submitting')
       //Preparing Data for email template
       const assignee = localStorage.getItem('LoggedInUser')
@@ -189,7 +191,7 @@ export default function NewReport() {
         nextMileage,
         fuel,
         colour,
-        license,
+        license: license.toUpperCase(),
         engineOilStatus,
         engineOilQuantity,
         oilFilterStatus,
@@ -219,13 +221,23 @@ export default function NewReport() {
         note,
       }
 
-      SendEnail({
-        elements,
-        setloading,
-        showNotification,
-        showNotificationFailed,
-        cleanUp,
-      })
+      var reader = new FileReader()
+      const doc = <MyDocument {...elements} />
+      const asPdf = pdf([])
+      asPdf.updateContainer(doc)
+      const blob = await asPdf.toBlob()
+      reader.readAsDataURL(blob)
+      reader.onloadend = function () {
+        var pdf = reader.result
+        console.log(pdf)
+        SendEnail({
+          elements,
+          setloading,
+          showNotification,
+          showNotificationFailed,
+          cleanUp,
+        })
+      }
     }
   }
 
