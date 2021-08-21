@@ -880,7 +880,7 @@ export default function CustomerReview() {
             />
           </div>
           <div>
-            <input type="file" accept="image/*" capture="environment" />
+            {/* <input type="file" accept="image/*" capture="environment" /> */}
           </div>
           <div
             css={`
