@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import 'styled-components/macro'
-import { Colours, FormControl, Notification } from '../../components'
+import { Colours, FormControl, Notification, Loading } from '../../components'
 import {
   Completion,
   VehicleIdentification1,
@@ -13,6 +13,7 @@ import {
   Remark,
 } from './sections'
 import { SignatureModal } from './modals'
+import { SendSlip } from './SendEmail'
 
 const queryString = require('query-string')
 
@@ -79,6 +80,8 @@ export default function CustomerReview() {
 
   const [completed, setcompleted] = useState(false)
   const [completed1, setcompleted1] = useState(false)
+  const [completed2, setcompleted2] = useState(false)
+  const [loading, setloading] = useState(false)
 
   const showNotification = () => {
     setcompleted(true)
@@ -91,6 +94,13 @@ export default function CustomerReview() {
     setcompleted1(true)
     setTimeout(() => {
       setcompleted1(false)
+    }, 8000)
+  }
+
+  const showNotificationFailed = () => {
+    setcompleted2(true)
+    setTimeout(() => {
+      setcompleted2(false)
     }, 8000)
   }
 
@@ -134,16 +144,92 @@ export default function CustomerReview() {
 
   const score = ((count / 22) * 100) >> 0
 
+  function cleanUp() {
+    setLicense('')
+    updateDataSet({
+      contractNumber: { value: '', point: 0 },
+      make: { value: '', point: 0 },
+      model: { value: '', point: 0 },
+      year: { value: '', point: 0 },
+      mileageIn: { value: '', point: 0 },
+      mileageOut: { value: '', point: 0 },
+      fuelIn: { value: '', point: 0 },
+      fuelOut: { value: '', point: 0 },
+      frontDoorLeft: { value: '', point: 0 },
+      frontDoorRight: { value: '', point: 0 },
+      front: { value: '', point: 0 },
+      roof: { value: '', point: 0 },
+      rearDoorLeft: { value: '', point: 0 },
+      rear: { value: '', point: 0 },
+      frontFenderLeft: { value: '', point: 0 },
+      rearDoorRight: { value: '', point: 0 },
+      frontWheelLeft: { value: '', point: 0 },
+      frontFenderRight: { value: '', point: 0 },
+      frontWheelRight: { value: '', point: 0 },
+      rearFenderLeft: { value: '', point: 0 },
+      rearFenderRight: { value: '', point: 0 },
+      rearWheelLeft: { value: '', point: 0 },
+      rearWheelRight: { value: '', point: 0 },
+      doorRear: { value: '', point: 0 },
+      runningBoardLeft: { value: '', point: 0 },
+      runningBoardRight: { value: '', point: 0 },
+      frontWindowLeft: { value: '', point: 0 },
+      frontWindowRight: { value: '', point: 0 },
+      rearWindowLeft: { value: '', point: 0 },
+      rearWindowRight: { value: '', point: 0 },
+      windshield: { value: '', point: 0 },
+      rearGlass: { value: '', point: 0 },
+      tyreLeftFront: { value: '', point: 0 },
+      tyreRightFront: { value: '', point: 0 },
+      tyreLeftRear: { value: '', point: 0 },
+      tyreRightRear: { value: '', point: 0 },
+      spear: { value: '', point: 0 },
+      mats: { value: '', point: 0 },
+      upholstery: { value: '', point: 0 },
+      sideMirror: { value: '', point: 0 },
+      rims: { value: '', point: 0 },
+      hubcaps: { value: '', point: 0 },
+      jacks: { value: '', point: 0 },
+      lugTool: { value: '', point: 0 },
+      renterIn: { value: '', point: 0 },
+      renterOut: { value: '', point: 0 },
+      remark: { value: '', point: 0 },
+      renterInSignature: { value: '', point: 0 },
+      renterOutSignature: { value: '', point: 0 },
+    })
+  }
+
+  let TimeExtrator = new Intl.DateTimeFormat('en', {
+    timeStyle: 'short',
+  })
+
+  const direction = () => {
+    if (dataSet.renterOut.point === 1 && dataSet.renterOutSignature.point) {
+      return 'Out'
+    }
+    if (dataSet.renterIn.point === 1 && dataSet.renterInSignature.point) {
+      return 'In'
+    }
+    return 'In'
+  }
+
   const HandleSubmission = (e) => {
     e.preventDefault()
     if (score < 100) {
       showNotificationValidation()
     } else {
+      setloading(true)
       console.log('Submitting')
-      showNotification()
 
-      const element = {
-        date: new Date().toDateString(),
+      const elements = {
+        date: `${new Date().toDateString()}  ${TimeExtrator.format(
+          Date.parse(new Date())
+        )
+          .toLowerCase()
+          .split(' ')
+          .join('')}`,
+        direction: direction(),
+        assignee: localStorage.getItem('LoggedInUser'),
         contractNumber: dataSet.contractNumber.value,
         make: dataSet.make.value,
         model: dataSet.model.value,
@@ -192,9 +278,17 @@ export default function CustomerReview() {
         renterOut: dataSet.renterOut.value,
         remark: dataSet.remark.value,
         license: license.toUpperCase(),
+        renterInSignature: dataSet.renterInSignature.value,
+        renterOutSignature: dataSet.renterOutSignature.value,
       }
 
-      console.log(element)
+      SendSlip({
+        elements,
+        setloading,
+        showNotification,
+        showNotificationFailed,
+        cleanUp,
+      })
     }
   }
 
@@ -725,8 +819,8 @@ export default function CustomerReview() {
     >
       <Notification
         setcompleted={setcompleted}
-        subject="Report Successfully Sent!"
-        message="Your report will not be reviewed by your admin."
+        subject="Slip Successfully Sent!"
+        message="Your slip will not be reviewed by your admin."
         notification={completed}
       />
       <Notification
@@ -737,6 +831,15 @@ export default function CustomerReview() {
         notification={completed1}
         warning
       />
+      <Notification
+        setcompleted={setcompleted2}
+        title="Request Unsuccessful!"
+        subject="Submission Failed!"
+        message="Please check your internet connection and try again"
+        notification={completed2}
+        warning
+      />
+      {loading && <Loading />}
       <Completion score={score} />
       <form
         id="submitReview"
@@ -776,7 +879,9 @@ export default function CustomerReview() {
               value={dataSet.contractNumber.value}
             />
           </div>
-          <div />
+          <div>
+            <input type="file" accept="image/*" capture="environment" />
+          </div>
           <div
             css={`
               padding: 20px;
