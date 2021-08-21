@@ -5,6 +5,7 @@ import PowerSettingsNewRoundedIcon from '@material-ui/icons/PowerSettingsNewRoun
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded'
 import CancelRoundedIcon from '@material-ui/icons/CancelRounded'
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded'
+import PhotoCameraRoundedIcon from '@material-ui/icons/PhotoCameraRounded'
 
 export {
   PowerSettingsNewRoundedIcon,
@@ -14,4 +15,5 @@ export {
   CheckCircleRoundedIcon,
   CancelRoundedIcon,
   CloseRoundedIcon,
+  PhotoCameraRoundedIcon,
 }

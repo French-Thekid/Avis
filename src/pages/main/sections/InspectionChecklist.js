@@ -28,6 +28,7 @@ export default function InspectionChecklist({ checkList, handleChecklist }) {
         value={engineOil}
         handleChecklist={handleChecklist}
         keyLabel="engineOil"
+        imageNeeded
       />
       <Panel
         label="Oil Filter Check"
@@ -105,7 +106,7 @@ export default function InspectionChecklist({ checkList, handleChecklist }) {
   )
 }
 
-const Panel = ({ value, label, keyLabel, handleChecklist }) => {
+const Panel = ({ value, label, keyLabel, handleChecklist, imageNeeded }) => {
   const { status, quantity, point } = value || {}
 
   return (
@@ -217,6 +218,16 @@ const Panel = ({ value, label, keyLabel, handleChecklist }) => {
           show={point === 0 && status === 'Fail'}
           message="Quantity is Required"
         />
+        {imageNeeded && (
+          <Core.FileChooser
+            // fileName={fileName}
+            // setFileName={setFileName}
+            onDone={(file) => {
+              console.log(file)
+              // setFile(file.base64)
+            }}
+          />
+        )}
       </section>
     </div>
   )

@@ -879,9 +879,7 @@ export default function CustomerReview() {
               value={dataSet.contractNumber.value}
             />
           </div>
-          <div>
-            {/* <input type="file" accept="image/*" capture="environment" /> */}
-          </div>
+          <div />
           <div
             css={`
               padding: 20px;
