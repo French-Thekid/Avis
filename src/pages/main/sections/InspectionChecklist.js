@@ -3,7 +3,12 @@ import 'styled-components/macro'
 
 import { Core, FormControl, Colours, Icons } from '../../../components'
 
-export default function InspectionChecklist({ checkList, handleChecklist }) {
+export default function InspectionChecklist({
+  checkList,
+  handleChecklist,
+  handleChange,
+  dataSet,
+}) {
   const {
     engineOil,
     oilFilter,
@@ -20,6 +25,8 @@ export default function InspectionChecklist({ checkList, handleChecklist }) {
     tyre,
   } = checkList || {}
 
+  const { engineOilPhoto } = dataSet || {}
+
   return (
     <FormControl.FieldSet>
       <FormControl.Legend>Inspection Checklist</FormControl.Legend>
@@ -29,6 +36,8 @@ export default function InspectionChecklist({ checkList, handleChecklist }) {
         handleChecklist={handleChecklist}
         keyLabel="engineOil"
         imageNeeded
+        handleChange={handleChange}
+        image={engineOilPhoto}
       />
       <Panel
         label="Oil Filter Check"
@@ -106,7 +115,15 @@ export default function InspectionChecklist({ checkList, handleChecklist }) {
   )
 }
 
-const Panel = ({ value, label, keyLabel, handleChecklist, imageNeeded }) => {
+const Panel = ({
+  value,
+  label,
+  keyLabel,
+  handleChecklist,
+  handleChange,
+  imageNeeded,
+  image,
+}) => {
   const { status, quantity, point } = value || {}
 
   return (
@@ -194,40 +211,52 @@ const Panel = ({ value, label, keyLabel, handleChecklist, imageNeeded }) => {
           height: 100%;
         `}
       />
-      <section>
-        <FormControl.Input
-          id="quantity"
-          label="Quantity Used"
-          placeholder="Quantity Used"
-          name="quantity"
-          type="number"
-          onChange={(e) =>
-            handleChecklist({
-              status: 'Fail',
-              quantity: e.target.value,
-              key: `${keyLabel}Quantity`,
-            })
-          }
-          error={point === 0 && status === 'Fail'}
-          value={quantity}
-          disabled={
-            status === 'Pass' ? true : status === 'Fail' ? false : false
-          }
-        />
-        <FormControl.Error
-          show={point === 0 && status === 'Fail'}
-          message="Quantity is Required"
-        />
-        {imageNeeded && (
+      <section
+        css={`
+          display: grid;
+          grid-gap: ${imageNeeded && point === 0 && status === 'Fail'
+            ? '5px'
+            : '0px'};
+        `}
+      >
+        <div>
+          <FormControl.Input
+            id="quantity"
+            label="Quantity Used"
+            placeholder="Quantity Used"
+            name="quantity"
+            type="number"
+            onChange={(e) =>
+              handleChecklist({
+                status: 'Fail',
+                quantity: e.target.value,
+                key: `${keyLabel}Quantity`,
+              })
+            }
+            error={point === 0 && status === 'Fail'}
+            value={quantity}
+            disabled={
+              status === 'Pass' ? true : status === 'Fail' ? false : false
+            }
+          />
+          <FormControl.Error
+            show={point === 0 && status === 'Fail'}
+            message={
+              imageNeeded
+                ? 'Quantity and Image is Required'
+                : 'Quantity is Required'
+            }
+          />
+        </div>
+        {imageNeeded && status === 'Fail' ? (
           <Core.FileChooser
-            // fileName={fileName}
-            // setFileName={setFileName}
+            image={image.value}
             onDone={(file) => {
-              console.log(file)
-              // setFile(file.base64)
+              handleChange({ value: file.base64, key: 'engineOilPhoto' })
+              console.log(file.base64)
             }}
           />
-        )}
+        ) : null}
       </section>
     </div>
   )

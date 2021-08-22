@@ -1,8 +1,8 @@
 import React from 'react'
 import 'styled-components/macro'
-import { Colours, Core, Icons } from '../../components'
+import { Colours, Icons } from '../../components'
 
-export default function FileChooser({ onDone, fileName, setFileName }) {
+export default function FileChooser({ onDone, image }) {
   const handleChange = (event) => {
     let files = Array.from(event.target.files)
     let allFiles = []
@@ -21,7 +21,6 @@ export default function FileChooser({ onDone, fileName, setFileName }) {
         }
         allFiles.push(fileInfo)
         //Set source to current image
-        setFileName(allFiles[0].name)
         onDone(allFiles[0])
       }
       return file
@@ -33,7 +32,6 @@ export default function FileChooser({ onDone, fileName, setFileName }) {
         border-top-left-radius: 3px;
         border-bottom-left-radius: 3px;
         height: max-content;
-        border: 1px solid ${Colours.border};
         display: grid;
         align-items: center;
         grid-template-columns: max-content 1fr;
@@ -41,29 +39,25 @@ export default function FileChooser({ onDone, fileName, setFileName }) {
     >
       <label
         css={`
-          padding: 10px;
-          border-top-left-radius: 3px;
-          border-bottom-left-radius: 3px;
+          padding: 8px;
+          border-radius: 3px;
           color: white;
           font-weight: 500;
-          background-color: ${Colours.blue};
+          background-color: ${image !== '' ? Colours.green : Colours.red};
           cursor: pointer;
           font-size: 12px;
+          display: grid;
+          place-items: center;
         `}
         htmlFor="file"
       >
         <Icons.PhotoCameraRoundedIcon />
       </label>
-      <section
-        css={`
-          padding-left: 5px;
-          max-width: 190px;
-        `}
-      >
-        <Core.Text Contained customSize="10px">
-          {fileName}
-        </Core.Text>
-      </section>
+      {image !== '' && (
+        <Icons.CheckCircleRoundedIcon
+          style={{ color: Colours.green, fontSize: '30px' }}
+        />
+      )}
       <input
         css={`
           width: 0.1px;

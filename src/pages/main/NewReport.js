@@ -46,6 +46,7 @@ export default function NewReport() {
     fuel: { value: '', point: 0 },
     colour: { value: '', point: 0 },
     note: { value: '', point: 0 },
+    engineOilPhoto: { value: '', point: 0 },
   })
 
   const [checkList, updateChecklist] = useState({
@@ -78,6 +79,7 @@ export default function NewReport() {
     dataSet.note.point +
     dataSet.colour.point +
     dataSet.fuel.point +
+    dataSet.engineOilPhoto.point +
     checkList.engineOil.point +
     checkList.oilFilter.point +
     checkList.airFilter.point +
@@ -93,7 +95,7 @@ export default function NewReport() {
     checkList.tyre.point +
     licensePoint
 
-  const score = ((count / 22) * 100) >> 0
+  const score = ((count / 23) * 100) >> 0
 
   const validate = ({ current, next }) => {
     if (parseInt(next) - parseInt(current) > 0) return false
@@ -126,6 +128,7 @@ export default function NewReport() {
       note: { value: '', point: 0 },
       fuel: { value: '', point: 0 },
       colour: { value: '', point: 0 },
+      engineOilPhoto: { value: '', point: 0 },
     })
     setLicense('')
   }
@@ -283,6 +286,17 @@ export default function NewReport() {
             note: {
               value: value.target.value,
               point: value.target.value === '' ? 0 : 1,
+            },
+          }
+        })
+        break
+      case 'engineOilPhoto':
+        updateDataSet((prevState) => {
+          return {
+            ...prevState,
+            engineOilPhoto: {
+              value: value,
+              point: value === '' ? 0 : 1,
             },
           }
         })
@@ -907,6 +921,8 @@ export default function NewReport() {
           checkList={checkList}
           updateChecklist={updateChecklist}
           handleChecklist={handleChecklist}
+          handleChange={handleChange}
+          dataSet={dataSet}
         />
         <Gap />
         <InspectionNotes dataSet={dataSet} handleChange={handleChange} />

@@ -71,7 +71,7 @@ export const SendSlip = ({
       setloading(false)
       if (data.status === 200 || data.status === 201) {
         showNotification()
-        // cleanUp()
+        cleanUp()
       } else {
         showNotificationFailed()
       }
