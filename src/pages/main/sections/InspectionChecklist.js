@@ -38,6 +38,7 @@ export default function InspectionChecklist({
         imageNeeded
         handleChange={handleChange}
         image={engineOilPhoto}
+        imageKey="engineOilPhoto"
       />
       <Panel
         label="Oil Filter Check"
@@ -123,6 +124,7 @@ const Panel = ({
   handleChange,
   imageNeeded,
   image,
+  imageKey,
 }) => {
   const { status, quantity, point } = value || {}
 
@@ -252,7 +254,7 @@ const Panel = ({
           <Core.FileChooser
             image={image.value}
             onDone={(file) => {
-              handleChange({ value: file.base64, key: 'engineOilPhoto' })
+              handleChange({ value: file.base64, key: imageKey })
               console.log(file.base64)
             }}
           />

@@ -48,15 +48,18 @@ export default function FileChooser({ onDone, image }) {
           font-size: 12px;
           display: grid;
           place-items: center;
+          margin-right: 5px;
         `}
         htmlFor="file"
       >
         <Icons.PhotoCameraRoundedIcon />
       </label>
       {image !== '' && (
-        <Icons.CheckCircleRoundedIcon
-          style={{ color: Colours.green, fontSize: '30px' }}
-        />
+        <section>
+          <Icons.CheckCircleRoundedIcon
+            style={{ color: Colours.green, fontSize: '30px' }}
+          />
+        </section>
       )}
       <input
         css={`
