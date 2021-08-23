@@ -1,3 +1,4 @@
 import SignatureModal from './SignatureModal'
+import SignatureInModal from './SignatureInModal'
 
-export { SignatureModal }
+export { SignatureModal, SignatureInModal }

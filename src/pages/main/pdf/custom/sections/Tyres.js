@@ -26,26 +26,28 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#236fa1',
     marginTop: 3,
-    marginLeft: 25,
+    marginLeft: 10,
   },
   ListHeader: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'start',
     marginBottom: 20,
   },
   ListValues: {
-    flexDirection: 'row',
+    flexDirection: 'columns',
     justifyContent: 'start',
     marginBottom: 10,
-    borderBottomWidth: 1,
-    borderColor: '#d1cae8',
-    paddingBottom: 3,
   },
   ListSubValues: {
     flexDirection: 'row',
     justifyContent: 'start',
+    borderBottomWidth: 1,
+    borderColor: '#d1cae8',
+    paddingBottom: 3,
+    marginBottom: 10,
   },
   title: { fontSize: 15, color: '#236fa1' },
+  title1: { fontSize: 15, color: '#236fa1', marginLeft: 150 },
   key: {
     borderWidth: 1,
     borderColor: '#236fa1',
@@ -93,34 +95,28 @@ export default function Tyres({
       </View>
       <View style={styles.ListHeader}>
         <Text style={styles.title}>Item</Text>
-        <Text style={styles.title}>Condition</Text>
-        <Text style={styles.title}>Item</Text>
-        <Text style={styles.title}>Condition</Text>
+        <Text style={styles.title1}>Condition</Text>
       </View>
       <View style={styles.ListValues}>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(0).value}>Left Front</Text>
-          <Text style={StylesList(130).value}>{tyreLeftFront}</Text>
+          <Text style={StylesList(133).value}>{tyreLeftFront}</Text>
         </View>
         <View style={styles.ListSubValues}>
-          <Text style={StylesList(150).value}>Right Front</Text>
-          <Text style={StylesList(120).value}>{tyreRightFront}</Text>
+          <Text style={StylesList(0).value}>Right Front</Text>
+          <Text style={StylesList(123).value}>{tyreRightFront}</Text>
         </View>
-      </View>
-      <View style={styles.ListValues}>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(0).value}>Left Rear</Text>
-          <Text style={StylesList(130).value}>{tyreLeftRear}</Text>
+          <Text style={StylesList(133).value}>{tyreLeftRear}</Text>
         </View>
         <View style={styles.ListSubValues}>
-          <Text style={StylesList(151).value}>Right Rear</Text>
-          <Text style={StylesList(123).value}>{tyreRightRear}</Text>
+          <Text style={StylesList(0).value}>Right Rear</Text>
+          <Text style={StylesList(124).value}>{tyreRightRear}</Text>
         </View>
-      </View>
-      <View style={styles.ListValues}>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(0).value}>Spear</Text>
-          <Text style={StylesList(148).value}>{spear}</Text>
+          <Text style={StylesList(149).value}>{spear}</Text>
         </View>
       </View>
     </View>

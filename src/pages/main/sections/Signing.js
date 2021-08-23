@@ -45,6 +45,7 @@ export default function InspectionChecklist({ dataSet, handleChange }) {
             type="text"
             onChange={(e) => handleChange({ value: e, key: 'renterOut' })}
             value={renterOut}
+            disabled={renterIn !== ''}
           />
           <div
             css={`
@@ -64,6 +65,7 @@ export default function InspectionChecklist({ dataSet, handleChange }) {
                   ? `linear-gradient(180deg, rgba(120,143,255,1) 0%, rgba(53,84,238,1) 100%)`
                   : `linear-gradient(180deg, rgba(103,244,116,1) 0%, rgba(20,154,36,1) 100%)`
               }
+              disabled={renterOut === ''}
             >
               {renterOutSignature === '' ? 'Add Signature' : 'Change Signature'}
             </Core.Button>
@@ -88,6 +90,7 @@ export default function InspectionChecklist({ dataSet, handleChange }) {
             type="text"
             onChange={(e) => handleChange({ value: e, key: 'renterIn' })}
             value={renterIn}
+            disabled={renterOut !== ''}
           />
           <div
             css={`
@@ -107,6 +110,7 @@ export default function InspectionChecklist({ dataSet, handleChange }) {
                   ? `linear-gradient(180deg, rgba(120,143,255,1) 0%, rgba(53,84,238,1) 100%)`
                   : `linear-gradient(180deg, rgba(103,244,116,1) 0%, rgba(20,154,36,1) 100%)`
               }
+              disabled={renterIn === ''}
             >
               {renterInSignature === '' ? 'Add Signature' : 'Change Signature'}
             </Core.Button>

@@ -79,31 +79,31 @@ function StylesList(space) {
 }
 
 export default function TemplateInspectionChecklist({
-  direction = 'Out',
-  frontDoorLeft = '--',
-  frontDoorRight = '--',
-  front = '--',
-  roof = '--',
-  rearDoorLeft = '--',
-  rear = '--',
-  frontFenderLeft = '--',
-  rearDoorRight = '--',
-  frontWheelLeft = '--',
-  frontFenderRight = '--',
-  frontWheelRight = '--',
-  rearFenderLeft = '--',
-  rearFenderRight = '--',
-  rearWheelLeft = '--',
-  rearWheelRight = '--',
-  doorRear = '--',
-  runningBoardLeft = '--',
-  runningBoardRight = '--',
-  frontWindowLeft = '--',
-  frontWindowRight = '--',
-  rearWindowLeft = '--',
-  rearWindowRight = '--',
-  windshield = '--',
-  rearGlass = '--',
+  direction,
+  frontDoorLeft,
+  frontDoorRight,
+  front,
+  roof,
+  rearDoorLeft,
+  rear,
+  frontFenderLeft,
+  rearDoorRight,
+  frontWheelLeft,
+  frontFenderRight,
+  frontWheelRight,
+  rearFenderLeft,
+  rearFenderRight,
+  rearWheelLeft,
+  rearWheelRight,
+  doorRear,
+  runningBoardLeft,
+  runningBoardRight,
+  frontWindowLeft,
+  frontWindowRight,
+  rearWindowLeft,
+  rearWindowRight,
+  windshield,
+  rearGlass,
 }) {
   return (
     <View style={styles.headerContainer}>
@@ -119,121 +119,163 @@ export default function TemplateInspectionChecklist({
       <View style={styles.ListValues}>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(0).value}>Roof</Text>
-          <Text style={StylesList(150).value}>{roof}</Text>
+          <Text style={StylesList(150).value}>{StringCorrection(roof)}</Text>
         </View>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(158).value}>Front</Text>
-          <Text style={StylesList(150).value}>{front}</Text>
+          <Text style={StylesList(150).value}>{StringCorrection(front)}</Text>
         </View>
       </View>
       <View style={styles.ListValues}>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(0).value}>Rear</Text>
-          <Text style={StylesList(150).value}>{rear}</Text>
+          <Text style={StylesList(150).value}>{StringCorrection(rear)}</Text>
         </View>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(158).value}>Door (Rear)</Text>
-          <Text style={StylesList(113).value}>{doorRear}</Text>
+          <Text style={StylesList(113).value}>
+            {StringCorrection(doorRear)}
+          </Text>
         </View>
       </View>
       <View style={styles.ListValues}>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(0).value}>Front Door (Left)</Text>
-          <Text style={StylesList(88).value}>{frontDoorLeft}</Text>
+          <Text style={StylesList(88).value}>
+            {StringCorrection(frontDoorLeft)}
+          </Text>
         </View>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(158).value}>Front Door (Right)</Text>
-          <Text style={StylesList(80).value}>{frontDoorRight}</Text>
+          <Text style={StylesList(80).value}>
+            {StringCorrection(frontDoorRight)}
+          </Text>
         </View>
       </View>
       <View style={styles.ListValues}>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(0).value}>Rear Door (Left)</Text>
-          <Text style={StylesList(88).value}>{rearDoorLeft}</Text>
+          <Text style={StylesList(88).value}>
+            {StringCorrection(rearDoorLeft)}
+          </Text>
         </View>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(158).value}>Rear Door (Right)</Text>
-          <Text style={StylesList(83).value}>{rearDoorRight}</Text>
+          <Text style={StylesList(83).value}>
+            {StringCorrection(rearDoorRight)}
+          </Text>
         </View>
       </View>
       <View style={styles.ListValues}>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(0).value}>Front Fender (Left)</Text>
-          <Text style={StylesList(76).value}>{frontFenderLeft}</Text>
+          <Text style={StylesList(76).value}>
+            {StringCorrection(frontFenderLeft)}
+          </Text>
         </View>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(158).value}>Front Fender (Right)</Text>
-          <Text style={StylesList(69).value}>{frontFenderRight}</Text>
+          <Text style={StylesList(69).value}>
+            {StringCorrection(frontFenderRight)}
+          </Text>
         </View>
       </View>
       <View style={styles.ListValues}>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(0).value}>Rear Fender (Left)</Text>
-          <Text style={StylesList(76).value}>{rearFenderLeft}</Text>
+          <Text style={StylesList(76).value}>
+            {StringCorrection(rearFenderLeft)}
+          </Text>
         </View>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(158).value}>Rear Fender (Right)</Text>
-          <Text style={StylesList(71).value}>{rearFenderRight}</Text>
+          <Text style={StylesList(71).value}>
+            {StringCorrection(rearFenderRight)}
+          </Text>
         </View>
       </View>
       <View style={styles.ListValues}>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(0).value}>Front Wheel (Left)</Text>
-          <Text style={StylesList(79).value}>{frontWheelLeft}</Text>
+          <Text style={StylesList(79).value}>
+            {StringCorrection(frontWheelLeft)}
+          </Text>
         </View>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(158).value}>Front Wheel (Right)</Text>
-          <Text style={StylesList(74).value}>{frontWheelRight}</Text>
+          <Text style={StylesList(74).value}>
+            {StringCorrection(frontWheelRight)}
+          </Text>
         </View>
       </View>
       <View style={styles.ListValues}>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(0).value}>Rear Wheel (Left)</Text>
-          <Text style={StylesList(80).value}>{rearWheelLeft}</Text>
+          <Text style={StylesList(80).value}>
+            {StringCorrection(rearWheelLeft)}
+          </Text>
         </View>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(158).value}>Rear Wheel (Right)</Text>
-          <Text style={StylesList(76).value}>{rearWheelRight}</Text>
+          <Text style={StylesList(76).value}>
+            {StringCorrection(rearWheelRight)}
+          </Text>
         </View>
       </View>
       <View style={styles.ListValues}>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(0).value}>Running Board (Left)</Text>
-          <Text style={StylesList(63).value}>{runningBoardLeft}</Text>
+          <Text style={StylesList(63).value}>
+            {StringCorrection(runningBoardLeft)}
+          </Text>
         </View>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(158).value}>Running Board (Right)</Text>
-          <Text style={StylesList(58).value}>{runningBoardRight}</Text>
+          <Text style={StylesList(58).value}>
+            {StringCorrection(runningBoardRight)}
+          </Text>
         </View>
       </View>
       <View style={styles.ListValues}>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(0).value}>Front Window (Left)</Text>
-          <Text style={StylesList(70).value}>{frontWindowLeft}</Text>
+          <Text style={StylesList(70).value}>
+            {StringCorrection(frontWindowLeft)}
+          </Text>
         </View>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(158).value}>Front Window (Right)</Text>
-          <Text style={StylesList(65).value}>{frontWindowRight}</Text>
+          <Text style={StylesList(65).value}>
+            {StringCorrection(frontWindowRight)}
+          </Text>
         </View>
       </View>
       <View style={styles.ListValues}>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(0).value}>Rear Window (Left)</Text>
-          <Text style={StylesList(70).value}>{rearWindowLeft}</Text>
+          <Text style={StylesList(70).value}>
+            {StringCorrection(rearWindowLeft)}
+          </Text>
         </View>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(158).value}>Rear Window (Right)</Text>
-          <Text style={StylesList(68).value}>{rearWindowRight}</Text>
+          <Text style={StylesList(68).value}>
+            {StringCorrection(rearWindowRight)}
+          </Text>
         </View>
       </View>
       <View style={styles.ListValues}>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(0).value}>Windshield</Text>
-          <Text style={StylesList(114).value}>{windshield}</Text>
+          <Text style={StylesList(114).value}>
+            {StringCorrection(windshield)}
+          </Text>
         </View>
         <View style={styles.ListSubValues}>
           <Text style={StylesList(158).value}>Rear Glass</Text>
-          <Text style={StylesList(119).value}>{rearGlass}</Text>
+          <Text style={StylesList(119).value}>
+            {StringCorrection(rearGlass)}
+          </Text>
         </View>
       </View>
       <View style={styles.key}>
@@ -247,4 +289,9 @@ export default function TemplateInspectionChecklist({
       </View>
     </View>
   )
+}
+
+const StringCorrection = (value) => {
+  if (value === '') return '--'
+  return value
 }

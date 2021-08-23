@@ -12,8 +12,10 @@ import {
   Signing,
   Remark,
 } from './sections'
-import { SignatureModal } from './modals'
+import { SignatureModal, SignatureInModal } from './modals'
 import { SendSlip } from './SendEmail'
+import MyDocument from './pdf/custom/Document'
+import { pdf } from '@react-pdf/renderer'
 
 const queryString = require('query-string')
 
@@ -213,12 +215,12 @@ export default function CustomerReview() {
     return 'In'
   }
 
-  const HandleSubmission = (e) => {
+  const HandleSubmission = async (e) => {
     e.preventDefault()
     if (score < 100) {
       showNotificationValidation()
     } else {
-      setloading(true)
+      // setloading(true)
       console.log('Submitting')
 
       const elements = {
@@ -281,14 +283,31 @@ export default function CustomerReview() {
         renterInSignature: dataSet.renterInSignature.value,
         renterOutSignature: dataSet.renterOutSignature.value,
       }
+      var reader = new FileReader()
+      const doc = <MyDocument {...elements} />
+      const asPdf = pdf([])
+      asPdf.updateContainer(doc)
+      const blob = await asPdf.toBlob()
+      reader.readAsDataURL(blob)
+      reader.onloadend = function () {
+        var pdf = reader.result
+        console.log(pdf)
+        // SendSlip({
+        //   elements,
+        //   setloading,
+        //   showNotification,
+        //   showNotificationFailed,
+        //   cleanUp,
+        // })
+      }
 
-      SendSlip({
-        elements,
-        setloading,
-        showNotification,
-        showNotificationFailed,
-        cleanUp,
-      })
+      // SendSlip({
+      //   elements,
+      //   setloading,
+      //   showNotification,
+      //   showNotificationFailed,
+      //   cleanUp,
+      // })
     }
   }
 
@@ -926,6 +945,13 @@ export default function CustomerReview() {
           <SignatureModal
             close={() => history.goBack()}
             title="Renter Out"
+            setSignature={handleChange}
+          />
+        )}
+        {action === 'renterInSignature' && (
+          <SignatureInModal
+            close={() => history.goBack()}
+            title="Renter In"
             setSignature={handleChange}
           />
         )}
