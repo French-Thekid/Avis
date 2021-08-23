@@ -10,9 +10,11 @@ import {
 const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'start',
     marginTop: 0,
+    marginBottom: 70,
     padding: 10,
+    flexGrow: 1,
   },
   logoContainer: {
     flexDirection: 'row',
@@ -48,7 +50,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingBottom: 3,
   },
-  value: { fontSize: 12, color: '#000000' },
+  value: { fontSize: 10, color: '#000000' },
 })
 
 export default function TemplateNote({ note = 'All went well' }) {

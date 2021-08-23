@@ -57,7 +57,6 @@ export default function AddSignature({
               `}
             >
               <SignatureCanvas
-                backgroundColor="#F8F9FF"
                 penColor="#4756a1"
                 canvasProps={{
                   width: 500,

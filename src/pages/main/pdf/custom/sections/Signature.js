@@ -36,6 +36,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     height: 30,
     width: 50,
+    borderBottomWidth: 1,
+    borderColor: '#d1cae8',
+    paddingBottom:3
   },
   disclaimer: {
     marginBottom: 10,
@@ -46,14 +49,14 @@ const styles = StyleSheet.create({
 export default function Signature({
   direction = '--',
   renterIn = '--',
-  renterOut = 'Darryl Brown',
+  renterOut = '--',
   renterInSignature = '--',
-  renterOutSignature = 'https://www.pngfind.com/pngs/m/684-6847578_signature-png-hd-transparent-png.png',
+  renterOutSignature = '--',
 }) {
   return (
     <View style={styles.Container} wrap={false}>
       <Text style={styles.disclaimer}>
-        I acknowledge that i have exammined the car and the above information is
+        I acknowledge that I have examined the car and the above information is
         correct. I understand that a cleaning fee may apply for amoking in the
         vehicle.
       </Text>

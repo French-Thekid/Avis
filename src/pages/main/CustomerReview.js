@@ -12,7 +12,7 @@ import {
   Signing,
   Remark,
 } from './sections'
-import { SignatureModal, SignatureInModal } from './modals'
+import { SignatureOutModal, SignatureInModal } from './modals'
 import { SendSlip } from './SendEmail'
 import MyDocument from './pdf/custom/Document'
 import { pdf } from '@react-pdf/renderer'
@@ -220,7 +220,7 @@ export default function CustomerReview() {
     if (score < 100) {
       showNotificationValidation()
     } else {
-      // setloading(true)
+      setloading(true)
       console.log('Submitting')
 
       const elements = {
@@ -292,22 +292,14 @@ export default function CustomerReview() {
       reader.onloadend = function () {
         var pdf = reader.result
         console.log(pdf)
-        // SendSlip({
-        //   elements,
-        //   setloading,
-        //   showNotification,
-        //   showNotificationFailed,
-        //   cleanUp,
-        // })
+        SendSlip({
+          elements,
+          setloading,
+          showNotification,
+          showNotificationFailed,
+          cleanUp,
+        })
       }
-
-      // SendSlip({
-      //   elements,
-      //   setloading,
-      //   showNotification,
-      //   showNotificationFailed,
-      //   cleanUp,
-      // })
     }
   }
 
@@ -942,7 +934,7 @@ export default function CustomerReview() {
         <Signing dataSet={dataSet} handleChange={handleChange} />
         <Gap />
         {action === 'renterOutSignature' && (
-          <SignatureModal
+          <SignatureOutModal
             close={() => history.goBack()}
             title="Renter Out"
             setSignature={handleChange}

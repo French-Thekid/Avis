@@ -255,7 +255,6 @@ const Panel = ({
             image={image.value}
             onDone={(file) => {
               handleChange({ value: file.base64, key: imageKey })
-              console.log(file.base64)
             }}
           />
         ) : null}

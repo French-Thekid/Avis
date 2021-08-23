@@ -154,6 +154,7 @@ export default function NewReport() {
       const model = dataSet.model.value
       const mileage = dataSet.mileage.value
       const nextMileage = dataSet.nextMileage.value
+      const engineOilPhoto = dataSet.engineOilPhoto.value
       const engineOilStatus = checkList.engineOil.status
       const engineOilQuantity = checkList.engineOil.quantity
       const oilFilterStatus = checkList.oilFilter.status
@@ -222,6 +223,7 @@ export default function NewReport() {
         tyreStatus,
         tyreQuantity,
         note,
+        engineOilPhoto,
       }
 
       var reader = new FileReader()
@@ -233,6 +235,7 @@ export default function NewReport() {
       reader.onloadend = function () {
         var pdf = reader.result
         console.log(pdf)
+        delete elements['engineOilPhoto']
         SendEnail({
           elements,
           setloading,

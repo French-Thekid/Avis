@@ -281,7 +281,7 @@ export default function TemplateInspectionChecklist({
       <View style={styles.key}>
         <Text style={styles.badge}>Key</Text>
         <Text style={styles.text}>Minor (1)</Text>
-        <Text style={styles.text}>Excessive 21)</Text>
+        <Text style={styles.text}>Excessive (2)</Text>
         <Text style={styles.text}>Surface (3)</Text>
         <Text style={styles.text}>Paint (4)</Text>
         <Text style={styles.text}>Ok (5)</Text>

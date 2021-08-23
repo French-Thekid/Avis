@@ -4,7 +4,7 @@ import {
   Page,
   StyleSheet,
 } from '@react-pdf/renderer/dist/react-pdf.es.js'
-import { Header, InspectionCheckList, Note } from './sections'
+import { Header, InspectionCheckList, Note, Images } from './sections'
 
 // Create styles
 const styles = StyleSheet.create({
@@ -59,6 +59,7 @@ export default function MyDocument({
   tyreStatus,
   tyreQuantity,
   note,
+  engineOilPhoto,
 }) {
   return (
     <Document
@@ -108,6 +109,9 @@ export default function MyDocument({
           tyreQuantity={tyreQuantity}
         />
         <Note note={note} />
+      </Page>
+      <Page size="A4" style={styles.page}>
+        <Images engineOilPhoto={engineOilPhoto} />
       </Page>
     </Document>
   )
