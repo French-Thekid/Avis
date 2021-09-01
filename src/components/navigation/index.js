@@ -28,6 +28,8 @@ const NavigationBar = (props) => {
         display: grid;
         justify-items: center;
         z-index: 1;
+        position: sticky;
+        top: 0;
       `}
     >
       <div
@@ -51,8 +53,10 @@ const NavigationBar = (props) => {
         <Core.Text color={Colours.blue}>
           {pathname.includes('new-report')
             ? 'New Report'
-            : pathname.includes('customer-review')
-            ? 'Vehicle Inspection Slip'
+            : pathname.includes('renters-out')
+            ? 'Vehicle Inspection Slip - Out'
+            : pathname.includes('renters-in')
+            ? 'Vehicle Inspection Slip - In'
             : 'Change Password'}
         </Core.Text>
       </div>

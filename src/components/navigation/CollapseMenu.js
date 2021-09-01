@@ -57,15 +57,26 @@ export function CollapseMenu(props) {
               <Icons.DescriptionRoundedIcon style={{ color: 'inherit' }} />
             </NavItem>
           ) : (
-            <NavItem
-              props={props}
-              to="/main/customer-review"
-              active={pathname.includes('/main/customer-review')}
-              title="Inspection Slip"
-              Icon={Icons.DescriptionRoundedIcon}
-            >
-              <Icons.DescriptionRoundedIcon style={{ color: 'inherit' }} />
-            </NavItem>
+            <>
+              <NavItem
+                props={props}
+                to="/main/renters-out"
+                active={pathname.includes('/main/renters-out')}
+                title="Renters Out"
+                Icon={Icons.DescriptionRoundedIcon}
+              >
+                <Icons.DescriptionRoundedIcon style={{ color: 'inherit' }} />
+              </NavItem>
+              <NavItem
+                props={props}
+                to="/main/renters-in"
+                active={pathname.includes('/main/renters-in')}
+                title="Renters In"
+                Icon={Icons.DescriptionRoundedIcon}
+              >
+                <Icons.DescriptionRoundedIcon style={{ color: 'inherit' }} />
+              </NavItem>
+            </>
           )}
           <NavItem
             props={props}

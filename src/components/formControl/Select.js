@@ -46,6 +46,7 @@ function SimpleSelect(props) {
     action,
     handlechange,
     handleblur,
+    disabled = false,
   } = props
 
   const { classes } = props
@@ -70,6 +71,7 @@ function SimpleSelect(props) {
           label={label}
           error={error}
           style={{ color: Colours.input }}
+          disabled={disabled}
         >
           <MenuItem value="">
             <em>None</em>

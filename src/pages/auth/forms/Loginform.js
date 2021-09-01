@@ -38,7 +38,7 @@ export default function Loginform() {
                 localStorage.getItem('LoggedInUser') ===
                 'Customer Representative'
               )
-                history.push('/main/customer-review')
+                history.push('/main/renters-out')
               else history.push('/main/new-report')
             })
             .catch((error) => {
