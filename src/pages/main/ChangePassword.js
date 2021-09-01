@@ -4,7 +4,7 @@ import 'styled-components/macro'
 import tickLogo from '../../assets/tick.png'
 import { Layout, Colours, Core } from '../../components'
 import { ChangePasswordForm } from './forms'
-import PDF from './pdf/custom/PDF'
+// import PDF from './pdf/custom/PDF'
 
 export default function ChangePassword() {
   return (
@@ -15,8 +15,8 @@ export default function ChangePassword() {
         height: calc(100% - 40px);
       `}
     >
-      <PDF />
-      {/* <Layout.Container>
+      {/* <PDF /> */}
+      <Layout.Container>
         <div
           css={`
             display: grid;
@@ -91,7 +91,7 @@ export default function ChangePassword() {
         >
           <ChangePasswordForm id={'changePassword'} />
         </div> 
-      </Layout.Container>*/}
+      </Layout.Container>
     </div>
   )
 }
