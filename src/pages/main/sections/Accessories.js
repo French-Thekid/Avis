@@ -1,7 +1,7 @@
 import React from 'react'
 import 'styled-components/macro'
 
-import { FormControl } from '../../../components'
+import { FormControl, Colours } from '../../../components'
 import { Panel } from './DamageChecklist'
 
 export default function InspectionChecklist({ dataSet, handleChange }) {
@@ -15,8 +15,25 @@ export default function InspectionChecklist({ dataSet, handleChange }) {
     lugTool: { value: lugTool },
   } = dataSet || {}
 
+  const Pass = () => {
+    let value =
+      dataSet.upholstery.point +
+      dataSet.sideMirror.point +
+      dataSet.mats.point +
+      dataSet.rims.point +
+      dataSet.hubcaps.point +
+      dataSet.jacks.point +
+      dataSet.lugTool.point
+
+    if (value === 7) return true
+
+    return false
+  }
+
   return (
-    <FormControl.FieldSet>
+    <FormControl.FieldSet
+      borderColour={Pass() ? Colours.green : Colours.border}
+    >
       <FormControl.Legend>Accessories</FormControl.Legend>
       <div
         css={`

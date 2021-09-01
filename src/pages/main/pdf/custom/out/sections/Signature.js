@@ -19,11 +19,6 @@ const styles = StyleSheet.create({
     color: '#463188',
     marginBottom: 3,
   },
-  small: {
-    fontSize: 8,
-    color: '#463188',
-    marginTop: 3,
-  },
   Container: {
     flexDirection: 'columns',
     justifyContent: 'space-between',
@@ -43,25 +38,11 @@ const styles = StyleSheet.create({
     width: 50,
     borderBottomWidth: 1,
     borderColor: '#d1cae8',
-    paddingBottom: 3,
+    paddingBottom:3
   },
   disclaimer: {
     marginBottom: 10,
     fontSize: 10,
-  },
-  group: {
-    flexDirection: 'row',
-    alignContent: 'start',
-  },
-  left: {
-    width: 278,
-    flexDirection: 'column',
-    alignContent: 'start',
-  },
-  right: {
-    width: 278,
-    flexDirection: 'column',
-    alignContent: 'start',
   },
 })
 
@@ -71,7 +52,6 @@ export default function Signature({
   renterOut = '--',
   renterInSignature = '--',
   renterOutSignature = '--',
-  out,
 }) {
   return (
     <View style={styles.Container} wrap={false}>
@@ -80,23 +60,14 @@ export default function Signature({
         correct. I understand that a cleaning fee may apply for amoking in the
         vehicle.
       </Text>
-      <View style={styles.group}>
-        <View style={styles.left}>
-          <View style={styles.signitureColumn}>
-            <Text style={styles.text}>{renterOut}</Text>
-            <Image src={renterOutSignature} style={styles.signature} />
-            <Text style={styles.small}>Renter Out</Text>
-          </View>
-        </View>
-        {!out && (
-          <View style={styles.right}>
-            <View style={styles.signitureColumn}>
-              <Text style={styles.text}>{renterIn}</Text>
-              <Image src={renterInSignature} style={styles.signature} />
-              <Text style={styles.small}>Renter In</Text>
-            </View>
-          </View>
-        )}
+      <View style={styles.signitureColumn}>
+        <Text style={styles.text}>{`${
+          direction === 'Out' ? renterOut : renterIn
+        }`}</Text>
+        <Image
+          src={direction === 'Out' ? renterOutSignature : renterInSignature}
+          style={styles.signature}
+        />
       </View>
     </View>
   )

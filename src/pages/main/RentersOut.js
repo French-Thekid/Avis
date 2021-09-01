@@ -12,9 +12,9 @@ import {
   Signing,
   Remark,
 } from './sections'
-import { SignatureOutModal, SignatureInModal } from './modals'
+import { SignatureOutModal } from './modals'
 import { SendSlip } from './SendEmail'
-import MyDocument from './pdf/custom/Document'
+import MyDocument from './pdf/custom/out/Document'
 import { pdf } from '@react-pdf/renderer'
 
 const queryString = require('query-string')
@@ -106,19 +106,6 @@ export default function CustomerReview() {
     }, 8000)
   }
 
-  const RentersNameCheck = () => {
-    if (dataSet.renterOut.point === 1 || dataSet.renterIn.point === 1) return 1
-    return 0
-  }
-  const RentersSignatureCheck = () => {
-    if (
-      dataSet.renterInSignature.point === 1 ||
-      dataSet.renterOutSignature.point === 1
-    )
-      return 1
-    return 0
-  }
-
   const licensePoint = license.length === 6 && dataSet.model.point === 1 ? 1 : 0
   const count =
     dataSet.contractNumber.point +
@@ -126,9 +113,7 @@ export default function CustomerReview() {
     dataSet.make.point +
     dataSet.model.point +
     dataSet.year.point +
-    dataSet.mileageIn.point +
     dataSet.mileageOut.point +
-    dataSet.fuelIn.point +
     dataSet.fuelOut.point +
     dataSet.upholstery.point +
     dataSet.sideMirror.point +
@@ -141,10 +126,34 @@ export default function CustomerReview() {
     dataSet.tyreRightFront.point +
     dataSet.tyreLeftRear.point +
     dataSet.tyreRightRear.point +
-    RentersNameCheck() +
-    RentersSignatureCheck()
+    dataSet.renterOut.point +
+    dataSet.renterOutSignature.point +
+    dataSet.frontDoorLeft.point +
+    dataSet.frontDoorRight.point +
+    dataSet.front.point +
+    dataSet.roof.point +
+    dataSet.rearDoorLeft.point +
+    dataSet.rear.point +
+    dataSet.frontFenderLeft.point +
+    dataSet.rearDoorRight.point +
+    dataSet.frontWheelLeft.point +
+    dataSet.frontFenderRight.point +
+    dataSet.frontWheelRight.point +
+    dataSet.rearFenderLeft.point +
+    dataSet.rearFenderRight.point +
+    dataSet.rearWheelLeft.point +
+    dataSet.rearWheelRight.point +
+    dataSet.doorRear.point +
+    dataSet.runningBoardLeft.point +
+    dataSet.runningBoardRight.point +
+    dataSet.frontWindowLeft.point +
+    dataSet.frontWindowRight.point +
+    dataSet.rearWindowLeft.point +
+    dataSet.rearWindowRight.point +
+    dataSet.windshield.point +
+    dataSet.rearGlass.point
 
-  const score = ((count / 22) * 100) >> 0
+  const score = ((count / 44) * 100) >> 0
 
   function cleanUp() {
     setLicense('')
@@ -153,9 +162,7 @@ export default function CustomerReview() {
       make: { value: '', point: 0 },
       model: { value: '', point: 0 },
       year: { value: '', point: 0 },
-      mileageIn: { value: '', point: 0 },
       mileageOut: { value: '', point: 0 },
-      fuelIn: { value: '', point: 0 },
       fuelOut: { value: '', point: 0 },
       frontDoorLeft: { value: '', point: 0 },
       frontDoorRight: { value: '', point: 0 },
@@ -193,10 +200,8 @@ export default function CustomerReview() {
       hubcaps: { value: '', point: 0 },
       jacks: { value: '', point: 0 },
       lugTool: { value: '', point: 0 },
-      renterIn: { value: '', point: 0 },
       renterOut: { value: '', point: 0 },
       remark: { value: '', point: 0 },
-      renterInSignature: { value: '', point: 0 },
       renterOutSignature: { value: '', point: 0 },
     })
   }
@@ -205,22 +210,12 @@ export default function CustomerReview() {
     timeStyle: 'short',
   })
 
-  const direction = () => {
-    if (dataSet.renterOut.point === 1 && dataSet.renterOutSignature.point) {
-      return 'Out'
-    }
-    if (dataSet.renterIn.point === 1 && dataSet.renterInSignature.point) {
-      return 'In'
-    }
-    return 'In'
-  }
-
   const HandleSubmission = async (e) => {
     e.preventDefault()
     if (score < 100) {
       showNotificationValidation()
     } else {
-      setloading(true)
+      // setloading(true)
       console.log('Submitting')
 
       const elements = {
@@ -230,15 +225,13 @@ export default function CustomerReview() {
           .toLowerCase()
           .split(' ')
           .join('')}`,
-        direction: direction(),
+        direction: 'Out',
         assignee: localStorage.getItem('LoggedInUser'),
         contractNumber: dataSet.contractNumber.value,
         make: dataSet.make.value,
         model: dataSet.model.value,
         year: dataSet.year.value,
-        mileageIn: dataSet.mileageIn.value,
         mileageOut: dataSet.mileageOut.value,
-        fuelIn: dataSet.fuelIn.value,
         fuelOut: dataSet.fuelOut.value,
         frontDoorLeft: dataSet.frontDoorLeft.value,
         frontDoorRight: dataSet.frontDoorRight.value,
@@ -276,11 +269,9 @@ export default function CustomerReview() {
         hubcaps: dataSet.hubcaps.value,
         jacks: dataSet.jacks.value,
         lugTool: dataSet.lugTool.value,
-        renterIn: dataSet.renterIn.value,
         renterOut: dataSet.renterOut.value,
         remark: dataSet.remark.value,
         license: license.toUpperCase(),
-        renterInSignature: dataSet.renterInSignature.value,
         renterOutSignature: dataSet.renterOutSignature.value,
       }
       var reader = new FileReader()
@@ -292,16 +283,17 @@ export default function CustomerReview() {
       reader.onloadend = function () {
         var pdf = reader.result
         console.log(pdf)
-        SendSlip({
-          elements,
-          setloading,
-          showNotification,
-          showNotificationFailed,
-          cleanUp,
-        })
+        // SendSlip({
+        //   elements,
+        //   setloading,
+        //   showNotification,
+        //   showNotificationFailed,
+        //   cleanUp,
+        // })
       }
     }
   }
+
 
   const handleChange = ({ value, key }) => {
     switch (key) {
@@ -838,7 +830,7 @@ export default function CustomerReview() {
         setcompleted={setcompleted1}
         title="Request Unsuccessful!"
         subject="Incomplete form!"
-        message="Please ensure all required fields are filled, then try again"
+        message="Please ensure all fields are filled, then try again"
         notification={completed1}
         warning
       />
@@ -853,7 +845,7 @@ export default function CustomerReview() {
       {loading && <Loading />}
       <Completion score={score} />
       <form
-        id="submitReview"
+        id="rentersOut"
         onSubmit={HandleSubmission}
         css={`
           display: none;
@@ -874,7 +866,10 @@ export default function CustomerReview() {
             css={`
               padding: 20px;
               background: #fff;
-              border: 1px solid ${Colours.border};
+              border: 1px solid
+                ${dataSet.contractNumber.point === 1
+                  ? Colours.green
+                  : Colours.border};
               border-radius: 5px;
             `}
           >
@@ -937,13 +932,6 @@ export default function CustomerReview() {
           <SignatureOutModal
             close={() => history.goBack()}
             title="Renter Out"
-            setSignature={handleChange}
-          />
-        )}
-        {action === 'renterInSignature' && (
-          <SignatureInModal
-            close={() => history.goBack()}
-            title="Renter In"
             setSignature={handleChange}
           />
         )}

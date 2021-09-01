@@ -31,8 +31,42 @@ export default function InspectionChecklist({ dataSet, handleChange }) {
     rearGlass: { value: rearGlass },
   } = dataSet || {}
 
+  const Pass = () => {
+    let value =
+      dataSet.frontDoorLeft.point +
+      dataSet.frontDoorRight.point +
+      dataSet.front.point +
+      dataSet.roof.point +
+      dataSet.rearDoorLeft.point +
+      dataSet.rear.point +
+      dataSet.frontFenderLeft.point +
+      dataSet.rearDoorRight.point +
+      dataSet.frontWheelLeft.point +
+      dataSet.frontFenderRight.point +
+      dataSet.frontWheelRight.point +
+      dataSet.rearFenderLeft.point +
+      dataSet.rearFenderRight.point +
+      dataSet.rearWheelLeft.point +
+      dataSet.rearWheelRight.point +
+      dataSet.doorRear.point +
+      dataSet.runningBoardLeft.point +
+      dataSet.runningBoardRight.point +
+      dataSet.frontWindowLeft.point +
+      dataSet.frontWindowRight.point +
+      dataSet.rearWindowLeft.point +
+      dataSet.rearWindowRight.point +
+      dataSet.windshield.point +
+      dataSet.rearGlass.point
+
+    if (value === 24) return true
+
+    return false
+  }
+
   return (
-    <FormControl.FieldSet>
+    <FormControl.FieldSet
+      borderColour={Pass() ? Colours.green : Colours.border}
+    >
       <FormControl.Legend>Damage Checklist</FormControl.Legend>
       <div
         css={`

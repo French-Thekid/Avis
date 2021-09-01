@@ -15,7 +15,13 @@ export default function InspectionChecklist({ dataSet, handleChange, out }) {
   const history = useHistory()
 
   return (
-    <FormControl.FieldSet>
+    <FormControl.FieldSet
+      borderColour={
+        dataSet.renterOutSignature.point === 1 && dataSet.renterOut.point === 1
+          ? Colours.green
+          : Colours.border
+      }
+    >
       <FormControl.Legend>Signing</FormControl.Legend>
       <Core.Text size="14px" color={Colours.input}>
         I ACKNOWLEDGE THAT I HAVE EXAMMINED THE CAR AND THE ABOVE INFORMATION IS

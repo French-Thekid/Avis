@@ -70,9 +70,7 @@ export default function TemplateHeader({
   year = '2019',
   make = 'Mercedes-Benz',
   model = 'C-180',
-  mileageIn = '12500',
   mileageOut = '12500',
-  fuelIn = '1/4',
   fuelOut = '1/4',
   contractNumber = '12343213',
   license = '1245GH',
@@ -103,10 +101,6 @@ export default function TemplateHeader({
             <Text style={styles.title}>Mileage Out: </Text>
             <Text style={styles.value1}>{mileageOut} km</Text>
           </View>
-          <View style={styles.pair}>
-            <Text style={styles.title}>Mileage In: </Text>
-            <Text style={styles.value1}>{mileageIn} km</Text>
-          </View>
         </View>
         <View style={styles.right}>
           <View style={styles.pair}>
@@ -120,10 +114,6 @@ export default function TemplateHeader({
           <View style={styles.pair}>
             <Text style={styles.title}>Fuel Out: </Text>
             <Text style={styles.value1}>{fuelOut} tank</Text>
-          </View>
-          <View style={styles.pair}>
-            <Text style={styles.title}>Fuel In: </Text>
-            <Text style={styles.value1}>{fuelIn} tank</Text>
           </View>
         </View>
       </View>

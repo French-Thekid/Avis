@@ -1,7 +1,7 @@
 import React from 'react'
 import 'styled-components/macro'
 
-import { FormControl } from '../../../components'
+import { FormControl, Colours } from '../../../components'
 
 export default function InspectionChecklist({ dataSet, handleChange }) {
   const {
@@ -12,15 +12,29 @@ export default function InspectionChecklist({ dataSet, handleChange }) {
     spear: { value: spear },
   } = dataSet || {}
 
+  const Pass = () => {
+    let value =
+      dataSet.tyreLeftFront.point +
+      dataSet.tyreRightFront.point +
+      dataSet.tyreLeftRear.point +
+      dataSet.tyreRightRear.point +
+      dataSet.spear.point
+
+    if (value === 5) return true
+
+    return false
+  }
+
   return (
-    <FormControl.FieldSet>
+    <FormControl.FieldSet
+      borderColour={Pass() ? Colours.green : Colours.border}
+    >
       <FormControl.Legend>Tyres</FormControl.Legend>
       <div
         css={`
           display: grid;
           grid-template-columns: 1fr 1fr;
-          grid-column-gap: 20px;
-          grid-row-gap: 10px;
+          grid-gap: 20px;
         `}
       >
         <FormControl.Input

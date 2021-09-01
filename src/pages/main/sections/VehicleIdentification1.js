@@ -1,7 +1,7 @@
 import React from 'react'
 import 'styled-components/macro'
 
-import { FormControl } from '../../../components'
+import { FormControl, Colours } from '../../../components'
 
 export default function VehicleIdentification({
   value,
@@ -11,6 +11,7 @@ export default function VehicleIdentification({
   dataSet,
   handleChange,
   updateDataSet,
+  out,
 }) {
   const {
     make: { value: make },
@@ -19,7 +20,9 @@ export default function VehicleIdentification({
   } = dataSet || {}
 
   return (
-    <FormControl.FieldSet>
+    <FormControl.FieldSet
+      borderColour={dataSet.model.point === 1 ? Colours.green : Colours.border}
+    >
       <FormControl.Legend>Vehicle Identification</FormControl.Legend>
       <div
         css={`
@@ -43,6 +46,7 @@ export default function VehicleIdentification({
           suggestions={suggestions}
           setSuggestions={setSuggestions}
           updateDataSet={updateDataSet}
+          disabled={!out}
         />
 
         <FormControl.Input

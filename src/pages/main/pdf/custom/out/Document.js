@@ -81,7 +81,7 @@ export default function MyDocument({
   renterOutSignature,
   assignee,
   date,
-  direction = 'In',
+  direction = 'Out',
 }) {
   return (
     <Document title={`${assignee || ''} Vehicle Inspection Slip ${date || ''}`}>

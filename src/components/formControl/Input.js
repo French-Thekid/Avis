@@ -80,6 +80,7 @@ export function Autofill({
   suggestions,
   setSuggestions,
   updateDataSet,
+  disabled,
 }) {
   const handleChange = (event, { newValue, method }) => {
     setValue(newValue.split(' ')[0])
@@ -146,6 +147,7 @@ export function Autofill({
     value,
     onChange: handleChange,
     maxLength: 6,
+    disabled: disabled,
   }
 
   return (

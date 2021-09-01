@@ -1,7 +1,7 @@
 import React from 'react'
 import 'styled-components/macro'
 
-import { FormControl } from '../../../components'
+import { FormControl, Colours } from '../../../components'
 import { FuelLevels } from './VehicleIdentifications'
 
 export default function VehicleIdentification({ dataSet, handleChange, out }) {
@@ -13,7 +13,16 @@ export default function VehicleIdentification({ dataSet, handleChange, out }) {
   } = dataSet || {}
 
   return (
-    <FormControl.FieldSet>
+    <FormControl.FieldSet
+      borderColour={
+        (dataSet.mileageOut.point === 1 &&
+          dataSet.fuelOut.point === 1 &&
+          out) ||
+        (dataSet.mileageIn.point === 1 && dataSet.fuelIn.point === 1 && !out)
+          ? Colours.green
+          : Colours.border
+      }
+    >
       <FormControl.Legend>Mileage/Fuel Checks</FormControl.Legend>
       <div
         css={`
@@ -31,25 +40,34 @@ export default function VehicleIdentification({ dataSet, handleChange, out }) {
           }
         `}
       >
+        <FormControl.Input
+          id="mileageOut"
+          label="Mileage Out"
+          placeholder="Mileage Out"
+          name="mileageOut"
+          type="number"
+          onChange={(e) => handleChange({ value: e, key: 'mileageOut' })}
+          value={mileageOut}
+          disabled={!out}
+        />
         {!out && (
           <FormControl.Input
             id="mileageIn"
             label="Mileage In"
             placeholder="Mileage In"
             name="mileageIn"
-            type="text"
+            type="number"
             onChange={(e) => handleChange({ value: e, key: 'mileageIn' })}
             value={mileageIn}
           />
         )}
-        <FormControl.Input
-          id="mileageOut"
-          label="Mileage Out"
-          placeholder="Mileage Out"
-          name="mileageOut"
-          type="text"
-          onChange={(e) => handleChange({ value: e, key: 'mileageOut' })}
-          value={mileageOut}
+
+        <FormControl.Select
+          value={fuelOut}
+          groups={FuelLevels}
+          label="Fuel Out"
+          name="fuelOut"
+          handlechange={(e) => handleChange({ value: e, key: 'fuelOut' })}
           disabled={!out}
         />
         {!out && (
@@ -61,14 +79,6 @@ export default function VehicleIdentification({ dataSet, handleChange, out }) {
             handlechange={(e) => handleChange({ value: e, key: 'fuelIn' })}
           />
         )}
-        <FormControl.Select
-          value={fuelOut}
-          groups={FuelLevels}
-          label="Fuel Out"
-          name="fuelOut"
-          handlechange={(e) => handleChange({ value: e, key: 'fuelOut' })}
-          disabled={!out}
-        />
       </div>
     </FormControl.FieldSet>
   )

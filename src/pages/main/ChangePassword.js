@@ -4,7 +4,7 @@ import 'styled-components/macro'
 import tickLogo from '../../assets/tick.png'
 import { Layout, Colours, Core } from '../../components'
 import { ChangePasswordForm } from './forms'
-// import PDF from './pdf/report/PDF'
+import PDF from './pdf/custom/PDF'
 
 export default function ChangePassword() {
   return (
@@ -15,8 +15,8 @@ export default function ChangePassword() {
         height: calc(100% - 40px);
       `}
     >
-      {/* <PDF /> */}
-      <Layout.Container>
+      <PDF />
+      {/* <Layout.Container>
         <div
           css={`
             display: grid;
@@ -47,7 +47,7 @@ export default function ChangePassword() {
               src={tickLogo}
               alt="tick"
               css={`
-                /* Ipod pro */
+                /* Ipod pro 
                 @media (width: 1024px) {
                   @media (height: 1366px) {
                     @media (orientation: portrait) {
@@ -56,7 +56,7 @@ export default function ChangePassword() {
                     }
                   }
                 }
-                /* tablet portrait */
+                /* tablet portrait 
                 @media screen and (max-width: 769px) {
                   @media screen and (max-height: 1025px) {
                     @media screen and (orientation: portrait) {
@@ -65,7 +65,7 @@ export default function ChangePassword() {
                     }
                   }
                 }
-                /* Tablets */
+                /* Tablets 
                 @media screen and (max-width: 1025px) {
                   @media screen and (max-height: 769px) {
                     @media screen and (orientation: landscape) {
@@ -90,8 +90,8 @@ export default function ChangePassword() {
           `}
         >
           <ChangePasswordForm id={'changePassword'} />
-        </div>
-      </Layout.Container>
+        </div> 
+      </Layout.Container>*/}
     </div>
   )
 }
