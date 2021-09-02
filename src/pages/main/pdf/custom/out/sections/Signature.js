@@ -57,7 +57,7 @@ export default function Signature({
     <View style={styles.Container} wrap={false}>
       <Text style={styles.disclaimer}>
         I acknowledge that I have examined the car and the above information is
-        correct. I understand that a cleaning fee may apply for amoking in the
+        correct. I understand that a cleaning fee may apply for smoking in the
         vehicle.
       </Text>
       <View style={styles.signitureColumn}>

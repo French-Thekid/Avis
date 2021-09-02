@@ -12,6 +12,8 @@ export default function VehicleIdentification({
   handleChange,
   updateDataSet,
   out,
+  setFetching,
+  fetchData,
 }) {
   const {
     make: { value: make },
@@ -46,7 +48,9 @@ export default function VehicleIdentification({
           suggestions={suggestions}
           setSuggestions={setSuggestions}
           updateDataSet={updateDataSet}
-          disabled={!out}
+          setFetching={setFetching}
+          out={out}
+          fetchData={fetchData}
         />
 
         <FormControl.Input

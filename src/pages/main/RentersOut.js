@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import 'styled-components/macro'
 import { Colours, FormControl, Notification, Loading } from '../../components'
@@ -16,6 +16,7 @@ import { SignatureOutModal } from './modals'
 import { SendSlip } from './SendEmail'
 import MyDocument from './pdf/custom/out/Document'
 import { pdf } from '@react-pdf/renderer'
+import { FirebaseContext } from '../firebase'
 
 const queryString = require('query-string')
 
@@ -24,6 +25,7 @@ export default function CustomerReview() {
   const { search } = useLocation()
   const { action } = queryString.parse(search)
 
+  const firebase = useContext(FirebaseContext)
   //State Management
   const [dataSet, updateDataSet] = useState({
     contractNumber: { value: '', point: 0 },
@@ -206,6 +208,26 @@ export default function CustomerReview() {
     })
   }
 
+  function storeData({ license, ...rest }) {
+    try {
+      firebase.db
+        .collection('RentersOut')
+        .doc(license)
+        .set({
+          ...rest,
+        })
+        .then(function () {
+          console.log('Renters out successfully stored!')
+        })
+        .catch(function (error) {
+          console.error('Error storing renters out: ', error)
+        })
+    } catch (e) {
+      console.log(e)
+    }
+    return true
+  }
+
   let TimeExtrator = new Intl.DateTimeFormat('en', {
     timeStyle: 'short',
   })
@@ -274,6 +296,10 @@ export default function CustomerReview() {
         license: license.toUpperCase(),
         renterOutSignature: dataSet.renterOutSignature.value,
       }
+      //Storing in DB
+      storeData({ ...elements })
+
+      //Generating PDF
       var reader = new FileReader()
       const doc = <MyDocument {...elements} />
       const asPdf = pdf([])
@@ -283,17 +309,16 @@ export default function CustomerReview() {
       reader.onloadend = function () {
         var pdf = reader.result
         console.log(pdf)
-        // SendSlip({
-        //   elements,
-        //   setloading,
-        //   showNotification,
-        //   showNotificationFailed,
-        //   cleanUp,
-        // })
+        SendSlip({
+          elements,
+          setloading,
+          showNotification,
+          showNotificationFailed,
+          cleanUp,
+        })
       }
     }
   }
-
 
   const handleChange = ({ value, key }) => {
     switch (key) {
@@ -914,6 +939,7 @@ export default function CustomerReview() {
           dataSet={dataSet}
           handleChange={handleChange}
           updateDataSet={updateDataSet}
+          out
         />
         <Gap />
         <MileageFuelCheck out dataSet={dataSet} handleChange={handleChange} />

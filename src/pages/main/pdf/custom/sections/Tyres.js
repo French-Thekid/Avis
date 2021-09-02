@@ -38,10 +38,31 @@ const styles = StyleSheet.create({
     justifyContent: 'start',
   },
   title: { fontSize: 12, color: '#236fa1' },
+  value: { fontSize: 12, color: '#000' },
   text: { fontSize: 12, marginRight: 15, alignContent: 'center' },
   group: {
     flexDirection: 'row',
     alignContent: 'start',
+  },
+  group1: {
+    flexDirection: 'row',
+    alignContent: 'start',
+    marginLeft: 37,
+  },
+  group2: {
+    flexDirection: 'row',
+    alignContent: 'start',
+    marginLeft: 53,
+  },
+  group3: {
+    flexDirection: 'row',
+    alignContent: 'start',
+    marginLeft: 31,
+  },
+  group4: {
+    flexDirection: 'row',
+    alignContent: 'start',
+    marginLeft: 32,
   },
   left: {
     width: 278,
@@ -53,13 +74,25 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignContent: 'start',
   },
+  left1: {
+    width: 90,
+    flexDirection: 'column',
+    alignContent: 'start',
+    justifyContent: 'start',
+  },
+  right1: {
+    width: 90,
+    flexDirection: 'column',
+    alignContent: 'start',
+    marginLeft: 10,
+  },
 })
 
 function StylesList(space) {
   // Create styles
   const styles = StyleSheet.create({
     value: {
-      fontSize: 12,
+      fontSize: 11,
       color: '#000000',
       marginLeft: space,
     },
@@ -74,29 +107,35 @@ function StylesList(space) {
 }
 
 export default function Tyres({
-  direction = '',
-  tyreLeftFront = '--',
-  tyreRightFront = '--',
-  tyreLeftRear = '--',
-  tyreRightRear = '--',
-  spear = '--',
+  tyreLeftFront = 'Maxxis 790',
+  tyreRightFront = 'Maxxis 790',
+  tyreLeftRear = 'Maxxis 790',
+  tyreRightRear = 'Maxxis 790',
+  spear = 'Maxxis 790',
+  tyreLeftFront1 = 'Maxxis 790',
+  tyreRightFront1 = 'Maxxis 790',
+  tyreLeftRear1 = 'Maxxis 790',
+  tyreRightRear1 = 'Maxxis 790',
+  spear1 = 'Maxxis 790',
 }) {
   return (
     <View style={styles.headerContainer}>
       <View style={styles.logoContainer}>
-        <Text style={styles.Title}>Tyres ({direction})</Text>
+        <Text style={styles.Title}>Tyres</Text>
       </View>
       <View style={styles.group}>
         <View style={styles.left}>
           <View style={styles.ListHeader}>
             <Text style={styles.title}>Item</Text>
-            <Text style={StylesList(130).title}>Detail</Text>
+            <Text style={StylesList(60).title}>Out</Text>
+            <Text style={StylesList(80).title}>In</Text>
           </View>
         </View>
         <View style={styles.right}>
           <View style={styles.ListHeader}>
             <Text style={styles.title}>Item</Text>
-            <Text style={StylesList(130).title}>Detail</Text>
+            <Text style={StylesList(60).title}>Out</Text>
+            <Text style={StylesList(80).title}>In</Text>
           </View>
         </View>
       </View>
@@ -104,25 +143,60 @@ export default function Tyres({
         <View style={styles.left}>
           <View style={styles.ListSubValues}>
             <Text style={StylesList(0).value}>Left Front</Text>
-            <Text style={StylesList(103).value}>{tyreLeftFront}</Text>
+            <View style={styles.group1}>
+              <View style={styles.left1}>
+                <Text style={styles.value}>{tyreLeftFront}</Text>
+              </View>
+              <View style={styles.right1}>
+                <Text style={styles.value}>{tyreLeftFront1}</Text>
+              </View>
+            </View>
           </View>
           <View style={styles.ListSubValues}>
             <Text style={StylesList(0).value}>Left Rear</Text>
-            <Text style={StylesList(105).value}>{tyreLeftRear}</Text>
+            <View style={styles.group1}>
+              <View style={styles.left1}>
+                <Text style={styles.value}>{tyreLeftRear}</Text>
+              </View>
+              <View style={styles.right1}>
+                <Text style={styles.value}>{tyreLeftRear1}</Text>
+              </View>
+            </View>
           </View>
           <View style={styles.ListSubValues}>
             <Text style={StylesList(0).value}>Spear</Text>
-            <Text style={StylesList(122).value}>{spear}</Text>
+            <View style={styles.group2}>
+              <View style={styles.left1}>
+                <Text style={styles.value}>{spear}</Text>
+              </View>
+              <View style={styles.right1}>
+                <Text style={styles.value}>{spear1}</Text>
+              </View>
+            </View>
           </View>
         </View>
         <View style={styles.right}>
           <View style={styles.ListSubValues}>
             <Text style={StylesList(0).value}>Right Front</Text>
-            <Text style={StylesList(97).value}>{tyreRightFront}</Text>
+            <View style={styles.group3}>
+              <View style={styles.left1}>
+                <Text style={styles.value}>{tyreRightFront}</Text>
+              </View>
+              <View style={styles.right1}>
+                <Text style={styles.value}>{tyreRightFront1}</Text>
+              </View>
+            </View>
           </View>
           <View style={styles.ListSubValues}>
             <Text style={StylesList(0).value}>Right Rear</Text>
-            <Text style={StylesList(99).value}>{tyreRightRear}</Text>
+            <View style={styles.group4}>
+              <View style={styles.left1}>
+                <Text style={styles.value}>{tyreRightRear}</Text>
+              </View>
+              <View style={styles.right1}>
+                <Text style={styles.value}>{tyreRightRear1}</Text>
+              </View>
+            </View>
           </View>
         </View>
       </View>

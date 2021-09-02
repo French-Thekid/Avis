@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import 'styled-components/macro'
 import { Colours, FormControl, Notification, Loading } from '../../components'
@@ -16,127 +16,277 @@ import { SignatureOutModal, SignatureInModal } from './modals'
 import { SendSlip } from './SendEmail'
 import MyDocument from './pdf/custom/Document'
 import { pdf } from '@react-pdf/renderer'
+import { FirebaseContext } from '../firebase'
 
 const queryString = require('query-string')
 
-export default function CustomerReview() {
+export default function RentersIn() {
   const history = useHistory()
   const { search } = useLocation()
   const { action } = queryString.parse(search)
+  const firebase = useContext(FirebaseContext)
+  const [data, setData] = useState({})
+  const [license, setLicense] = useState('')
+  const [suggestions, setSuggestions] = useState([])
+  const [completed, setcompleted] = useState(false)
+  const [completed1, setcompleted1] = useState(false)
+  const [completed2, setcompleted2] = useState(false)
+  const [completed3, setcompleted3] = useState(false)
+  const [loading, setloading] = useState(false)
+  const [fetching, setFetching] = useState(false)
 
-  const data = {
-    contractNumber: '1232321',
-    license: '1301FT',
-    make: 'TOYOTA',
-    model: 'HILUX',
-    year: '2010',
-    mileageIn: '',
-    mileageOut: '23670',
-    fuelIn: '',
-    fuelOut: '3/4',
-    frontDoorLeft: 5,
-    frontDoorRight: 5,
-    front: 5,
-    roof: 5,
-    rearDoorLeft: 5,
-    rear: 5,
-    frontFenderLeft: 5,
-    rearDoorRight: 5,
-    frontWheelLeft: 5,
-    frontFenderRight: 5,
-    frontWheelRight: 5,
-    rearFenderLeft: 5,
-    rearFenderRight: 5,
-    rearWheelLeft: 5,
-    rearWheelRight: 5,
-    doorRear: 5,
-    runningBoardLeft: 5,
-    runningBoardRight: 5,
-    frontWindowLeft: 5,
-    frontWindowRight: 5,
-    rearWindowLeft: 5,
-    rearWindowRight: 5,
-    windshield: 5,
-    rearGlass: 5,
-    tyreLeftFront: 'Maxis',
-    tyreRightFront: 'Maxis',
-    tyreLeftRear: 'Maxis',
-    tyreRightRear: 'Maxis',
-    spear: 'Maxis',
-    mats: 5,
-    upholstery: 5,
-    sideMirror: 5,
-    rims: 5,
-    hubcaps: 5,
-    jacks: 5,
-    lugTool: 5,
-    renterIn: '',
-    renterOut: 'Darryl Brown',
-    remark: 'Sample Remark',
-    renterInSignature: '',
-    renterOutSignature: 'Checked',
+  const deleteRenterOut = ({ key }) => {
+    firebase.db.collection('RentersOut').doc(key).delete()
+  }
+
+  const fetchData = ({ key }) => {
+    console.log('Fetching for :', key)
+    try {
+      firebase.db
+        .collection(`RentersOut`)
+        .doc(key)
+        .get()
+        .then((snapshot) => {
+          setFetching(false)
+          console.log('Here', snapshot.data())
+          if (snapshot.data() !== undefined && snapshot.data() !== null) {
+            setData(snapshot.data())
+            updateDataSet((prevState) => {
+              return {
+                ...prevState,
+                contractNumber: {
+                  value: snapshot.data().contractNumber,
+                  point: snapshot.data().contractNumber === '' ? 0 : 1,
+                },
+                mileageOut: {
+                  value: snapshot.data().mileageOut,
+                  point: snapshot.data().mileageOut === '' ? 0 : 1,
+                },
+                fuelOut: {
+                  value: snapshot.data().fuelOut,
+                  point: snapshot.data().fuelOut === '' ? 0 : 1,
+                },
+                frontDoorLeft: {
+                  value: snapshot.data().frontDoorLeft,
+                  point: snapshot.data().frontDoorLeft === '' ? 0 : 1,
+                },
+                frontDoorRight: {
+                  value: snapshot.data().frontDoorRight,
+                  point: snapshot.data().frontDoorRight === '' ? 0 : 1,
+                },
+                front: {
+                  value: snapshot.data().front,
+                  point: snapshot.data().front === '' ? 0 : 1,
+                },
+                roof: {
+                  value: snapshot.data().roof,
+                  point: snapshot.data().roof === '' ? 0 : 1,
+                },
+                rearDoorLeft: {
+                  value: snapshot.data().rearDoorLeft,
+                  point: snapshot.data().rearDoorLeft === '' ? 0 : 1,
+                },
+                rear: {
+                  value: snapshot.data().rear,
+                  point: snapshot.data().rear === '' ? 0 : 1,
+                },
+                frontFenderLeft: {
+                  value: snapshot.data().frontFenderLeft,
+                  point: snapshot.data().frontFenderLeft === '' ? 0 : 1,
+                },
+                rearDoorRight: {
+                  value: snapshot.data().rearDoorRight,
+                  point: snapshot.data().rearDoorRight === '' ? 0 : 1,
+                },
+                frontWheelLeft: {
+                  value: snapshot.data().frontWheelLeft,
+                  point: snapshot.data().frontWheelLeft === '' ? 0 : 1,
+                },
+                frontFenderRight: {
+                  value: snapshot.data().frontFenderRight,
+                  point: snapshot.data().frontFenderRight === '' ? 0 : 1,
+                },
+                frontWheelRight: {
+                  value: snapshot.data().frontWheelRight,
+                  point: snapshot.data().frontWheelRight === '' ? 0 : 1,
+                },
+                rearFenderLeft: {
+                  value: snapshot.data().rearFenderLeft,
+                  point: snapshot.data().rearFenderLeft === '' ? 0 : 1,
+                },
+                rearFenderRight: {
+                  value: snapshot.data().rearFenderRight,
+                  point: snapshot.data().rearFenderRight === '' ? 0 : 1,
+                },
+                rearWheelLeft: {
+                  value: snapshot.data().rearWheelLeft,
+                  point: snapshot.data().rearWheelLeft === '' ? 0 : 1,
+                },
+                rearWheelRight: {
+                  value: snapshot.data().rearWheelRight,
+                  point: snapshot.data().rearWheelRight === '' ? 0 : 1,
+                },
+                doorRear: {
+                  value: snapshot.data().doorRear,
+                  point: snapshot.data().doorRear === '' ? 0 : 1,
+                },
+                runningBoardLeft: {
+                  value: snapshot.data().runningBoardLeft,
+                  point: snapshot.data().runningBoardLeft === '' ? 0 : 1,
+                },
+                runningBoardRight: {
+                  value: snapshot.data().runningBoardRight,
+                  point: snapshot.data().runningBoardRight === '' ? 0 : 1,
+                },
+                frontWindowLeft: {
+                  value: snapshot.data().frontWindowLeft,
+                  point: snapshot.data().frontWindowLeft === '' ? 0 : 1,
+                },
+                frontWindowRight: {
+                  value: snapshot.data().frontWindowRight,
+                  point: snapshot.data().frontWindowRight === '' ? 0 : 1,
+                },
+                rearWindowLeft: {
+                  value: snapshot.data().rearWindowLeft,
+                  point: snapshot.data().rearWindowLeft === '' ? 0 : 1,
+                },
+                rearWindowRight: {
+                  value: snapshot.data().rearWindowRight,
+                  point: snapshot.data().rearWindowRight === '' ? 0 : 1,
+                },
+                windshield: {
+                  value: snapshot.data().windshield,
+                  point: snapshot.data().windshield === '' ? 0 : 1,
+                },
+                rearGlass: {
+                  value: snapshot.data().rearGlass,
+                  point: snapshot.data().rearGlass === '' ? 0 : 1,
+                },
+                tyreLeftFront: {
+                  value: snapshot.data().tyreLeftFront,
+                  point: snapshot.data().tyreLeftFront === '' ? 0 : 1,
+                },
+                tyreRightFront: {
+                  value: snapshot.data().tyreRightFront,
+                  point: snapshot.data().tyreRightFront === '' ? 0 : 1,
+                },
+                tyreLeftRear: {
+                  value: snapshot.data().tyreLeftRear,
+                  point: snapshot.data().tyreLeftRear === '' ? 0 : 1,
+                },
+                tyreRightRear: {
+                  value: snapshot.data().tyreRightRear,
+                  point: snapshot.data().tyreRightRear === '' ? 0 : 1,
+                },
+                spear: {
+                  value: snapshot.data().spear,
+                  point: snapshot.data().spear === '' ? 0 : 1,
+                },
+                mats: {
+                  value: snapshot.data().mats,
+                  point: snapshot.data().mats === '' ? 0 : 1,
+                },
+                upholstery: {
+                  value: snapshot.data().upholstery,
+                  point: snapshot.data().upholstery === '' ? 0 : 1,
+                },
+                sideMirror: {
+                  value: snapshot.data().sideMirror,
+                  point: snapshot.data().sideMirror === '' ? 0 : 1,
+                },
+                rims: {
+                  value: snapshot.data().rims,
+                  point: snapshot.data().rims === '' ? 0 : 1,
+                },
+                hubcaps: {
+                  value: snapshot.data().hubcaps,
+                  point: snapshot.data().hubcaps === '' ? 0 : 1,
+                },
+                jacks: {
+                  value: snapshot.data().jacks,
+                  point: snapshot.data().jacks === '' ? 0 : 1,
+                },
+                lugTool: {
+                  value: snapshot.data().lugTool,
+                  point: snapshot.data().lugTool === '' ? 0 : 1,
+                },
+                renterOut: {
+                  value: snapshot.data().renterOut,
+                  point: snapshot.data().renterOut === '' ? 0 : 1,
+                },
+                renterOutSignature: {
+                  value: snapshot.data().renterOutSignature,
+                  point: snapshot.data().renterOutSignature === '' ? 0 : 1,
+                },
+                remark: {
+                  value: snapshot.data().remark,
+                  point: snapshot.data().remark === '' ? 0 : 1,
+                },
+              }
+            })
+          } else {
+            setFetching(false)
+            showNotificationNoRenterFound()
+          }
+        })
+    } catch (e) {
+      setFetching(false)
+      console.log('Failed')
+    }
   }
 
   //State Management
   const [dataSet, updateDataSet] = useState({
-    contractNumber: { value: data.contractNumber, point: 1 },
-    make: { value: data.make, point: 1 },
-    model: { value: data.model, point: 1 },
-    year: { value: data.year, point: 1 },
+    contractNumber: { value: '', point: 0 },
+    make: { value: '', point: 0 },
+    model: { value: '', point: 0 },
+    year: { value: '', point: 0 },
     mileageIn: { value: '', point: 0 },
-    mileageOut: { value: data.mileageOut, point: 1 },
+    mileageOut: { value: '', point: 0 },
     fuelIn: { value: '', point: 0 },
-    fuelOut: { value: data.fuelOut, point: 1 },
-    frontDoorLeft: { value: data.frontDoorLeft, point: 1 },
-    frontDoorRight: { value: data.frontDoorRight, point: 1 },
-    front: { value: data.front, point: 1 },
-    roof: { value: data.roof, point: 1 },
-    rearDoorLeft: { value: data.rearDoorLeft, point: 1 },
-    rear: { value: data.rear, point: 1 },
-    frontFenderLeft: { value: data.frontFenderLeft, point: 1 },
-    rearDoorRight: { value: data.rearDoorRight, point: 1 },
-    frontWheelLeft: { value: data.frontWheelLeft, point: 1 },
-    frontFenderRight: { value: data.frontFenderRight, point: 1 },
-    frontWheelRight: { value: data.frontWheelRight, point: 1 },
-    rearFenderLeft: { value: data.rearFenderLeft, point: 1 },
-    rearFenderRight: { value: data.rearFenderRight, point: 1 },
-    rearWheelLeft: { value: data.rearWheelLeft, point: 1 },
-    rearWheelRight: { value: data.rearWheelRight, point: 1 },
-    doorRear: { value: data.doorRear, point: 1 },
-    runningBoardLeft: { value: data.runningBoardLeft, point: 1 },
-    runningBoardRight: { value: data.runningBoardRight, point: 1 },
-    frontWindowLeft: { value: data.frontWindowLeft, point: 1 },
-    frontWindowRight: { value: data.frontWindowRight, point: 1 },
-    rearWindowLeft: { value: data.rearWindowLeft, point: 1 },
-    rearWindowRight: { value: data.rearWindowRight, point: 1 },
-    windshield: { value: data.windshield, point: 1 },
-    rearGlass: { value: data.rearGlass, point: 1 },
-    tyreLeftFront: { value: data.tyreLeftFront, point: 1 },
-    tyreRightFront: { value: data.tyreRightFront, point: 1 },
-    tyreLeftRear: { value: data.tyreLeftRear, point: 1 },
-    tyreRightRear: { value: data.tyreRightRear, point: 1 },
-    spear: { value: data.spear, point: 1 },
-    mats: { value: data.mats, point: 1 },
-    upholstery: { value: data.upholstery, point: 1 },
-    sideMirror: { value: data.sideMirror, point: 1 },
-    rims: { value: data.rims, point: 1 },
-    hubcaps: { value: data.hubcaps, point: 1 },
-    jacks: { value: data.jacks, point: 1 },
-    lugTool: { value: data.lugTool, point: 1 },
+    fuelOut: { value: '', point: 0 },
+    frontDoorLeft: { value: '', point: 0 },
+    frontDoorRight: { value: '', point: 0 },
+    front: { value: '', point: 0 },
+    roof: { value: '', point: 0 },
+    rearDoorLeft: { value: '', point: 0 },
+    rear: { value: '', point: 0 },
+    frontFenderLeft: { value: '', point: 0 },
+    rearDoorRight: { value: '', point: 0 },
+    frontWheelLeft: { value: '', point: 0 },
+    frontFenderRight: { value: '', point: 0 },
+    frontWheelRight: { value: '', point: 0 },
+    rearFenderLeft: { value: '', point: 0 },
+    rearFenderRight: { value: '', point: 0 },
+    rearWheelLeft: { value: '', point: 0 },
+    rearWheelRight: { value: '', point: 0 },
+    doorRear: { value: '', point: 0 },
+    runningBoardLeft: { value: '', point: 0 },
+    runningBoardRight: { value: '', point: 0 },
+    frontWindowLeft: { value: '', point: 0 },
+    frontWindowRight: { value: '', point: 0 },
+    rearWindowLeft: { value: '', point: 0 },
+    rearWindowRight: { value: '', point: 0 },
+    windshield: { value: '', point: 0 },
+    rearGlass: { value: '', point: 0 },
+    tyreLeftFront: { value: '', point: 0 },
+    tyreRightFront: { value: '', point: 0 },
+    tyreLeftRear: { value: '', point: 0 },
+    tyreRightRear: { value: '', point: 0 },
+    spear: { value: '', point: 0 },
+    mats: { value: '', point: 0 },
+    upholstery: { value: '', point: 0 },
+    sideMirror: { value: '', point: 0 },
+    rims: { value: '', point: 0 },
+    hubcaps: { value: '', point: 0 },
+    jacks: { value: '', point: 0 },
+    lugTool: { value: '', point: 0 },
     renterIn: { value: '', point: 0 },
-    renterOut: { value: data.renterOut, point: 1 },
-    remark: { value: data.remark, point: 1 },
+    renterOut: { value: '', point: 0 },
+    remark: { value: '', point: 0 },
     renterInSignature: { value: '', point: 0 },
-    renterOutSignature: { value: data.renterOutSignature, point: 1 },
+    renterOutSignature: { value: '', point: 0 },
   })
-
-  const [license, setLicense] = useState(data.license)
-  const [suggestions, setSuggestions] = useState([])
-
-  const [completed, setcompleted] = useState(false)
-  const [completed1, setcompleted1] = useState(false)
-  const [completed2, setcompleted2] = useState(false)
-  const [loading, setloading] = useState(false)
 
   const showNotification = () => {
     setcompleted(true)
@@ -156,6 +306,12 @@ export default function CustomerReview() {
     setcompleted2(true)
     setTimeout(() => {
       setcompleted2(false)
+    }, 8000)
+  }
+  const showNotificationNoRenterFound = () => {
+    setcompleted3(true)
+    setTimeout(() => {
+      setcompleted3(false)
     }, 8000)
   }
 
@@ -339,8 +495,109 @@ export default function CustomerReview() {
         renterInSignature: dataSet.renterInSignature.value,
         renterOutSignature: dataSet.renterOutSignature.value,
       }
+
+      const newData = {
+        date: `${new Date().toDateString()}  ${TimeExtrator.format(
+          Date.parse(new Date())
+        )
+          .toLowerCase()
+          .split(' ')
+          .join('')}`,
+        direction: 'In',
+        assignee: localStorage.getItem('LoggedInUser'),
+        contractNumber: dataSet.contractNumber.value,
+        make: dataSet.make.value,
+        model: dataSet.model.value,
+        year: dataSet.year.value,
+        mileageIn: dataSet.mileageIn.value,
+        mileageOut: dataSet.mileageOut.value,
+        fuelIn: dataSet.fuelIn.value,
+        fuelOut: dataSet.fuelOut.value,
+        frontDoorLeft1: dataSet.frontDoorLeft.value,
+        frontDoorRight1: dataSet.frontDoorRight.value,
+        front1: dataSet.front.value,
+        roof1: dataSet.roof.value,
+        rearDoorLeft1: dataSet.rearDoorLeft.value,
+        rear1: dataSet.rear.value,
+        frontFenderLeft1: dataSet.frontFenderLeft.value,
+        rearDoorRight1: dataSet.rearDoorRight.value,
+        frontWheelLeft1: dataSet.frontWheelLeft.value,
+        frontFenderRight1: dataSet.frontFenderRight.value,
+        frontWheelRight1: dataSet.frontWheelRight.value,
+        rearFenderLeft1: dataSet.rearFenderLeft.value,
+        rearFenderRight1: dataSet.rearFenderRight.value,
+        rearWheelLeft1: dataSet.rearWheelLeft.value,
+        rearWheelRight1: dataSet.rearWheelRight.value,
+        doorRear1: dataSet.doorRear.value,
+        runningBoardLeft1: dataSet.runningBoardLeft.value,
+        runningBoardRight1: dataSet.runningBoardRight.value,
+        frontWindowLeft1: dataSet.frontWindowLeft.value,
+        frontWindowRight1: dataSet.frontWindowRight.value,
+        rearWindowLeft1: dataSet.rearWindowLeft.value,
+        rearWindowRight1: dataSet.rearWindowRight.value,
+        windshield1: dataSet.windshield.value,
+        rearGlass1: dataSet.rearGlass.value,
+        tyreLeftFront1: dataSet.tyreLeftFront.value,
+        tyreRightFront1: dataSet.tyreRightFront.value,
+        tyreLeftRear1: dataSet.tyreLeftRear.value,
+        tyreRightRear1: dataSet.tyreRightRear.value,
+        spear1: dataSet.spear.value,
+        mats1: dataSet.mats.value,
+        upholstery1: dataSet.upholstery.value,
+        sideMirror1: dataSet.sideMirror.value,
+        rims1: dataSet.rims.value,
+        hubcaps1: dataSet.hubcaps.value,
+        jacks1: dataSet.jacks.value,
+        lugTool1: dataSet.lugTool.value,
+        renterIn: dataSet.renterIn.value,
+        renterOut: dataSet.renterOut.value,
+        remark: dataSet.remark.value,
+        license: license.toUpperCase(),
+        renterInSignature: dataSet.renterInSignature.value,
+        renterOutSignature: dataSet.renterOutSignature.value,
+      }
+      const OldData = {
+        frontDoorLeft: data.frontDoorLeft,
+        frontDoorRight: data.frontDoorRight,
+        front: data.front,
+        roof: data.roof,
+        rearDoorLeft: data.rearDoorLeft,
+        rear: data.rear,
+        frontFenderLeft: data.frontFenderLeft,
+        rearDoorRight: data.rearDoorRight,
+        frontWheelLeft: data.frontWheelLeft,
+        frontFenderRight: data.frontFenderRight,
+        frontWheelRight: data.frontWheelRight,
+        rearFenderLeft: data.rearFenderLeft,
+        rearFenderRight: data.rearFenderRight,
+        rearWheelLeft: data.rearWheelLeft,
+        rearWheelRight: data.rearWheelRight,
+        doorRear: data.doorRear,
+        runningBoardLeft: data.runningBoardLeft,
+        runningBoardRight: data.runningBoardRight,
+        frontWindowLeft: data.frontWindowLeft,
+        frontWindowRight: data.frontWindowRight,
+        rearWindowLeft: data.rearWindowLeft,
+        rearWindowRight: data.rearWindowRight,
+        windshield: data.windshield,
+        rearGlass: data.rearGlass,
+        tyreLeftFront: data.tyreLeftFront,
+        tyreRightFront: data.tyreRightFront,
+        tyreLeftRear: data.tyreLeftRear,
+        tyreRightRear: data.tyreRightRear,
+        spear: data.spear,
+        mats: data.mats,
+        upholstery: data.upholstery,
+        sideMirror: data.sideMirror,
+        rims: data.rims,
+        hubcaps: data.hubcaps,
+        jacks: data.jacks,
+        lugTool: data.lugTool,
+      }
+
+      deleteRenterOut({ key: license })
       var reader = new FileReader()
-      const doc = <MyDocument {...elements} />
+      const doc = <MyDocument {...OldData} {...newData} />
       const asPdf = pdf([])
       asPdf.updateContainer(doc)
       const blob = await asPdf.toBlob()
@@ -348,13 +605,13 @@ export default function CustomerReview() {
       reader.onloadend = function () {
         var pdf = reader.result
         console.log(pdf)
-        // SendSlip({
-        //   elements,
-        //   setloading,
-        //   showNotification,
-        //   showNotificationFailed,
-        //   cleanUp,
-        // })
+        SendSlip({
+          elements,
+          setloading,
+          showNotification,
+          showNotificationFailed,
+          cleanUp,
+        })
       }
     }
   }
@@ -906,7 +1163,15 @@ export default function CustomerReview() {
         notification={completed2}
         warning
       />
-      {loading && <Loading />}
+      <Notification
+        setcompleted={setcompleted3}
+        title="Request Unsuccessful!"
+        subject="No Result found for the selected vehicle"
+        message="Please check license plate number and try again"
+        notification={completed3}
+        warning
+      />
+      {(loading || fetching) && <Loading />}
       <Completion score={score} />
       <form
         id="rentersIn"
@@ -976,6 +1241,8 @@ export default function CustomerReview() {
           dataSet={dataSet}
           handleChange={handleChange}
           updateDataSet={updateDataSet}
+          setFetching={setFetching}
+          fetchData={fetchData}
         />
         <Gap />
         <MileageFuelCheck dataSet={dataSet} handleChange={handleChange} />

@@ -73,7 +73,6 @@ function StylesList(space) {
 }
 
 export default function Accessories({
-  direction = '',
   upholstery = '1',
   mats = '1',
   sideMirror = '1',
@@ -81,23 +80,32 @@ export default function Accessories({
   hubcaps = '1',
   jacks = '1',
   lugTool = '1',
+  upholstery1 = '1',
+  mats1 = '1',
+  sideMirror1 = '1',
+  rims1 = '1',
+  hubcaps1 = '1',
+  jacks1 = '1',
+  lugTool1 = '1',
 }) {
   return (
     <View style={styles.headerContainer}>
       <View style={styles.logoContainer}>
-        <Text style={styles.Title}>Accessories ({direction})</Text>
+        <Text style={styles.Title}>Accessories</Text>
       </View>
       <View style={styles.group}>
         <View style={styles.left}>
           <View style={styles.ListHeader}>
             <Text style={styles.title}>Item</Text>
-            <Text style={StylesList(150).title}>Condition</Text>
+            <Text style={StylesList(135).title}>Out</Text>
+            <Text style={StylesList(50).title}>In</Text>
           </View>
         </View>
         <View style={styles.right}>
           <View style={styles.ListHeader}>
             <Text style={styles.title}>Item</Text>
-            <Text style={StylesList(150).title}>Condition</Text>
+            <Text style={StylesList(135).title}>Out</Text>
+            <Text style={StylesList(50).title}>In</Text>
           </View>
         </View>
       </View>
@@ -105,33 +113,40 @@ export default function Accessories({
         <View style={styles.left}>
           <View style={styles.ListSubValues}>
             <Text style={StylesList(0).value}>Upholstery</Text>
-            <Text style={StylesList(140).value}>{upholstery}</Text>
+            <Text style={StylesList(107).value}>{upholstery}</Text>
+            <Text style={StylesList(57).value}>{upholstery1}</Text>
           </View>
           <View style={styles.ListSubValues}>
             <Text style={StylesList(0).value}>Side Mirror</Text>
-            <Text style={StylesList(140).value}>{sideMirror}</Text>
+            <Text style={StylesList(107).value}>{sideMirror}</Text>
+            <Text style={StylesList(57).value}>{sideMirror1}</Text>
           </View>
           <View style={styles.ListSubValues}>
             <Text style={StylesList(0).value}>Hub Caps</Text>
-            <Text style={StylesList(145).value}>{hubcaps}</Text>
+            <Text style={StylesList(112).value}>{hubcaps}</Text>
+            <Text style={StylesList(57).value}>{hubcaps1}</Text>
           </View>
           <View style={styles.ListSubValues}>
             <Text style={StylesList(0).value}>Lug Tool</Text>
-            <Text style={StylesList(154).value}>{lugTool}</Text>
+            <Text style={StylesList(121).value}>{lugTool}</Text>
+            <Text style={StylesList(57).value}>{lugTool1}</Text>
           </View>
         </View>
         <View style={styles.right}>
           <View style={styles.ListSubValues}>
             <Text style={StylesList(0).value}>Mats</Text>
-            <Text style={StylesList(169).value}>{mats}</Text>
+            <Text style={StylesList(140).value}>{mats}</Text>
+            <Text style={StylesList(57).value}>{mats1}</Text>
           </View>
           <View style={styles.ListSubValues}>
             <Text style={StylesList(0).value}>Rims</Text>
-            <Text style={StylesList(168).value}>{rims}</Text>
+            <Text style={StylesList(139).value}>{rims}</Text>
+            <Text style={StylesList(57).value}>{rims1}</Text>
           </View>
           <View style={styles.ListSubValues}>
             <Text style={StylesList(0).value}>Jacks</Text>
-            <Text style={StylesList(165).value}>{jacks}</Text>
+            <Text style={StylesList(136).value}>{jacks}</Text>
+            <Text style={StylesList(57).value}>{jacks1}</Text>
           </View>
         </View>
       </View>
