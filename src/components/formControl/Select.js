@@ -46,6 +46,7 @@ function SimpleSelect(props) {
     handlechange,
     handleblur,
     disabled = false,
+    name,
   } = props
 
   const { classes } = props
@@ -64,7 +65,7 @@ function SimpleSelect(props) {
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
           value={value}
-          // name={name}
+          name={name}
           onChange={handlechange}
           onBlur={handleblur}
           label={label}
