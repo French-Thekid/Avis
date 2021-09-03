@@ -88,10 +88,10 @@ export function Autofill({
   const handleChange = (event, { newValue, method }) => {
     setValue(newValue.split(' ')[0])
     if (newValue.split(' ')[0].length === 6) {
-      if (!out) setFetching(true)
+      // if (!out) setFetching(true)
       Vehicles().map((vehicle, index) => {
         if (vehicle.license === newValue.split(' ')[0].toUpperCase()) {
-          if (!out) fetchData({ key: newValue.split(' ')[0].toUpperCase() })
+          // if (!out) fetchData({ key: newValue.split(' ')[0].toUpperCase() })
           updateDataSet((prevState) => {
             return {
               ...prevState,
@@ -117,55 +117,56 @@ export function Autofill({
         return null
       })
     } else {
-      if (!out)
+      // if (!out)
         updateDataSet((prevState) => {
           return {
             ...prevState,
-            contractNumber: { value: '', point: 0 },
+            // contractNumber: { value: '', point: 0 },
             make: { value: '', point: 0 },
             model: { value: '', point: 0 },
             year: { value: '', point: 0 },
-            mileageOut: { value: '', point: 0 },
-            fuelOut: { value: '', point: 0 },
-            frontDoorLeft: { value: '', point: 0 },
-            frontDoorRight: { value: '', point: 0 },
-            front: { value: '', point: 0 },
-            roof: { value: '', point: 0 },
-            rearDoorLeft: { value: '', point: 0 },
-            rear: { value: '', point: 0 },
-            frontFenderLeft: { value: '', point: 0 },
-            rearDoorRight: { value: '', point: 0 },
-            frontWheelLeft: { value: '', point: 0 },
-            frontFenderRight: { value: '', point: 0 },
-            frontWheelRight: { value: '', point: 0 },
-            rearFenderLeft: { value: '', point: 0 },
-            rearFenderRight: { value: '', point: 0 },
-            rearWheelLeft: { value: '', point: 0 },
-            rearWheelRight: { value: '', point: 0 },
-            doorRear: { value: '', point: 0 },
-            runningBoardLeft: { value: '', point: 0 },
-            runningBoardRight: { value: '', point: 0 },
-            frontWindowLeft: { value: '', point: 0 },
-            frontWindowRight: { value: '', point: 0 },
-            rearWindowLeft: { value: '', point: 0 },
-            rearWindowRight: { value: '', point: 0 },
-            windshield: { value: '', point: 0 },
-            rearGlass: { value: '', point: 0 },
-            tyreLeftFront: { value: '', point: 0 },
-            tyreRightFront: { value: '', point: 0 },
-            tyreLeftRear: { value: '', point: 0 },
-            tyreRightRear: { value: '', point: 0 },
-            spear: { value: '', point: 0 },
-            mats: { value: '', point: 0 },
-            upholstery: { value: '', point: 0 },
-            sideMirror: { value: '', point: 0 },
-            rims: { value: '', point: 0 },
-            hubcaps: { value: '', point: 0 },
-            jacks: { value: '', point: 0 },
-            lugTool: { value: '', point: 0 },
-            renterOut: { value: '', point: 0 },
-            remark: { value: '', point: 0 },
-            renterOutSignature: { value: '', point: 0 },
+            colour: { value: '', point: 0 },
+            // mileageOut: { value: '', point: 0 },
+            // fuelOut: { value: '', point: 0 },
+            // frontDoorLeft: { value: '', point: 0 },
+            // frontDoorRight: { value: '', point: 0 },
+            // front: { value: '', point: 0 },
+            // roof: { value: '', point: 0 },
+            // rearDoorLeft: { value: '', point: 0 },
+            // rear: { value: '', point: 0 },
+            // frontFenderLeft: { value: '', point: 0 },
+            // rearDoorRight: { value: '', point: 0 },
+            // frontWheelLeft: { value: '', point: 0 },
+            // frontFenderRight: { value: '', point: 0 },
+            // frontWheelRight: { value: '', point: 0 },
+            // rearFenderLeft: { value: '', point: 0 },
+            // rearFenderRight: { value: '', point: 0 },
+            // rearWheelLeft: { value: '', point: 0 },
+            // rearWheelRight: { value: '', point: 0 },
+            // doorRear: { value: '', point: 0 },
+            // runningBoardLeft: { value: '', point: 0 },
+            // runningBoardRight: { value: '', point: 0 },
+            // frontWindowLeft: { value: '', point: 0 },
+            // frontWindowRight: { value: '', point: 0 },
+            // rearWindowLeft: { value: '', point: 0 },
+            // rearWindowRight: { value: '', point: 0 },
+            // windshield: { value: '', point: 0 },
+            // rearGlass: { value: '', point: 0 },
+            // tyreLeftFront: { value: '', point: 0 },
+            // tyreRightFront: { value: '', point: 0 },
+            // tyreLeftRear: { value: '', point: 0 },
+            // tyreRightRear: { value: '', point: 0 },
+            // spear: { value: '', point: 0 },
+            // mats: { value: '', point: 0 },
+            // upholstery: { value: '', point: 0 },
+            // sideMirror: { value: '', point: 0 },
+            // rims: { value: '', point: 0 },
+            // hubcaps: { value: '', point: 0 },
+            // jacks: { value: '', point: 0 },
+            // lugTool: { value: '', point: 0 },
+            // renterOut: { value: '', point: 0 },
+            // remark: { value: '', point: 0 },
+            // renterOutSignature: { value: '', point: 0 },
           }
         })
     }
