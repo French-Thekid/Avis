@@ -7,7 +7,7 @@ import {
   Completion,
   InspectionNotes,
 } from './sections'
-// import SendEnail from './SendEmail'
+import SendEnail from './SendEmail'
 import MyDocument from './pdf/report/Document'
 import { pdf } from '@react-pdf/renderer'
 
@@ -17,24 +17,24 @@ export default function NewReport() {
   const [completed2, setcompleted2] = useState(false)
   const [loading, setloading] = useState(false)
 
-  // const showNotification = () => {
-  //   setcompleted(true)
-  //   setTimeout(() => {
-  //     setcompleted(false)
-  //   }, 8000)
-  // }
+  const showNotification = () => {
+    setcompleted(true)
+    setTimeout(() => {
+      setcompleted(false)
+    }, 8000)
+  }
   const showNotificationValidation = () => {
     setcompleted1(true)
     setTimeout(() => {
       setcompleted1(false)
     }, 8000)
   }
-  // const showNotificationFailed = () => {
-  //   setcompleted2(true)
-  //   setTimeout(() => {
-  //     setcompleted2(false)
-  //   }, 8000)
-  // }
+  const showNotificationFailed = () => {
+    setcompleted2(true)
+    setTimeout(() => {
+      setcompleted2(false)
+    }, 8000)
+  }
 
   //State Management
   const [dataSet, updateDataSet] = useState({
@@ -354,13 +354,13 @@ export default function NewReport() {
         console.log(pdf)
         delete elements['engineOilPhoto']
 
-        // SendEnail({
-        //   elements,
-        //   setloading,
-        //   showNotification,
-        //   showNotificationFailed,
-        //   cleanUp,
-        // })
+        SendEnail({
+          elements,
+          setloading,
+          showNotification,
+          showNotificationFailed,
+          cleanUp,
+        })
       }
     }
   }
