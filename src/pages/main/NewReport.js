@@ -854,7 +854,8 @@ export default function NewReport() {
                 quantity: prevState.discPadBack.quantity,
                 point:
                   prevState.discPadBack.quantity !== '' &&
-                  prevState.discPadBack.quantity > 0
+                  prevState.discPadBack.quantity > 0 &&
+                  dataSet.discPadsRearPhoto.point > 0
                     ? 1
                     : 0,
               },
@@ -1022,7 +1023,8 @@ export default function NewReport() {
                 quantity: prevState.frontTyreLeft.quantity,
                 point:
                   prevState.frontTyreLeft.quantity !== '' &&
-                  prevState.frontTyreLeft.quantity > 0
+                  prevState.frontTyreLeft.quantity > 0 &&
+                  dataSet.frontTyreLeftPhoto.point > 0
                     ? 1
                     : 0,
               },
@@ -1064,7 +1066,8 @@ export default function NewReport() {
                 quantity: prevState.frontTyreRight.quantity,
                 point:
                   prevState.frontTyreRight.quantity !== '' &&
-                  prevState.frontTyreRight.quantity > 0
+                  prevState.frontTyreRight.quantity > 0 &&
+                  dataSet.frontTyreRightPhoto.point > 0
                     ? 1
                     : 0,
               },
@@ -1105,7 +1108,8 @@ export default function NewReport() {
                 quantity: prevState.rearTyreLeft.quantity,
                 point:
                   prevState.rearTyreLeft.quantity !== '' &&
-                  prevState.rearTyreLeft.quantity > 0
+                  prevState.rearTyreLeft.quantity > 0 &&
+                  dataSet.rearTyreLeftPhoto.point > 0
                     ? 1
                     : 0,
               },
@@ -1145,8 +1149,8 @@ export default function NewReport() {
                 status: status,
                 quantity: prevState.rearTyreRight.quantity,
                 point:
-                  prevState.rearTyreRight.quantity !== '' &&
-                  prevState.rearTyreRight.quantity > 0
+                  prevState.rearTyreRight.point > 0 &&
+                  dataSet.rearTyreRightPhoto.point > 0
                     ? 1
                     : 0,
               },

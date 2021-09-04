@@ -1,7 +1,7 @@
 import React from 'react'
 import 'styled-components/macro'
 
-import { FormControl } from '../../../components'
+import { FormControl, Colours } from '../../../components'
 
 export default function VehicleIdentification({
   value,
@@ -22,8 +22,23 @@ export default function VehicleIdentification({
     fuel: { value: fuel },
     colour: { value: colour },
   } = dataSet || {}
+
+  const Pass = () => {
+    let value =
+      dataSet.mileage.point +
+      dataSet.nextMileage.point +
+      dataSet.fuel.point +
+      dataSet.model.point
+
+    if (value === 4) return true
+
+    return false
+  }
+
   return (
-    <FormControl.FieldSet>
+    <FormControl.FieldSet
+      borderColour={Pass() ? Colours.green : Colours.border}
+    >
       <FormControl.Legend>Vehicle Identification</FormControl.Legend>
       <div
         css={`

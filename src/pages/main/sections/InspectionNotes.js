@@ -1,14 +1,16 @@
 import React from 'react'
 import 'styled-components/macro'
 
-import { FormControl } from '../../../components'
+import { FormControl, Colours } from '../../../components'
 
 export default function VehicleIdentification({ dataSet, handleChange }) {
   const {
     note: { value },
   } = dataSet || {}
   return (
-    <FormControl.FieldSet>
+    <FormControl.FieldSet
+      borderColour={dataSet.note.point === 1 ? Colours.green : Colours.border}
+    >
       <FormControl.Legend>Inspection Notes</FormControl.Legend>
       <section>
         <FormControl.Input
