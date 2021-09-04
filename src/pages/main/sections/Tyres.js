@@ -75,8 +75,8 @@ export default function InspectionChecklist({ dataSet, handleChange }) {
         />
         <FormControl.Input
           id="spear"
-          label="Spear"
-          placeholder="Spear"
+          label="Spare"
+          placeholder="Spare"
           name="spear"
           type="text"
           onChange={(e) => handleChange({ value: e, key: 'spear' })}

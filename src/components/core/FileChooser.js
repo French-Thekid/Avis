@@ -2,7 +2,7 @@ import React from 'react'
 import 'styled-components/macro'
 import { Colours, Icons } from '../../components'
 
-export default function FileChooser({ onDone, image }) {
+export default function FileChooser({ onDone, image, id }) {
   const handleChange = (event) => {
     let files = Array.from(event.target.files)
     let allFiles = []
@@ -34,7 +34,7 @@ export default function FileChooser({ onDone, image }) {
         height: max-content;
         display: grid;
         align-items: center;
-        grid-template-columns: max-content 1fr;
+        grid-template-columns: max-content max-content;
       `}
     >
       <label
@@ -49,8 +49,9 @@ export default function FileChooser({ onDone, image }) {
           display: grid;
           place-items: center;
           margin-right: 5px;
+          width: max-content;
         `}
-        htmlFor="file"
+        htmlFor={id}
       >
         <Icons.PhotoCameraRoundedIcon />
       </label>
@@ -63,14 +64,11 @@ export default function FileChooser({ onDone, image }) {
       )}
       <input
         css={`
-          width: 0.1px;
-          height: 0.1px;
-          opacity: 0;
-          overflow: hidden;
-          position: absolute;
-          z-index: -1;
+          height: 40px;
+          width: 40px;
+          display: none;
         `}
-        id="file"
+        id={id}
         type="file"
         name="file"
         accept="image/*"

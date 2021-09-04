@@ -7,7 +7,7 @@ import {
   Completion,
   InspectionNotes,
 } from './sections'
-import SendEnail from './SendEmail'
+// import SendEnail from './SendEmail'
 import MyDocument from './pdf/report/Document'
 import { pdf } from '@react-pdf/renderer'
 
@@ -17,24 +17,24 @@ export default function NewReport() {
   const [completed2, setcompleted2] = useState(false)
   const [loading, setloading] = useState(false)
 
-  const showNotification = () => {
-    setcompleted(true)
-    setTimeout(() => {
-      setcompleted(false)
-    }, 8000)
-  }
+  // const showNotification = () => {
+  //   setcompleted(true)
+  //   setTimeout(() => {
+  //     setcompleted(false)
+  //   }, 8000)
+  // }
   const showNotificationValidation = () => {
     setcompleted1(true)
     setTimeout(() => {
       setcompleted1(false)
     }, 8000)
   }
-  const showNotificationFailed = () => {
-    setcompleted2(true)
-    setTimeout(() => {
-      setcompleted2(false)
-    }, 8000)
-  }
+  // const showNotificationFailed = () => {
+  //   setcompleted2(true)
+  //   setTimeout(() => {
+  //     setcompleted2(false)
+  //   }, 8000)
+  // }
 
   //State Management
   const [dataSet, updateDataSet] = useState({
@@ -46,7 +46,13 @@ export default function NewReport() {
     fuel: { value: '', point: 0 },
     colour: { value: '', point: 0 },
     note: { value: '', point: 0 },
-    engineOilPhoto: { value: '', point: 0 },
+    airFilterPhoto: { value: '', point: 0 },
+    discPadsFrontPhoto: { value: '', point: 0 },
+    discPadsRearPhoto: { value: '', point: 0 },
+    frontTyreLeftPhoto: { value: '', point: 0 },
+    frontTyreRightPhoto: { value: '', point: 0 },
+    rearTyreLeftPhoto: { value: '', point: 0 },
+    rearTyreRightPhoto: { value: '', point: 0 },
   })
 
   const [checkList, updateChecklist] = useState({
@@ -63,10 +69,85 @@ export default function NewReport() {
     cabinFilter: { status: '', quantity: '', point: 0 },
     transmission: { status: '', quantity: '', point: 0 },
     tyre: { status: '', quantity: '', point: 0 },
+    frontTyreLeft: { status: '', quantity: '', point: 0 },
+    frontTyreRight: { status: '', quantity: '', point: 0 },
+    rearTyreLeft: { status: '', quantity: '', point: 0 },
+    rearTyreRight: { status: '', quantity: '', point: 0 },
   })
 
   const [license, setLicense] = useState('')
   const [suggestions, setSuggestions] = useState([])
+
+  const airfilterCheck = () => {
+    if (checkList.airFilter.status === 'Pass') return 1
+    if (
+      checkList.airFilter.status === 'Fail' &&
+      checkList.airFilter.point === 1 &&
+      dataSet.airFilterPhoto.point === 1
+    )
+      return 1
+    return 0
+  }
+  const dicsPadFrontCheck = () => {
+    if (checkList.discPadFront.status === 'Pass') return 1
+    if (
+      checkList.discPadFront.status === 'Fail' &&
+      checkList.discPadFront.point === 1 &&
+      dataSet.discPadsFrontPhoto.point === 1
+    )
+      return 1
+    return 0
+  }
+  const dicsPadBackCheck = () => {
+    if (checkList.discPadBack.status === 'Pass') return 1
+    if (
+      checkList.discPadBack.status === 'Fail' &&
+      checkList.discPadBack.point === 1 &&
+      dataSet.discPadsRearPhoto.point === 1
+    )
+      return 1
+    return 0
+  }
+  const frontTyreLeftCheck = () => {
+    if (checkList.frontTyreLeft.status === 'Pass') return 1
+    if (
+      checkList.frontTyreLeft.status === 'Fail' &&
+      checkList.frontTyreLeft.point === 1 &&
+      dataSet.frontTyreLeftPhoto.point === 1
+    )
+      return 1
+    return 0
+  }
+  const frontTyreRightCheck = () => {
+    if (checkList.frontTyreRight.status === 'Pass') return 1
+    if (
+      checkList.frontTyreRight.status === 'Fail' &&
+      checkList.frontTyreRight.point === 1 &&
+      dataSet.frontTyreRightPhoto.point === 1
+    )
+      return 1
+    return 0
+  }
+  const rearTyreLeftCheck = () => {
+    if (checkList.rearTyreLeft.status === 'Pass') return 1
+    if (
+      checkList.rearTyreLeft.status === 'Fail' &&
+      checkList.rearTyreLeft.point === 1 &&
+      dataSet.rearTyreLeftPhoto.point === 1
+    )
+      return 1
+    return 0
+  }
+  const rearTyreRightCheck = () => {
+    if (checkList.rearTyreRight.status === 'Pass') return 1
+    if (
+      checkList.rearTyreRight.status === 'Fail' &&
+      checkList.rearTyreRight.point === 1 &&
+      dataSet.rearTyreRightPhoto.point === 1
+    )
+      return 1
+    return 0
+  }
 
   //Completion
   const licensePoint = license.length === 6 && dataSet.model.point === 1 ? 1 : 0
@@ -79,23 +160,25 @@ export default function NewReport() {
     dataSet.note.point +
     dataSet.colour.point +
     dataSet.fuel.point +
-    dataSet.engineOilPhoto.point +
     checkList.engineOil.point +
     checkList.oilFilter.point +
-    checkList.airFilter.point +
+    airfilterCheck() +
     checkList.sparksPlug.point +
     checkList.battery.point +
     checkList.brakeFluid.point +
     checkList.brakeShoe.point +
-    checkList.discPadFront.point +
-    checkList.discPadBack.point +
+    dicsPadFrontCheck() +
+    dicsPadBackCheck() +
     checkList.fuelFilter.point +
     checkList.cabinFilter.point +
     checkList.transmission.point +
-    checkList.tyre.point +
+    frontTyreLeftCheck() +
+    frontTyreRightCheck() +
+    rearTyreLeftCheck() +
+    rearTyreRightCheck() +
     licensePoint
 
-  const score = ((count / 23) * 100) >> 0
+  const score = ((count / 25) * 100) >> 0
 
   const validate = ({ current, next }) => {
     if (parseInt(next) - parseInt(current) > 0) return false
@@ -118,6 +201,10 @@ export default function NewReport() {
       cabinFilter: { status: '', quantity: '', point: 0 },
       transmission: { status: '', quantity: '', point: 0 },
       tyre: { status: '', quantity: '', point: 0 },
+      frontTyreLeft: { status: '', quantity: '', point: 0 },
+      frontTyreRight: { status: '', quantity: '', point: 0 },
+      rearTyreLeft: { status: '', quantity: '', point: 0 },
+      rearTyreRight: { status: '', quantity: '', point: 0 },
     })
     updateDataSet({
       mileage: { value: '', point: 0 },
@@ -128,7 +215,13 @@ export default function NewReport() {
       note: { value: '', point: 0 },
       fuel: { value: '', point: 0 },
       colour: { value: '', point: 0 },
-      engineOilPhoto: { value: '', point: 0 },
+      airFilterPhoto: { value: '', point: 0 },
+      discPadsFrontPhoto: { value: '', point: 0 },
+      discPadsRearPhoto: { value: '', point: 0 },
+      frontTyreLeftPhoto: { value: '', point: 0 },
+      frontTyreRightPhoto: { value: '', point: 0 },
+      rearTyreLeftPhoto: { value: '', point: 0 },
+      rearTyreRightPhoto: { value: '', point: 0 },
     })
     setLicense('')
   }
@@ -154,7 +247,6 @@ export default function NewReport() {
       const model = dataSet.model.value
       const mileage = dataSet.mileage.value
       const nextMileage = dataSet.nextMileage.value
-      const engineOilPhoto = dataSet.engineOilPhoto.value
       const engineOilStatus = checkList.engineOil.status
       const engineOilQuantity = checkList.engineOil.quantity
       const oilFilterStatus = checkList.oilFilter.status
@@ -179,11 +271,24 @@ export default function NewReport() {
       const cabinFilterQuantity = checkList.cabinFilter.quantity
       const transmissionStatus = checkList.transmission.status
       const transmissionQuantity = checkList.transmission.quantity
-      const tyreStatus = checkList.tyre.status
-      const tyreQuantity = checkList.tyre.quantity
       const note = dataSet.note.value
       const colour = dataSet.colour.value
       const fuel = dataSet.fuel.value
+      const airFilterPhoto = dataSet.airFilterPhoto.value
+      const discPadsFrontPhoto = dataSet.discPadsFrontPhoto.value
+      const discPadsRearPhoto = dataSet.discPadsRearPhoto.value
+      const frontTyreLeftPhoto = dataSet.frontTyreLeftPhoto.value
+      const frontTyreRightPhoto = dataSet.frontTyreRightPhoto.value
+      const rearTyreLeftPhoto = dataSet.rearTyreLeftPhoto.value
+      const rearTyreRightPhoto = dataSet.rearTyreRightPhoto.value
+      const frontTyreLeft = checkList.frontTyreLeft.status
+      const frontTyreLeftQuantity = checkList.frontTyreLeft.quantity
+      const frontTyreRight = checkList.frontTyreRight.status
+      const frontTyreRightQuantity = checkList.frontTyreRight.quantity
+      const rearTyreLeft = checkList.rearTyreLeft.status
+      const rearTyreLeftQuantity = checkList.rearTyreLeft.quantity
+      const rearTyreRight = checkList.rearTyreRight.status
+      const rearTyreRightQuantity = checkList.rearTyreRight.quantity
 
       const elements = {
         assignee,
@@ -220,10 +325,22 @@ export default function NewReport() {
         cabinFilterQuantity,
         transmissionStatus,
         transmissionQuantity,
-        tyreStatus,
-        tyreQuantity,
         note,
-        engineOilPhoto,
+        airFilterPhoto,
+        discPadsFrontPhoto,
+        discPadsRearPhoto,
+        frontTyreLeftPhoto,
+        frontTyreRightPhoto,
+        rearTyreLeftPhoto,
+        rearTyreRightPhoto,
+        frontTyreLeft,
+        frontTyreLeftQuantity,
+        frontTyreRight,
+        frontTyreRightQuantity,
+        rearTyreLeft,
+        rearTyreLeftQuantity,
+        rearTyreRight,
+        rearTyreRightQuantity,
       }
 
       var reader = new FileReader()
@@ -236,13 +353,14 @@ export default function NewReport() {
         var pdf = reader.result
         console.log(pdf)
         delete elements['engineOilPhoto']
-        SendEnail({
-          elements,
-          setloading,
-          showNotification,
-          showNotificationFailed,
-          cleanUp,
-        })
+
+        // SendEnail({
+        //   elements,
+        //   setloading,
+        //   showNotification,
+        //   showNotificationFailed,
+        //   cleanUp,
+        // })
       }
     }
   }
@@ -293,11 +411,77 @@ export default function NewReport() {
           }
         })
         break
-      case 'engineOilPhoto':
+      case 'airFilterPhoto':
         updateDataSet((prevState) => {
           return {
             ...prevState,
-            engineOilPhoto: {
+            airFilterPhoto: {
+              value: value,
+              point: value === '' ? 0 : 1,
+            },
+          }
+        })
+        break
+      case 'discPadsFrontPhoto':
+        updateDataSet((prevState) => {
+          return {
+            ...prevState,
+            discPadsFrontPhoto: {
+              value: value,
+              point: value === '' ? 0 : 1,
+            },
+          }
+        })
+        break
+      case 'discPadsRearPhoto':
+        updateDataSet((prevState) => {
+          return {
+            ...prevState,
+            discPadsRearPhoto: {
+              value: value,
+              point: value === '' ? 0 : 1,
+            },
+          }
+        })
+        break
+      case 'frontTyreLeftPhoto':
+        updateDataSet((prevState) => {
+          return {
+            ...prevState,
+            frontTyreLeftPhoto: {
+              value: value,
+              point: value === '' ? 0 : 1,
+            },
+          }
+        })
+        break
+      case 'frontTyreRightPhoto':
+        updateDataSet((prevState) => {
+          return {
+            ...prevState,
+            frontTyreRightPhoto: {
+              value: value,
+              point: value === '' ? 0 : 1,
+            },
+          }
+        })
+        break
+      case 'rearTyreLeftPhoto':
+        updateDataSet((prevState) => {
+          return {
+            ...prevState,
+            rearTyreLeftPhoto: {
+              value: value,
+              point: value === '' ? 0 : 1,
+            },
+          }
+        })
+        break
+      case 'rearTyreRightPhoto':
+        updateDataSet((prevState) => {
+          return {
+            ...prevState,
+            rearTyreRightPhoto: {
               value: value,
               point: value === '' ? 0 : 1,
             },
@@ -416,7 +600,8 @@ export default function NewReport() {
                 quantity: prevState.airFilter.quantity,
                 point:
                   prevState.airFilter.quantity !== '' &&
-                  prevState.airFilter.quantity > 0
+                  prevState.airFilter.quantity > 0 &&
+                  dataSet.airFilterPhoto.point > 0
                     ? 1
                     : 0,
               },
@@ -626,7 +811,8 @@ export default function NewReport() {
                 quantity: prevState.discPadFront.quantity,
                 point:
                   prevState.discPadFront.quantity !== '' &&
-                  prevState.discPadFront.quantity > 0
+                  prevState.discPadFront.quantity > 0 &&
+                  dataSet.discPadsFrontPhoto.point > 0
                     ? 1
                     : 0,
               },
@@ -817,12 +1003,12 @@ export default function NewReport() {
         })
         break
 
-      case 'tyre':
+      case 'frontTyreLeft':
         updateChecklist((prevState) => {
           if (status === 'Pass') {
             return {
               ...prevState,
-              tyre: {
+              frontTyreLeft: {
                 status: status,
                 quantity: '',
                 point: 1,
@@ -831,11 +1017,12 @@ export default function NewReport() {
           } else {
             return {
               ...prevState,
-              tyre: {
+              frontTyreLeft: {
                 status: status,
-                quantity: prevState.tyre.quantity,
+                quantity: prevState.frontTyreLeft.quantity,
                 point:
-                  prevState.tyre.quantity !== '' && prevState.tyre.quantity > 0
+                  prevState.frontTyreLeft.quantity !== '' &&
+                  prevState.frontTyreLeft.quantity > 0
                     ? 1
                     : 0,
               },
@@ -843,13 +1030,137 @@ export default function NewReport() {
           }
         })
         break
-      case 'tyreQuantity':
+      case 'frontTyreLeftQuantity':
         updateChecklist((prevState) => {
           if (status === 'Fail') {
             return {
               ...prevState,
-              tyre: {
-                status: prevState.tyre.status,
+              frontTyreLeft: {
+                status: prevState.frontTyreLeft.status,
+                quantity: quantity,
+                point: quantity !== '' && quantity > 0 ? 1 : 0,
+              },
+            }
+          }
+        })
+        break
+
+      case 'frontTyreRight':
+        updateChecklist((prevState) => {
+          if (status === 'Pass') {
+            return {
+              ...prevState,
+              frontTyreRight: {
+                status: status,
+                quantity: '',
+                point: 1,
+              },
+            }
+          } else {
+            return {
+              ...prevState,
+              frontTyreRight: {
+                status: status,
+                quantity: prevState.frontTyreRight.quantity,
+                point:
+                  prevState.frontTyreRight.quantity !== '' &&
+                  prevState.frontTyreRight.quantity > 0
+                    ? 1
+                    : 0,
+              },
+            }
+          }
+        })
+        break
+      case 'frontTyreRightQuantity':
+        updateChecklist((prevState) => {
+          if (status === 'Fail') {
+            return {
+              ...prevState,
+              frontTyreRight: {
+                status: prevState.frontTyreRight.status,
+                quantity: quantity,
+                point: quantity !== '' && quantity > 0 ? 1 : 0,
+              },
+            }
+          }
+        })
+        break
+      case 'rearTyreLeft':
+        updateChecklist((prevState) => {
+          if (status === 'Pass') {
+            return {
+              ...prevState,
+              rearTyreLeft: {
+                status: status,
+                quantity: '',
+                point: 1,
+              },
+            }
+          } else {
+            return {
+              ...prevState,
+              rearTyreLeft: {
+                status: status,
+                quantity: prevState.rearTyreLeft.quantity,
+                point:
+                  prevState.rearTyreLeft.quantity !== '' &&
+                  prevState.rearTyreLeft.quantity > 0
+                    ? 1
+                    : 0,
+              },
+            }
+          }
+        })
+        break
+      case 'rearTyreLeftQuantity':
+        updateChecklist((prevState) => {
+          if (status === 'Fail') {
+            return {
+              ...prevState,
+              rearTyreLeft: {
+                status: prevState.rearTyreLeft.status,
+                quantity: quantity,
+                point: quantity !== '' && quantity > 0 ? 1 : 0,
+              },
+            }
+          }
+        })
+        break
+      case 'rearTyreRight':
+        updateChecklist((prevState) => {
+          if (status === 'Pass') {
+            return {
+              ...prevState,
+              rearTyreRight: {
+                status: status,
+                quantity: '',
+                point: 1,
+              },
+            }
+          } else {
+            return {
+              ...prevState,
+              rearTyreRight: {
+                status: status,
+                quantity: prevState.rearTyreRight.quantity,
+                point:
+                  prevState.rearTyreRight.quantity !== '' &&
+                  prevState.rearTyreRight.quantity > 0
+                    ? 1
+                    : 0,
+              },
+            }
+          }
+        })
+        break
+      case 'rearTyreRightQuantity':
+        updateChecklist((prevState) => {
+          if (status === 'Fail') {
+            return {
+              ...prevState,
+              rearTyreRight: {
+                status: prevState.rearTyreRight.status,
                 quantity: quantity,
                 point: quantity !== '' && quantity > 0 ? 1 : 0,
               },

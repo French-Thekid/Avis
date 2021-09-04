@@ -56,10 +56,22 @@ export default function MyDocument({
   cabinFilterQuantity,
   transmissionStatus,
   transmissionQuantity,
-  tyreStatus,
-  tyreQuantity,
   note,
-  engineOilPhoto,
+  airFilterPhoto,
+  discPadsFrontPhoto,
+  discPadsRearPhoto,
+  frontTyreLeftPhoto,
+  frontTyreRightPhoto,
+  rearTyreLeftPhoto,
+  rearTyreRightPhoto,
+  frontTyreLeft,
+  frontTyreLeftQuantity,
+  frontTyreRight,
+  frontTyreRightQuantity,
+  rearTyreLeft,
+  rearTyreLeftQuantity,
+  rearTyreRight,
+  rearTyreRightQuantity,
 }) {
   return (
     <Document
@@ -105,14 +117,36 @@ export default function MyDocument({
           cabinFilterQuantity={cabinFilterQuantity}
           transmissionStatus={transmissionStatus}
           transmissionQuantity={transmissionQuantity}
-          tyreStatus={tyreStatus}
-          tyreQuantity={tyreQuantity}
+          frontTyreLeft={frontTyreLeft}
+          frontTyreLeftQuantity={frontTyreLeftQuantity}
+          frontTyreRight={frontTyreRight}
+          frontTyreRightQuantity={frontTyreRightQuantity}
+          rearTyreLeft={rearTyreLeft}
+          rearTyreLeftQuantity={rearTyreLeftQuantity}
+          rearTyreRight={rearTyreRight}
+          rearTyreRightQuantity={rearTyreRightQuantity}
         />
         <Note note={note} />
       </Page>
-      <Page size="A4" style={styles.page}>
-        <Images engineOilPhoto={engineOilPhoto} />
-      </Page>
+      {(airFilterPhoto !== '' ||
+        discPadsFrontPhoto !== '' ||
+        discPadsRearPhoto !== '' ||
+        frontTyreLeftPhoto !== '' ||
+        frontTyreRightPhoto !== '' ||
+        rearTyreLeftPhoto !== '' ||
+        rearTyreRightPhoto !== '') && (
+        <Page size="A4" style={styles.page}>
+          <Images
+            airFilterPhoto={airFilterPhoto}
+            discPadsFrontPhoto={discPadsFrontPhoto}
+            discPadsRearPhoto={discPadsRearPhoto}
+            frontTyreLeftPhoto={frontTyreLeftPhoto}
+            frontTyreRightPhoto={frontTyreRightPhoto}
+            rearTyreLeftPhoto={rearTyreLeftPhoto}
+            rearTyreRightPhoto={rearTyreRightPhoto}
+          />
+        </Page>
+      )}
     </Document>
   )
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import 'styled-components/macro'
+import Fade from 'react-reveal/Fade'
 
 import { Core, FormControl, Colours, Icons } from '../../../components'
 
@@ -22,10 +23,21 @@ export default function InspectionChecklist({
     fuelFilter,
     cabinFilter,
     transmission,
-    tyre,
+    rearTyreRight,
+    rearTyreLeft,
+    frontTyreRight,
+    frontTyreLeft,
   } = checkList || {}
 
-  const { engineOilPhoto } = dataSet || {}
+  const {
+    airFilterPhoto,
+    discPadsFrontPhoto,
+    discPadsRearPhoto,
+    frontTyreLeftPhoto,
+    frontTyreRightPhoto,
+    rearTyreLeftPhoto,
+    rearTyreRightPhoto,
+  } = dataSet || {}
 
   return (
     <FormControl.FieldSet>
@@ -35,10 +47,6 @@ export default function InspectionChecklist({
         value={engineOil}
         handleChecklist={handleChecklist}
         keyLabel="engineOil"
-        imageNeeded
-        handleChange={handleChange}
-        image={engineOilPhoto}
-        imageKey="engineOilPhoto"
       />
       <Panel
         label="Oil Filter Check"
@@ -51,6 +59,10 @@ export default function InspectionChecklist({
         value={airFilter}
         handleChecklist={handleChecklist}
         keyLabel="airFilter"
+        imageNeeded
+        handleChange={handleChange}
+        image={airFilterPhoto}
+        imageKey="airFilterPhoto"
       />
       <Panel
         label="Sparks Plug Check"
@@ -81,12 +93,20 @@ export default function InspectionChecklist({
         value={discPadFront}
         handleChecklist={handleChecklist}
         keyLabel="discPadFront"
+        imageNeeded
+        handleChange={handleChange}
+        image={discPadsFrontPhoto}
+        imageKey="discPadsFrontPhoto"
       />
       <Panel
         label="Disc Pads (Back)"
         value={discPadBack}
         handleChecklist={handleChecklist}
         keyLabel="discPadBack"
+        imageNeeded
+        handleChange={handleChange}
+        image={discPadsRearPhoto}
+        imageKey="discPadsRearPhoto"
       />
       <Panel
         label="Fuel Filter check"
@@ -107,10 +127,44 @@ export default function InspectionChecklist({
         keyLabel="transmission"
       />
       <Panel
-        label="Tyre Check"
-        value={tyre}
+        label="Front Left Tyre"
+        value={frontTyreLeft}
         handleChecklist={handleChecklist}
-        keyLabel="tyre"
+        keyLabel="frontTyreLeft"
+        imageNeeded
+        handleChange={handleChange}
+        image={frontTyreLeftPhoto}
+        imageKey="frontTyreLeftPhoto"
+      />
+      <Panel
+        label="Front Right Tyre"
+        value={frontTyreRight}
+        handleChecklist={handleChecklist}
+        keyLabel="frontTyreRight"
+        imageNeeded
+        handleChange={handleChange}
+        image={frontTyreRightPhoto}
+        imageKey="frontTyreRightPhoto"
+      />
+      <Panel
+        label="Rear Left Tyre"
+        value={rearTyreLeft}
+        handleChecklist={handleChecklist}
+        keyLabel="rearTyreLeft"
+        imageNeeded
+        handleChange={handleChange}
+        image={rearTyreLeftPhoto}
+        imageKey="rearTyreLeftPhoto"
+      />
+      <Panel
+        label="Rear Right Tyre"
+        value={rearTyreRight}
+        handleChecklist={handleChecklist}
+        keyLabel="rearTyreRight"
+        imageNeeded
+        handleChange={handleChange}
+        image={rearTyreRightPhoto}
+        imageKey="rearTyreRightPhoto"
       />
     </FormControl.FieldSet>
   )
@@ -127,138 +181,162 @@ const Panel = ({
   imageKey,
 }) => {
   const { status, quantity, point } = value || {}
+  const { point: imagePoints } = image || {}
+
+  const showError = () => {
+    if (point === 0 && status === 'Fail') return true
+    return false
+  }
+  const showImageError = () => {
+    if ((imagePoints === 0 || point === 0) && status === 'Fail') return true
+    return false
+  }
 
   return (
-    <div
-      css={`
-        display: grid;
-        grid-template-columns: 1fr max-content max-content max-content 1fr;
-        grid-gap: 20px;
-        align-items: center;
-        border: 1px solid ${Colours.border};
-        padding: 10px;
-        border-radius: 5px;
-        margin-bottom: 20px;
-      `}
-    >
-      <Core.Text color={Colours.blue} size="20px">
-        {label}
-      </Core.Text>
+    <Fade bottom>
       <div
         css={`
-          width: 80px;
-          height: 80px;
-          border-radius: 5px;
-          border: ${`0.1px solid ${Colours.green}`};
           display: grid;
-          place-items: center;
-          color: ${status === 'Pass' ? Colours.foreground : Colours.text};
-          background: ${status === 'Pass' ? Colours.green : Colours.foreground};
-          &:hover {
-            cursor: pointer;
-          }
+          grid-template-columns: 1fr max-content max-content max-content 1fr;
+          grid-gap: 20px;
+          align-items: center;
+          border: 1px solid ${Colours.border};
+          padding: 10px;
+          border-radius: 5px;
+          margin-bottom: 20px;
         `}
-        onClick={(e) => {
-          handleChecklist({ status: 'Pass', quantity: '', key: keyLabel })
-        }}
       >
-        <section
+        <Core.Text color={Colours.blue} size="20px">
+          {label}
+        </Core.Text>
+        <div
           css={`
+            width: 80px;
+            height: 80px;
+            border-radius: 5px;
+            border: ${`0.1px solid ${Colours.green}`};
             display: grid;
             place-items: center;
-            grid-gap: 5px;
+            color: ${status === 'Pass' ? Colours.foreground : Colours.text};
+            background: ${status === 'Pass'
+              ? Colours.green
+              : Colours.foreground};
+            &:hover {
+              cursor: pointer;
+            }
           `}
+          onClick={(e) => {
+            handleChecklist({ status: 'Pass', quantity: '', key: keyLabel })
+          }}
         >
-          <Icons.CheckCircleRoundedIcon
-            style={{ fontSize: '30px', color: 'inherit' }}
-          />
-          <Core.Text color={'inherit'}>Pass</Core.Text>
-        </section>
-      </div>
-
-      <div
-        css={`
-          width: 80px;
-          height: 80px;
-          border-radius: 5px;
-          border: ${`0.1px solid ${Colours.red}`};
-          display: grid;
-          place-items: center;
-          color: ${status === 'Fail' ? Colours.foreground : Colours.text};
-          background: ${status === 'Fail' ? Colours.red : Colours.foreground};
-          &:hover {
-            cursor: pointer;
-          }
-        `}
-        onClick={(e) => {
-          handleChecklist({ status: 'Fail', quantity: '', key: keyLabel })
-        }}
-      >
-        <section
-          css={`
-            display: grid;
-            place-items: center;
-            grid-gap: 5px;
-          `}
-        >
-          <Icons.CancelRoundedIcon
-            style={{ fontSize: '30px', color: 'inherit' }}
-          />
-          <Core.Text color={'inherit'}>Fail</Core.Text>
-        </section>
-      </div>
-      <div
-        css={`
-          border-left: 1px solid ${Colours.border};
-          height: 100%;
-        `}
-      />
-      <section
-        css={`
-          display: grid;
-          grid-gap: ${imageNeeded && point === 0 && status === 'Fail'
-            ? '5px'
-            : '0px'};
-        `}
-      >
-        <div>
-          <FormControl.Input
-            id="quantity"
-            label="Quantity Used"
-            placeholder="Quantity Used"
-            name="quantity"
-            type="number"
-            onChange={(e) =>
-              handleChecklist({
-                status: 'Fail',
-                quantity: e.target.value,
-                key: `${keyLabel}Quantity`,
-              })
-            }
-            error={point === 0 && status === 'Fail'}
-            value={quantity}
-            disabled={
-              status === 'Pass' ? true : status === 'Fail' ? false : false
-            }
-          />
-          <FormControl.Error
-            show={point === 0 && status === 'Fail'}
-            message={
-              imageNeeded
-                ? 'Quantity and Image is Required'
-                : 'Quantity is Required'
-            }
-          />
+          <section
+            css={`
+              display: grid;
+              place-items: center;
+              grid-gap: 5px;
+            `}
+          >
+            <Icons.CheckCircleRoundedIcon
+              style={{ fontSize: '30px', color: 'inherit' }}
+            />
+            <Core.Text color={'inherit'}>Pass</Core.Text>
+          </section>
         </div>
-        {imageNeeded && status === 'Fail' ? (
-          <Core.FileChooser
-            image={image.value}
-            onDone={(file) => {
-              handleChange({ value: file.base64, key: imageKey })
-            }}
-          />
-        ) : null}
-      </section>
-    </div>
+
+        <div
+          css={`
+            width: 80px;
+            height: 80px;
+            border-radius: 5px;
+            border: ${`0.1px solid ${Colours.red}`};
+            display: grid;
+            place-items: center;
+            color: ${status === 'Fail' ? Colours.foreground : Colours.text};
+            background: ${status === 'Fail' ? Colours.red : Colours.foreground};
+            &:hover {
+              cursor: pointer;
+            }
+          `}
+          onClick={(e) => {
+            handleChecklist({ status: 'Fail', quantity: '', key: keyLabel })
+          }}
+        >
+          <section
+            css={`
+              display: grid;
+              place-items: center;
+              grid-gap: 5px;
+            `}
+          >
+            <Icons.CancelRoundedIcon
+              style={{ fontSize: '30px', color: 'inherit' }}
+            />
+            <Core.Text color={'inherit'}>Fail</Core.Text>
+          </section>
+        </div>
+        <div
+          css={`
+            border-left: 1px solid ${Colours.border};
+            height: 100%;
+          `}
+        />
+        <div
+          css={`
+            display: grid;
+            grid-gap: ${imageNeeded && point === 0 && status === 'Fail'
+              ? '5px'
+              : '0px'};
+          `}
+        >
+          <div>
+            <FormControl.Input
+              id="quantity"
+              label="Quantity Used"
+              placeholder="Quantity Used"
+              name="quantity"
+              type="number"
+              onChange={(e) =>
+                handleChecklist({
+                  status: 'Fail',
+                  quantity: e.target.value,
+                  key: `${keyLabel}Quantity`,
+                })
+              }
+              error={showError()}
+              value={quantity}
+              disabled={
+                status === 'Pass' ? true : status === 'Fail' ? false : false
+              }
+            />
+            <FormControl.Error
+              show={imageNeeded ? showImageError() : showError()}
+              message={
+                imageNeeded
+                  ? 'Quantity and Image is Required'
+                  : 'Quantity is Required'
+              }
+            />
+          </div>
+          <div
+            css={`
+              position: relative;
+              height: ${imageNeeded && status === 'Fail' ? '40px' : '0px'};
+            `}
+          >
+            {imageNeeded && status === 'Fail' ? (
+              <Core.FileChooser
+                id={imageKey}
+                image={image.value}
+                onDone={(file) => {
+                  handleChange({ value: file.base64, key: imageKey })
+                }}
+              />
+            ) : (
+              <div />
+            )}
+          </div>
+        </div>
+      </div>
+    </Fade>
   )
 }

@@ -16,7 +16,14 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 
-  title: { fontSize: 12, color: '#236fa1' },
+  title: {
+    fontSize: 12,
+    color: '#236fa1',
+    marginBottom: 10,
+    borderBottomWidth: 0.6,
+    paddingBottom: 3,
+    borderColor: '#d1cae8',
+  },
   title1: { fontSize: 12, color: '#236fa1', marginLeft: 240 },
   header: {
     borderBottomWidth: 1,
@@ -33,40 +40,85 @@ const styles = StyleSheet.create({
   image: {
     height: 200,
     width: 200,
+    marginBottom: 50,
   },
-  image1: {
-    height: 200,
-    width: 200,
-    marginLeft: 130,
-  },
+
   subContainer: {
     marginBottom: 30,
+  },
+  group: {
+    flexDirection: 'row',
+    alignContent: 'start',
+  },
+  left: {
+    width: 278,
+    flexDirection: 'column',
+    alignContent: 'start',
+  },
+  right: {
+    width: 278,
+    flexDirection: 'column',
+    alignContent: 'start',
   },
 })
 
 export default function Images({
-  engineOilPhoto = 'https://automology.s3.ap-southeast-1.amazonaws.com/wp-content/uploads/2018/07/11104025/engine-sludge.jpg',
+  airFilterPhoto = 'https://wallpaperaccess.com/full/508751.jpg',
+  discPadsFrontPhoto = 'https://wallpaperaccess.com/full/508751.jpg',
+  discPadsRearPhoto = 'https://wallpaperaccess.com/full/508751.jpg',
+  frontTyreLeftPhoto = 'https://wallpaperaccess.com/full/508751.jpg',
+  frontTyreRightPhoto = 'https://wallpaperaccess.com/full/508751.jpg',
+  rearTyreLeftPhoto = 'https://wallpaperaccess.com/full/508751.jpg',
+  rearTyreRightPhoto = 'https://wallpaperaccess.com/full/508751.jpg',
 }) {
   return (
     <View style={styles.headerContainer}>
-      <View style={styles.subContainer}>
-        <View style={styles.header}>
-          <Text style={styles.title}>Engin Oil Image</Text>
-          <Text style={styles.title1}>Oil Filter Image</Text>
+      <View style={styles.group}>
+        <View style={styles.left}>
+          {frontTyreLeftPhoto !== '' && (
+            <View>
+              <Text style={styles.title}>Front Left Tyre Photo</Text>
+              <Image src={frontTyreLeftPhoto} style={styles.image} />
+            </View>
+          )}
+          {rearTyreLeftPhoto !== '' && (
+            <View>
+              <Text style={styles.title}>Rear Left Tyre Photo</Text>
+              <Image src={rearTyreLeftPhoto} style={styles.image} />
+            </View>
+          )}
+          {discPadsRearPhoto !== '' && (
+            <View>
+              <Text style={styles.title}>Disc Pad Front Photo</Text>
+              <Image src={discPadsRearPhoto} style={styles.image} />
+            </View>
+          )}
+          {airFilterPhoto !== '' && (
+            <View>
+              <Text style={styles.title}>Air Filter Photo</Text>
+              <Image src={airFilterPhoto} style={styles.image} />
+            </View>
+          )}
         </View>
-        <View style={styles.images}>
-          <Image src={engineOilPhoto} style={styles.image} />
-          <Image src={engineOilPhoto} style={styles.image1} />
-        </View>
-      </View>
-      <View style={styles.subContainer}>
-        <View style={styles.header}>
-          <Text style={styles.title}>Engin Oil Image</Text>
-          <Text style={styles.title1}>Oil Filter Image</Text>
-        </View>
-        <View style={styles.images}>
-          <Image src={engineOilPhoto} style={styles.image} />
-          <Image src={engineOilPhoto} style={styles.image1} />
+        <View style={styles.right}>
+          {frontTyreRightPhoto !== '' && (
+            <View>
+              <Text style={styles.title}>Front Right Tyre Photo</Text>
+              <Image src={frontTyreRightPhoto} style={styles.image} />
+            </View>
+          )}
+          {rearTyreRightPhoto !== '' && (
+            <View>
+              <Text style={styles.title}>Rear Right Tyre Photo</Text>
+              <Image src={rearTyreRightPhoto} style={styles.image} />
+            </View>
+          )}
+          {discPadsFrontPhoto !== '' && (
+            <View>
+              <Text style={styles.title}>Disc Pad Rear Photo</Text>
+              <Image src={discPadsFrontPhoto} style={styles.image} />
+            </View>
+          )}
         </View>
       </View>
     </View>

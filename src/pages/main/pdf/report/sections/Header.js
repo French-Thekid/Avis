@@ -11,87 +11,56 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'column',
     justifyContent: 'center',
-    marginTop: 10,
+    marginTop: 0,
     padding: 10,
   },
   logoContainer: {
     flexDirection: 'row',
-    height: 80,
-    justifyContent: 'center',
+    height: 90,
+    justifyContent: 'space-between',
   },
   logo: {
     height: 'auto',
     flexDirection: 'column',
     alignContent: 'start',
+    marginLeft: 200,
   },
   avis: {
     fontSize: 33,
     color: '#FF205D',
     marginBottom: 3,
-    marginLeft: 30,
+    marginLeft: 35,
   },
   slogan: {
     fontSize: 15,
     color: '#aab7c8',
     marginBottom: 3,
   },
-
-  section: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 10,
-  },
-  section1: {
-    flexDirection: 'row',
-    justifyContent: 'start',
-  },
   pair: {
     flexDirection: 'row',
     justifyContent: 'start',
     marginBottom: 10,
   },
-  pair1: {
-    flexDirection: 'row',
-    justifyContent: 'start',
-    marginBottom: 10,
-    marginLeft: 71,
-  },
   title: { fontSize: 12, color: '#236fa1' },
-  value: { fontSize: 12, color: '#000000' },
-  value1: { fontSize: 12, color: '#000000', marginLeft: 36 },
-  value2: { fontSize: 12, color: '#000000', marginLeft: 60 },
-  value3: { fontSize: 12, color: '#000000', marginLeft: 50 },
+  value1: { fontSize: 12, color: '#000000' },
 
-  three: {
+  group: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 10,
+    alignContent: 'start',
   },
-
-  //Old
-  userDate: {
-    height: 'auto',
-    marginRight: 35,
+  left: {
+    width: 278,
     flexDirection: 'column',
     alignContent: 'start',
   },
-  image: {
-    marginBottom: 10,
-    height: 90,
-    width: 90,
-    borderRadius: 50,
-    marginRight: 20,
+  right: {
+    width: 278,
+    flexDirection: 'column',
+    alignContent: 'start',
   },
-
-  text: {
+  contractNumber: {
     fontSize: 12,
-    color: '#9caabb',
-    marginBottom: 3,
-  },
-
-  secondColumn: {
-    // marginLeft: 20,
-    marginTop: 25,
+    color: '#5570f6',
   },
 })
 
@@ -115,45 +84,44 @@ export default function TemplateHeader({
           <Text style={styles.slogan}>Maintainance Report</Text>
         </View>
       </View>
-
-      <View style={styles.pair}>
-        <Text style={styles.title}>Assignee: </Text>
-        <Text style={styles.value1}>{assignee} </Text>
-      </View>
-      <View style={styles.pair}>
-        <Text style={styles.title}>Date: </Text>
-        <Text style={styles.value2}>{date} </Text>
-      </View>
-
-      <View style={styles.pair}>
-        <Text style={styles.title}>Vehicle: </Text>
-        <Text style={styles.value3}>{`${year || ''} ${make || ''} ${
-          model || ''
-        }`}</Text>
-      </View>
-      <View style={styles.section1}>
-        <View style={styles.pair}>
-          <Text style={styles.title}>License Number: </Text>
-          <Text style={styles.value}>{license}</Text>
+      <View style={styles.group}>
+        <View style={styles.left}>
+          <View style={styles.pair}>
+            <Text style={styles.title}>Assignee: </Text>
+            <Text style={styles.value1}>{assignee} </Text>
+          </View>
+          <View style={styles.pair}>
+            <Text style={styles.title}>Vehicle: </Text>
+            <Text style={styles.value1}>{`${year || ''} ${make || ''} ${
+              model || ''
+            }`}</Text>
+          </View>
+          <View style={styles.pair}>
+            <Text style={styles.title}>Mileage: </Text>
+            <Text style={styles.value1}>{mileage} km</Text>
+          </View>
+          <View style={styles.pair}>
+            <Text style={styles.title}>Next Service Mileage: </Text>
+            <Text style={styles.value1}>{nextMileage} km</Text>
+          </View>
         </View>
-        <View style={styles.pair1}>
-          <Text style={styles.title}>Colour: </Text>
-          <Text style={styles.value}>{colour}</Text>
-        </View>
-      </View>
-
-      <View style={styles.three}>
-        <View style={styles.pair}>
-          <Text style={styles.title}>Current Mileage: </Text>
-          <Text style={styles.value}>{mileage} km</Text>
-        </View>
-        <View style={styles.pair}>
-          <Text style={styles.title}>Next Service Mileage: </Text>
-          <Text style={styles.value}>{nextMileage} km</Text>
-        </View>
-        <View style={styles.pair}>
-          <Text style={styles.title}>Fuel Meter: </Text>
-          <Text style={styles.value}>{fuel} tank</Text>
+        <View style={styles.right}>
+          <View style={styles.pair}>
+            <Text style={styles.title}>Date: </Text>
+            <Text style={styles.value1}>{date} </Text>
+          </View>
+          <View style={styles.pair}>
+            <Text style={styles.title}>License No.: </Text>
+            <Text style={styles.value1}>{license}</Text>
+          </View>
+          <View style={styles.pair}>
+            <Text style={styles.title}>Colour: </Text>
+            <Text style={styles.value1}>{colour}</Text>
+          </View>
+          <View style={styles.pair}>
+            <Text style={styles.title}>Fuel: </Text>
+            <Text style={styles.value1}>{fuel} tank</Text>
+          </View>
         </View>
       </View>
     </View>
