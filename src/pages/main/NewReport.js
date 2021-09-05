@@ -274,13 +274,34 @@ export default function NewReport() {
       const note = dataSet.note.value
       const colour = dataSet.colour.value
       const fuel = dataSet.fuel.value
-      const airFilterPhoto = dataSet.airFilterPhoto.value
-      const discPadsFrontPhoto = dataSet.discPadsFrontPhoto.value
-      const discPadsRearPhoto = dataSet.discPadsRearPhoto.value
-      const frontTyreLeftPhoto = dataSet.frontTyreLeftPhoto.value
-      const frontTyreRightPhoto = dataSet.frontTyreRightPhoto.value
-      const rearTyreLeftPhoto = dataSet.rearTyreLeftPhoto.value
-      const rearTyreRightPhoto = dataSet.rearTyreRightPhoto.value
+      const airFilterPhoto =
+        checkList.airFilter.status === 'Fail'
+          ? dataSet.airFilterPhoto.value
+          : ''
+      const discPadsFrontPhoto =
+        checkList.discPadFront.status === 'Fail'
+          ? dataSet.discPadsFrontPhoto.value
+          : ''
+      const discPadsRearPhoto =
+        checkList.discPadBack.status === 'Fail'
+          ? dataSet.discPadsRearPhoto.value
+          : ''
+      const frontTyreLeftPhoto =
+        checkList.frontTyreLeft.status === 'Fail'
+          ? dataSet.frontTyreLeftPhoto.value
+          : ''
+      const frontTyreRightPhoto =
+        checkList.frontTyreRight.status === 'Fail'
+          ? dataSet.frontTyreRightPhoto.value
+          : ''
+      const rearTyreLeftPhoto =
+        checkList.rearTyreLeft.status === 'Fail'
+          ? dataSet.rearTyreLeftPhoto.value
+          : ''
+      const rearTyreRightPhoto =
+        checkList.rearTyreRight.status === 'Fail'
+          ? dataSet.rearTyreRightPhoto.value
+          : ''
       const frontTyreLeft = checkList.frontTyreLeft.status
       const frontTyreLeftQuantity = checkList.frontTyreLeft.quantity
       const frontTyreRight = checkList.frontTyreRight.status
