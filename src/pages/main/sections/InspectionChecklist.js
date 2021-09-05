@@ -135,6 +135,7 @@ export default function InspectionChecklist({
   }
 
   return (
+    <Fade bottom>
     <FormControl.FieldSet
       borderColour={Pass() ? Colours.green : Colours.border}
     >
@@ -264,6 +265,7 @@ export default function InspectionChecklist({
         imageKey="rearTyreRightPhoto"
       />
     </FormControl.FieldSet>
+    </Fade>
   )
 }
 

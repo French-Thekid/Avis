@@ -1,5 +1,6 @@
 import React from 'react'
 import 'styled-components/macro'
+import Fade from 'react-reveal/Fade'
 
 import { Core } from '../../components'
 import src1 from '../../assets/mech1.png'
@@ -28,25 +29,27 @@ export default function AuthBackground({ children }) {
           }
         `}
       >
-        <div
-          css={`
-            display: grid;
-            place-items: center;
-            grid-template-rows: max-content max-content;
-            grid-gap: 10px;
-            height: 100%;
-          `}
-        >
-          <Core.Text
-            shadow="0px 8px 6px #E2E2E2"
-            size="100px"
-            color="#FF205D"
-            weight="600"
+        <Fade top>
+          <div
+            css={`
+              display: grid;
+              place-items: center;
+              grid-template-rows: max-content max-content;
+              grid-gap: 10px;
+              height: 100%;
+            `}
           >
-            AVIS
-          </Core.Text>
-          <Core.Text size="30px">Maintenance Report</Core.Text>
-        </div>
+            <Core.Text
+              shadow="0px 8px 6px #E2E2E2"
+              size="100px"
+              color="#FF205D"
+              weight="600"
+            >
+              AVIS
+            </Core.Text>
+            <Core.Text size="30px">Maintenance Report</Core.Text>
+          </div>
+        </Fade>
       </div>
       {children}
       <div

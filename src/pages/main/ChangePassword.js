@@ -1,5 +1,6 @@
 import React from 'react'
 import 'styled-components/macro'
+import Fade from 'react-reveal/Fade'
 
 import tickLogo from '../../assets/tick.png'
 import { Layout, Colours, Core } from '../../components'
@@ -8,15 +9,16 @@ import { ChangePasswordForm } from './forms'
 
 export default function ChangePassword() {
   return (
-    <div
-      css={`
-        padding: 20px;
-        width: calc(100% - 40px);
-        height: calc(100% - 40px);
-      `}
-    >
-      {/* <PDF /> */}
-      <Layout.Container>
+    // <div
+    //   css={`
+    //     padding: 20px;
+    //     width: calc(100% - 40px);
+    //     height: calc(100% - 40px);
+    //   `}
+    // >
+
+    <Layout.Container>
+      <Fade bottom>
         <div
           css={`
             display: grid;
@@ -91,7 +93,8 @@ export default function ChangePassword() {
         >
           <ChangePasswordForm id={'changePassword'} />
         </div>
-      </Layout.Container>
-    </div>
+      </Fade>
+    </Layout.Container>
+    // </div>
   )
 }

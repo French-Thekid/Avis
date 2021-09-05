@@ -1,5 +1,6 @@
 import React from 'react'
 import 'styled-components/macro'
+import Fade from 'react-reveal/Fade'
 
 import { FormControl, Colours } from '../../../components'
 
@@ -132,112 +133,114 @@ export default function VehicleIdentification({
   }
 
   return (
-    <FormControl.FieldSet
-      borderColour={
-        MissingCheck() ? Colours.red : Pass() ? Colours.green : Colours.border
-      }
-    >
-      <FormControl.Legend>Vehicle Identification</FormControl.Legend>
-      <div
-        css={`
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          grid-gap: 20px;
-          /* tablet portrait */
-          @media screen and (max-width: 769px) {
-            @media screen and (max-height: 1025px) {
-              @media screen and (orientation: portrait) {
-                grid-template-columns: repeat(3, 1fr);
+    <Fade bottom>
+      <FormControl.FieldSet
+        borderColour={
+          MissingCheck() ? Colours.red : Pass() ? Colours.green : Colours.border
+        }
+      >
+        <FormControl.Legend>Vehicle Identification</FormControl.Legend>
+        <div
+          css={`
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 20px;
+            /* tablet portrait */
+            @media screen and (max-width: 769px) {
+              @media screen and (max-height: 1025px) {
+                @media screen and (orientation: portrait) {
+                  grid-template-columns: repeat(3, 1fr);
+                }
               }
             }
-          }
-        `}
-      >
-        <FormControl.Autofill
-          value={value}
-          setValue={setValue}
-          suggestions={suggestions}
-          setSuggestions={setSuggestions}
-          updateDataSet={updateDataSet}
-        />
+          `}
+        >
+          <FormControl.Autofill
+            value={value}
+            setValue={setValue}
+            suggestions={suggestions}
+            setSuggestions={setSuggestions}
+            updateDataSet={updateDataSet}
+          />
 
-        <FormControl.Input
-          id="mileage"
-          label="Current Mileage"
-          placeholder="Current Mileage"
-          name="mileage"
-          type="number"
-          onChange={(e) => handleChange({ value: e, key: 'mileage' })}
-          value={mileage}
-        />
+          <FormControl.Input
+            id="mileage"
+            label="Current Mileage"
+            placeholder="Current Mileage"
+            name="mileage"
+            type="number"
+            onChange={(e) => handleChange({ value: e, key: 'mileage' })}
+            value={mileage}
+          />
 
-        <FormControl.Input
-          id="nextMileage"
-          label="Next Service Mileage"
-          placeholder="Next Service Mileage"
-          name="nextMileage"
-          type="number"
-          onChange={(e) => handleChange({ value: e, key: 'nextMileage' })}
-          value={nextMileage}
-          max={6}
-          error={
-            mileagePoint === 1 &&
-            validate({ current: mileage, next: nextMileage })
-          }
-        />
+          <FormControl.Input
+            id="nextMileage"
+            label="Next Service Mileage"
+            placeholder="Next Service Mileage"
+            name="nextMileage"
+            type="number"
+            onChange={(e) => handleChange({ value: e, key: 'nextMileage' })}
+            value={nextMileage}
+            max={6}
+            error={
+              mileagePoint === 1 &&
+              validate({ current: mileage, next: nextMileage })
+            }
+          />
 
-        <FormControl.Select
-          value={fuel}
-          groups={FuelLevels}
-          label="Fuel Meter"
-          name="fuel"
-          handlechange={(e) => handleChange({ value: e, key: 'fuel' })}
-        />
-        <FormControl.Input
-          id="make"
-          label="Make"
-          placeholder="Make"
-          name="make"
-          type="text"
-          onChange={handleChange}
-          value={make}
-          disabled={true}
-        />
+          <FormControl.Select
+            value={fuel}
+            groups={FuelLevels}
+            label="Fuel Meter"
+            name="fuel"
+            handlechange={(e) => handleChange({ value: e, key: 'fuel' })}
+          />
+          <FormControl.Input
+            id="make"
+            label="Make"
+            placeholder="Make"
+            name="make"
+            type="text"
+            onChange={handleChange}
+            value={make}
+            disabled={true}
+          />
 
-        <FormControl.Input
-          id="model"
-          label="Model"
-          placeholder="Model"
-          name="model"
-          type="text"
-          onChange={handleChange}
-          value={model}
-          disabled={true}
-        />
+          <FormControl.Input
+            id="model"
+            label="Model"
+            placeholder="Model"
+            name="model"
+            type="text"
+            onChange={handleChange}
+            value={model}
+            disabled={true}
+          />
 
-        <FormControl.Input
-          id="year"
-          label="Year"
-          placeholder="Year"
-          name="year"
-          type="text"
-          onChange={handleChange}
-          value={year}
-          disabled={true}
-        />
+          <FormControl.Input
+            id="year"
+            label="Year"
+            placeholder="Year"
+            name="year"
+            type="text"
+            onChange={handleChange}
+            value={year}
+            disabled={true}
+          />
 
-        <FormControl.Input
-          id="colour"
-          label="Colour"
-          placeholder="Colour"
-          name="colour"
-          type="text"
-          onChange={handleChange}
-          value={colour}
-          disabled={true}
-        />
-      </div>
-    </FormControl.FieldSet>
+          <FormControl.Input
+            id="colour"
+            label="Colour"
+            placeholder="Colour"
+            name="colour"
+            type="text"
+            onChange={handleChange}
+            value={colour}
+            disabled={true}
+          />
+        </div>
+      </FormControl.FieldSet>
+    </Fade>
   )
 }
 
