@@ -8,7 +8,7 @@ export default function SendEnail({
   setloading,
 }) {
   var params = {
-    service_id: 'service_bu50v3r',
+    service_id: 'service_77sl429',
     template_id: key.TEMPLATE_ID,
     user_id: key.USER_ID,
     template_params: {

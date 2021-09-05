@@ -25,7 +25,6 @@ export default function VehicleIdentification({ dataSet, handleChange }) {
           value={value}
           disabled={true}
         />
-        {/* <FormControl.Error show={false} message="Sample" /> */}
       </section>
     </FormControl.FieldSet>
   )

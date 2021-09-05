@@ -352,7 +352,15 @@ export default function NewReport() {
       reader.onloadend = function () {
         var pdf = reader.result
         console.log(pdf)
-        delete elements['engineOilPhoto']
+        delete elements['discPadsFrontPhoto']
+        delete elements['discPadsRearPhoto']
+        delete elements['frontTyreLeftPhoto']
+        delete elements['frontTyreRightPhoto']
+        delete elements['rearTyreLeftPhoto']
+        delete elements['rearTyreRightPhoto']
+        delete elements['airFilterPhoto']
+
+        elements.pdf = pdf
 
         SendEnail({
           elements,
@@ -1233,6 +1241,7 @@ export default function NewReport() {
           handleChange={handleChange}
           updateDataSet={updateDataSet}
           validate={validate}
+          checkList={checkList}
         />
         <Gap />
         <InspectionChecklist

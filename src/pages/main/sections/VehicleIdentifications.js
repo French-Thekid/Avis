@@ -12,6 +12,7 @@ export default function VehicleIdentification({
   handleChange,
   updateDataSet,
   validate,
+  checkList,
 }) {
   const {
     mileage: { value: mileage },
@@ -35,9 +36,106 @@ export default function VehicleIdentification({
     return false
   }
 
+  const airfilterCheck = () => {
+    if (checkList.airFilter.status === 'Pass') return 1
+    if (
+      checkList.airFilter.status === 'Fail' &&
+      checkList.airFilter.point === 1 &&
+      dataSet.airFilterPhoto.point === 1
+    )
+      return 1
+    return 0
+  }
+  const dicsPadFrontCheck = () => {
+    if (checkList.discPadFront.status === 'Pass') return 1
+    if (
+      checkList.discPadFront.status === 'Fail' &&
+      checkList.discPadFront.point === 1 &&
+      dataSet.discPadsFrontPhoto.point === 1
+    )
+      return 1
+    return 0
+  }
+  const dicsPadBackCheck = () => {
+    if (checkList.discPadBack.status === 'Pass') return 1
+    if (
+      checkList.discPadBack.status === 'Fail' &&
+      checkList.discPadBack.point === 1 &&
+      dataSet.discPadsRearPhoto.point === 1
+    )
+      return 1
+    return 0
+  }
+  const frontTyreLeftCheck = () => {
+    if (checkList.frontTyreLeft.status === 'Pass') return 1
+    if (
+      checkList.frontTyreLeft.status === 'Fail' &&
+      checkList.frontTyreLeft.point === 1 &&
+      dataSet.frontTyreLeftPhoto.point === 1
+    )
+      return 1
+    return 0
+  }
+  const frontTyreRightCheck = () => {
+    if (checkList.frontTyreRight.status === 'Pass') return 1
+    if (
+      checkList.frontTyreRight.status === 'Fail' &&
+      checkList.frontTyreRight.point === 1 &&
+      dataSet.frontTyreRightPhoto.point === 1
+    )
+      return 1
+    return 0
+  }
+  const rearTyreLeftCheck = () => {
+    if (checkList.rearTyreLeft.status === 'Pass') return 1
+    if (
+      checkList.rearTyreLeft.status === 'Fail' &&
+      checkList.rearTyreLeft.point === 1 &&
+      dataSet.rearTyreLeftPhoto.point === 1
+    )
+      return 1
+    return 0
+  }
+  const rearTyreRightCheck = () => {
+    if (checkList.rearTyreRight.status === 'Pass') return 1
+    if (
+      checkList.rearTyreRight.status === 'Fail' &&
+      checkList.rearTyreRight.point === 1 &&
+      dataSet.rearTyreRightPhoto.point === 1
+    )
+      return 1
+    return 0
+  }
+
+  const MissingCheck = () => {
+    let value =
+      checkList.engineOil.point +
+      checkList.oilFilter.point +
+      airfilterCheck() +
+      checkList.sparksPlug.point +
+      checkList.battery.point +
+      checkList.brakeFluid.point +
+      checkList.brakeShoe.point +
+      dicsPadFrontCheck() +
+      dicsPadBackCheck() +
+      checkList.fuelFilter.point +
+      checkList.cabinFilter.point +
+      checkList.transmission.point +
+      frontTyreLeftCheck() +
+      frontTyreRightCheck() +
+      rearTyreLeftCheck() +
+      rearTyreRightCheck()
+
+    if (value > 0 && !Pass()) return true
+
+    return false
+  }
+
   return (
     <FormControl.FieldSet
-      borderColour={Pass() ? Colours.green : Colours.border}
+      borderColour={
+        MissingCheck() ? Colours.red : Pass() ? Colours.green : Colours.border
+      }
     >
       <FormControl.Legend>Vehicle Identification</FormControl.Legend>
       <div
