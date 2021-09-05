@@ -383,13 +383,13 @@ export default function NewReport() {
 
         elements.pdf = pdf
 
-        SendEnail({
-          elements,
-          setloading,
-          showNotification,
-          showNotificationFailed,
-          cleanUp,
-        })
+        // SendEnail({
+        //   elements,
+        //   setloading,
+        //   showNotification,
+        //   showNotificationFailed,
+        //   cleanUp,
+        // })
       }
     }
   }
