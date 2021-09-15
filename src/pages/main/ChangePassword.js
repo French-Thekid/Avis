@@ -16,6 +16,8 @@ export default function ChangePassword() {
     //     height: calc(100% - 40px);
     //   `}
     // >
+    //   <PDF />
+    // </div>
 
     <Layout.Container>
       <Fade bottom>
@@ -95,6 +97,5 @@ export default function ChangePassword() {
         </div>
       </Fade>
     </Layout.Container>
-    // </div>
   )
 }

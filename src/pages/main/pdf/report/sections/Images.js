@@ -63,60 +63,79 @@ const styles = StyleSheet.create({
 })
 
 export default function Images({
-  airFilterPhoto = 'https://wallpaperaccess.com/full/508751.jpg',
-  discPadsFrontPhoto = 'https://wallpaperaccess.com/full/508751.jpg',
-  discPadsRearPhoto = 'https://wallpaperaccess.com/full/508751.jpg',
-  frontTyreLeftPhoto = 'https://wallpaperaccess.com/full/508751.jpg',
-  frontTyreRightPhoto = 'https://wallpaperaccess.com/full/508751.jpg',
-  rearTyreLeftPhoto = 'https://wallpaperaccess.com/full/508751.jpg',
-  rearTyreRightPhoto = 'https://wallpaperaccess.com/full/508751.jpg',
+  airFilterPhoto = '',
+  discPadsFrontPhoto = '',
+  discPadsRearPhoto = '',
+  frontTyreLeftPhoto = '',
+  frontTyreRightPhoto = '',
+  rearTyreLeftPhoto = '',
+  rearTyreRightPhoto = '',
 }) {
+  const ImageController1 = [
+    { title: 'Front Left Tyre Photo', image: frontTyreLeftPhoto },
+    { title: 'Rear Left Tyre Photo', image: rearTyreLeftPhoto },
+    { title: 'Disc Pad Front Photo', image: discPadsRearPhoto },
+    { title: 'Air Filter Photo', image: airFilterPhoto },
+    { title: 'Front Right Tyre Photo', image: frontTyreRightPhoto },
+    { title: 'Rear Right Tyre Photo', image: rearTyreRightPhoto },
+    { title: 'Disc Pad Rear Photo', image: discPadsFrontPhoto },
+  ]
+
+  const ImageController = ImageController1.filter(
+    (item, index) => item.image !== ''
+  )
+
   return (
     <View style={styles.headerContainer}>
       <View style={styles.group}>
         <View style={styles.left}>
-          {frontTyreLeftPhoto !== '' && (
+          {ImageController[0] && (
             <View>
-              <Text style={styles.title}>Front Left Tyre Photo</Text>
-              <Image src={frontTyreLeftPhoto} style={styles.image} />
+              <Text style={styles.title}>{ImageController[0].title}</Text>
+              <Image src={ImageController[0].image} style={styles.image} />
             </View>
           )}
-          {rearTyreLeftPhoto !== '' && (
+
+          {ImageController[2] && (
             <View>
-              <Text style={styles.title}>Rear Left Tyre Photo</Text>
-              <Image src={rearTyreLeftPhoto} style={styles.image} />
+              <Text style={styles.title}>{ImageController[2].title}</Text>
+              <Image src={ImageController[2].image} style={styles.image} />
             </View>
           )}
-          {discPadsRearPhoto !== '' && (
+
+          {ImageController[4] && (
             <View>
-              <Text style={styles.title}>Disc Pad Front Photo</Text>
-              <Image src={discPadsRearPhoto} style={styles.image} />
+              <Text style={styles.title}>{ImageController[4].title}</Text>
+              <Image src={ImageController[4].image} style={styles.image} />
             </View>
           )}
-          {airFilterPhoto !== '' && (
+
+          {ImageController[6] && (
             <View>
-              <Text style={styles.title}>Air Filter Photo</Text>
-              <Image src={airFilterPhoto} style={styles.image} />
+              <Text style={styles.title}>{ImageController[6].title}</Text>
+              <Image src={ImageController[6].image} style={styles.image} />
             </View>
           )}
         </View>
         <View style={styles.right}>
-          {frontTyreRightPhoto !== '' && (
+          {ImageController[1] && (
             <View>
-              <Text style={styles.title}>Front Right Tyre Photo</Text>
-              <Image src={frontTyreRightPhoto} style={styles.image} />
+              <Text style={styles.title}>{ImageController[1].title}</Text>
+              <Image src={ImageController[1].image} style={styles.image} />
             </View>
           )}
-          {rearTyreRightPhoto !== '' && (
+
+          {ImageController[3] && (
             <View>
-              <Text style={styles.title}>Rear Right Tyre Photo</Text>
-              <Image src={rearTyreRightPhoto} style={styles.image} />
+              <Text style={styles.title}>{ImageController[3].title}</Text>
+              <Image src={ImageController[3].image} style={styles.image} />
             </View>
           )}
-          {discPadsFrontPhoto !== '' && (
+
+          {ImageController[5] && (
             <View>
-              <Text style={styles.title}>Disc Pad Rear Photo</Text>
-              <Image src={discPadsFrontPhoto} style={styles.image} />
+              <Text style={styles.title}>{ImageController[5].title}</Text>
+              <Image src={ImageController[5].image} style={styles.image} />
             </View>
           )}
         </View>
