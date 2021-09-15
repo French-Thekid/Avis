@@ -5,6 +5,7 @@ import Fade from 'react-reveal/Fade'
 import { Core } from '../../components'
 import src1 from '../../assets/mech1.png'
 import src2 from '../../assets/mech2.png'
+import logo from '../../assets/avis.jpg'
 
 export default function AuthBackground({ children }) {
   return (
@@ -39,14 +40,22 @@ export default function AuthBackground({ children }) {
               height: 100%;
             `}
           >
-            <Core.Text
+            {/* <Core.Text
               shadow="0px 8px 6px #E2E2E2"
               size="100px"
               color="#FF205D"
               weight="600"
             >
               AVIS
-            </Core.Text>
+            </Core.Text> */}
+            <img
+              src={logo}
+              alt="mechanicPic"
+              css={`
+                height: 130px;
+                width: 200px;
+              `}
+            />
             <Core.Text size="30px">Maintenance Report</Core.Text>
           </div>
         </Fade>
