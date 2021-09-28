@@ -8,6 +8,9 @@ const Usernames = [
   { label: 'Roger Salome', value: 'rogersalome101@yahoo.com' },
   { label: 'Samuel Shea', value: 'SamuelShea101@hotmail.com' },
   { label: 'Shane James', value: 'ShaneJames102@hotmail.com' },
+  { label: 'Shari Dacosta', value: 'sdacosta@avis.com.jm' },
+  { label: 'Mathew Dacosta', value: 'msdacosta@avis.com.jm' },
+  { label: 'Phillip Polack', value: 'ppolack@avis.com.jm' },
 ]
 
 export { Usernames }
