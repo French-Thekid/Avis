@@ -10,8 +10,9 @@ import {
 import SendEnail from './SendEmail'
 import MyDocument from './pdf/report/Document'
 import { pdf } from '@react-pdf/renderer'
+import { set, get, clear } from 'idb-keyval'
 
-export default function NewReport() {
+export default function NewReport({ amount, setAmount }) {
   const [completed, setcompleted] = useState(false)
   const [completed1, setcompleted1] = useState(false)
   const [completed2, setcompleted2] = useState(false)
@@ -1208,6 +1209,218 @@ export default function NewReport() {
     }
   }
 
+  const HandleSave = (e) => {
+    e.preventDefault()
+
+    if (
+      score < 100 ||
+      validate({
+        current: dataSet.mileage.value,
+        next: dataSet.nextMileage.value,
+      })
+    ) {
+      showNotificationValidation()
+    } else {
+      console.log('Submitting')
+      //Preparing Data for email template
+      const assignee = localStorage.getItem('LoggedInUser')
+      const date = new Date().toDateString()
+      const year = dataSet.year.value
+      const make = dataSet.make.value
+      const model = dataSet.model.value
+      const mileage = dataSet.mileage.value
+      const nextMileage = dataSet.nextMileage.value
+      const engineOilStatus = checkList.engineOil.status
+      const engineOilQuantity = checkList.engineOil.quantity
+      const oilFilterStatus = checkList.oilFilter.status
+      const oilFilterQuantity = checkList.oilFilter.quantity
+      const airFilterStatus = checkList.airFilter.status
+      const airFilterQuantity = checkList.airFilter.quantity
+      const sparksPlugStatus = checkList.sparksPlug.status
+      const sparksPlugQuantity = checkList.sparksPlug.quantity
+      const batteryStatus = checkList.battery.status
+      const batteryQuantity = checkList.battery.quantity
+      const brakeFluidStatus = checkList.brakeFluid.status
+      const brakeFluidQuantity = checkList.brakeFluid.quantity
+      const brakeShoeStatus = checkList.brakeShoe.status
+      const brakeShoeQuantity = checkList.brakeShoe.quantity
+      const discPadFrontStatus = checkList.discPadFront.status
+      const discPadFrontQuantity = checkList.discPadFront.quantity
+      const discPadBackStatus = checkList.discPadBack.status
+      const discPadBackQuantity = checkList.discPadBack.quantity
+      const fuelFilterStatus = checkList.fuelFilter.status
+      const fuelFilterQuantity = checkList.fuelFilter.quantity
+      const cabinFilterStatus = checkList.cabinFilter.status
+      const cabinFilterQuantity = checkList.cabinFilter.quantity
+      const transmissionStatus = checkList.transmission.status
+      const transmissionQuantity = checkList.transmission.quantity
+      const note = dataSet.note.value
+      const colour = dataSet.colour.value
+      const fuel = dataSet.fuel.value
+      const airFilterPhoto =
+        checkList.airFilter.status === 'Fail'
+          ? dataSet.airFilterPhoto.value
+          : ''
+      const discPadsFrontPhoto =
+        checkList.discPadFront.status === 'Fail'
+          ? dataSet.discPadsFrontPhoto.value
+          : ''
+      const discPadsRearPhoto =
+        checkList.discPadBack.status === 'Fail'
+          ? dataSet.discPadsRearPhoto.value
+          : ''
+      const frontTyreLeftPhoto =
+        checkList.frontTyreLeft.status === 'Fail'
+          ? dataSet.frontTyreLeftPhoto.value
+          : ''
+      const frontTyreRightPhoto =
+        checkList.frontTyreRight.status === 'Fail'
+          ? dataSet.frontTyreRightPhoto.value
+          : ''
+      const rearTyreLeftPhoto =
+        checkList.rearTyreLeft.status === 'Fail'
+          ? dataSet.rearTyreLeftPhoto.value
+          : ''
+      const rearTyreRightPhoto =
+        checkList.rearTyreRight.status === 'Fail'
+          ? dataSet.rearTyreRightPhoto.value
+          : ''
+      const frontTyreLeft = checkList.frontTyreLeft.status
+      const frontTyreLeftQuantity = checkList.frontTyreLeft.quantity
+      const frontTyreRight = checkList.frontTyreRight.status
+      const frontTyreRightQuantity = checkList.frontTyreRight.quantity
+      const rearTyreLeft = checkList.rearTyreLeft.status
+      const rearTyreLeftQuantity = checkList.rearTyreLeft.quantity
+      const rearTyreRight = checkList.rearTyreRight.status
+      const rearTyreRightQuantity = checkList.rearTyreRight.quantity
+
+      const elements = {
+        assignee,
+        date,
+        year,
+        make,
+        model,
+        mileage,
+        nextMileage,
+        fuel,
+        colour,
+        license: license.toUpperCase(),
+        engineOilStatus,
+        engineOilQuantity,
+        oilFilterStatus,
+        oilFilterQuantity,
+        airFilterStatus,
+        airFilterQuantity,
+        sparksPlugStatus,
+        sparksPlugQuantity,
+        batteryStatus,
+        batteryQuantity,
+        brakeFluidStatus,
+        brakeFluidQuantity,
+        brakeShoeStatus,
+        brakeShoeQuantity,
+        discPadFrontStatus,
+        discPadFrontQuantity,
+        discPadBackStatus,
+        discPadBackQuantity,
+        fuelFilterStatus,
+        fuelFilterQuantity,
+        cabinFilterStatus,
+        cabinFilterQuantity,
+        transmissionStatus,
+        transmissionQuantity,
+        note,
+        airFilterPhoto,
+        discPadsFrontPhoto,
+        discPadsRearPhoto,
+        frontTyreLeftPhoto,
+        frontTyreRightPhoto,
+        rearTyreLeftPhoto,
+        rearTyreRightPhoto,
+        frontTyreLeft,
+        frontTyreLeftQuantity,
+        frontTyreRight,
+        frontTyreRightQuantity,
+        rearTyreLeft,
+        rearTyreLeftQuantity,
+        rearTyreRight,
+        rearTyreRightQuantity,
+      }
+
+      get('reports').then((val) => {
+        let reports = []
+        if (val) {
+          reports.push(val)
+          reports.push(JSON.stringify(elements))
+          set('reports', reports)
+            .then(() => {
+              console.log('report saved!')
+              setAmount(val.length + 1)
+              cleanUp()
+            })
+            .catch((err) => console.log('Failed to save report!', err))
+        } else {
+          reports.push(JSON.stringify(elements))
+          set('reports', reports)
+            .then(() => {
+              console.log('report saved!')
+              setAmount(1)
+              cleanUp()
+            })
+            .catch((err) => console.log('Failed to save report!', err))
+        }
+      })
+    }
+  }
+
+  const SubmitSaved = (e) => {
+    e.preventDefault()
+    setloading(true)
+    get('reports').then((val) => {
+      let reports = []
+      if (val) {
+        reports = val.map((report, index) => JSON.parse(report))
+        reports.map(async (elements, index) => {
+          var reader = new FileReader()
+          const doc = <MyDocument {...elements} />
+          const asPdf = pdf([])
+          asPdf.updateContainer(doc)
+          const blob = await asPdf.toBlob()
+          reader.readAsDataURL(blob)
+          reader.onloadend = function () {
+            var pdf = reader.result
+            console.log(pdf)
+            delete elements['discPadsFrontPhoto']
+            delete elements['discPadsRearPhoto']
+            delete elements['frontTyreLeftPhoto']
+            delete elements['frontTyreRightPhoto']
+            delete elements['rearTyreLeftPhoto']
+            delete elements['rearTyreRightPhoto']
+            delete elements['airFilterPhoto']
+
+            elements.pdf = pdf
+            console.log(elements)
+
+            SendEnail({
+              elements,
+              setloading,
+              showNotification,
+              showNotificationFailed,
+              cleanUp,
+            })
+          }
+        })
+      } else {
+        console.log('Error')
+      }
+      clearIndex()
+    })
+  }
+
+  const clearIndex = () => {
+    clear()
+    setAmount(0)
+  }
   return (
     <div
       css={`
@@ -1244,6 +1457,20 @@ export default function NewReport() {
       <form
         id="submitForm"
         onSubmit={HandleSubmission}
+        css={`
+          display: none;
+        `}
+      />
+      <form
+        id="queue"
+        onSubmit={HandleSave}
+        css={`
+          display: none;
+        `}
+      />
+      <form
+        id="submitSaved"
+        onSubmit={SubmitSaved}
         css={`
           display: none;
         `}
