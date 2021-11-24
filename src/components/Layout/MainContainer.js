@@ -61,6 +61,7 @@ export default function MainContainer({ children, amount }) {
           </div>
         )} */}
         <Core.Button
+          onClick={() => console.log('Hello World')}
           type="submit"
           form={
             pathname.includes('change-password')
