@@ -53,10 +53,7 @@ export default function Button(props) {
       `}
       disabled={disabled}
       type={type}
-      onClick={() => {
-        console.log('Clicked')
-        onClick()
-      }}
+      onClick={onClick}
       {...rest}
     >
       {children}
