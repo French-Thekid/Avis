@@ -16,6 +16,7 @@ export default function Button(props) {
     action,
     fontSize = '14px',
     float,
+    onClick,
     ...rest
   } = props
 
@@ -52,6 +53,7 @@ export default function Button(props) {
       `}
       disabled={disabled}
       type={type}
+      onClick={onClick}
       {...rest}
     >
       {children}
