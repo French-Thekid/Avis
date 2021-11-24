@@ -17,6 +17,7 @@ export default function Button(props) {
     fontSize = '14px',
     float,
     onClick,
+    form,
     ...rest
   } = props
 
@@ -54,6 +55,7 @@ export default function Button(props) {
       disabled={disabled}
       type={type}
       onClick={onClick}
+      form={form}
       {...rest}
     >
       {children}
