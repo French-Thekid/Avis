@@ -41,7 +41,11 @@ export default function MainContainer({ children, amount }) {
               margin-right: 10px;
             `}
           >
-            <Core.Button type="submit" form="submitSaved">
+            <Core.Button
+              onClick={() => console.log('Hello')}
+              type="submit"
+              form="submitSaved"
+            >
               Submit Saved
             </Core.Button>
           </div>
