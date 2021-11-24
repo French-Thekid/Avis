@@ -2,7 +2,7 @@ import React from 'react'
 import { useLocation } from 'react-router-dom'
 import 'styled-components/macro'
 import { Core } from '..'
-import Colours from '../Colours'
+// import Colours from '../Colours'
 import NavigationBar from '../navigation'
 
 export default function MainContainer({ children, amount }) {
@@ -22,9 +22,9 @@ export default function MainContainer({ children, amount }) {
           background: #fff;
           display: grid;
           grid-template-columns: ${pathname.includes('new-report') && amount > 0
-            ? '1fr 150px 120px 150px'
+            ? '1fr 150px'
             : pathname.includes('new-report')
-            ? '1fr 120px 150px'
+            ? '1fr 150px'
             : '1fr 150px'};
           align-items: center;
           padding: 0px 10px;
@@ -35,14 +35,13 @@ export default function MainContainer({ children, amount }) {
         `}
       >
         <NavigationBar />
-        {pathname.includes('new-report') && amount > 0 && (
+        {/* {pathname.includes('new-report') && amount > 0 && (
           <div
             css={`
               margin-right: 10px;
             `}
           >
             <Core.Button
-              onClick={() => console.log('Hello')}
               type="submit"
               form="submitSaved"
             >
@@ -60,7 +59,7 @@ export default function MainContainer({ children, amount }) {
               Save ({amount})
             </Core.Button>
           </div>
-        )}
+        )} */}
         <Core.Button
           type="submit"
           form={
