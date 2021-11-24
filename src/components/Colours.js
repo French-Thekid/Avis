@@ -8,6 +8,7 @@ const Colours = {
   foreground: '#fff',
   softGrey: '#F0EBFF',
   header: '#f9f9fb',
+  
 }
 
 export default Colours
